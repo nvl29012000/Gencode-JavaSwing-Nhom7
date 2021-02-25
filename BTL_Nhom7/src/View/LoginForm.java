@@ -213,7 +213,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
         // TODO add your handling code here:
         int input = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn thoát chương trình?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if (input == 0){
+        if (input == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_jButtonExitActionPerformed

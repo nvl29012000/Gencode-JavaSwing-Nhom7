@@ -5,7 +5,13 @@
  */
 package View;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.event.AncestorListener;
 
 /**
  *
@@ -18,6 +24,26 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
+        loadQuestion();
+    }
+
+    private void loadQuestion() {
+        List<String> listqt = new ArrayList<>();
+        listqt.add("Lộc");
+        listqt.add("Khải");
+        for(String item : listqt){
+            JRadioButton a = new JRadioButton();
+            a.setSize(200, 100);
+            a.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(rootPane, a.getText());
+                }
+            });
+            buttonGroupAnserwer.add(a);
+            a.setVisible(true);
+            jPanel1.add(a);
+        }
     }
 
     /**
@@ -29,6 +55,7 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupAnserwer = new javax.swing.ButtonGroup();
         jPanelHeader = new javax.swing.JPanel();
         jPanelDashboard = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -42,6 +69,7 @@ public class MainForm extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabelPractice = new javax.swing.JLabel();
         jPanelMain = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Trắc nghiệm Công Nghệ Phầm Mềm");
@@ -111,7 +139,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabelExam.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelExam.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelExam.setText("Tham gia thi");
-        jLabelExam.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel4.add(jLabelExam, java.awt.BorderLayout.CENTER);
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 0));
@@ -120,7 +147,6 @@ public class MainForm extends javax.swing.JFrame {
         jLabelPractice.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelPractice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelPractice.setText("Luyện tập");
-        jLabelPractice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel5.add(jLabelPractice, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout jPanelMenuLayout = new javax.swing.GroupLayout(jPanelMenu);
@@ -153,11 +179,17 @@ public class MainForm extends javax.swing.JFrame {
         jPanelMain.setLayout(jPanelMainLayout);
         jPanelMainLayout.setHorizontalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGroup(jPanelMainLayout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(558, Short.MAX_VALUE))
         );
         jPanelMainLayout.setVerticalGroup(
             jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGroup(jPanelMainLayout.createSequentialGroup()
+                .addGap(163, 163, 163)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(377, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanelMain, java.awt.BorderLayout.CENTER);
@@ -186,8 +218,7 @@ public class MainForm extends javax.swing.JFrame {
             f.setLocationRelativeTo(null);
             f.setResizable(false);
             f.setVisible(true);
-        }
-        else{
+        } else {
             this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         }
     }//GEN-LAST:event_formWindowClosing
@@ -229,10 +260,12 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupAnserwer;
     private javax.swing.JLabel jLabelDashboard;
     private javax.swing.JLabel jLabelExam;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelPractice;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
