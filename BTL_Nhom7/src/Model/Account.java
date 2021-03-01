@@ -11,7 +11,7 @@ package Model;
  */
 public class Account {
 
-    private long Accout_ID;
+    private int Account_ID;
     private String Username;
     private String Password;
     private boolean Role;
@@ -19,10 +19,11 @@ public class Account {
     private boolean Status;
 
     public Account() {
+        
     }
 
-    public Account(long Accout_ID, String Username, String Password, boolean Role, String Name, boolean Status) {
-        this.Accout_ID = Accout_ID;
+    public Account(int Accout_ID, String Username, String Password, boolean Role, String Name, boolean Status) {
+        this.Account_ID = Accout_ID;
         this.Username = Username;
         this.Password = Password;
         this.Role = Role;
@@ -30,12 +31,12 @@ public class Account {
         this.Status = Status;
     }
 
-    public long getAccout_ID() {
-        return Accout_ID;
+    public int getAccount_ID() {
+        return Account_ID;
     }
 
-    public void setAccout_ID(long Accout_ID) {
-        this.Accout_ID = Accout_ID;
+    public void setAccount_ID(int Account_ID) {
+        this.Account_ID = Account_ID;
     }
 
     public String getUsername() {

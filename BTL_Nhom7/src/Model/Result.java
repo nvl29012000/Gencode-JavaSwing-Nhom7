@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author mrloc
@@ -15,16 +17,26 @@ public class Result {
     private int Test;
     private int Time;
     private int Correct_QT;
+    private Date date;
 
     public Result() {
     }
-
-    public Result(int Result_ID, int Account, int Test, int Time, int Correct_QT) {
+    
+    public Result(int Account, int Test, int Time, int Correct_QT, Date date){
+        this.Account = Account;
+        this.Test = Test;
+        this.Time = Time;
+        this.Correct_QT = Correct_QT;
+        this.date = date;
+    }
+    
+    public Result(int Result_ID, int Account, int Test, int Time, int Correct_QT, Date date) {
         this.Result_ID = Result_ID;
         this.Account = Account;
         this.Test = Test;
         this.Time = Time;
         this.Correct_QT = Correct_QT;
+        this.date = date;
     }
 
     public int getResult_ID() {
@@ -65,6 +77,14 @@ public class Result {
 
     public void setCorrect_QT(int Correct_QT) {
         this.Correct_QT = Correct_QT;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
     
     

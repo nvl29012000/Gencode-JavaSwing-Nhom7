@@ -5,6 +5,8 @@
  */
 package View;
 
+import DatabaseIO.AccountDAO;
+import Model.Account;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -85,11 +87,13 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel4.setText("Tên đăng nhập");
 
         jTextUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextUsername.setText("loc2909");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Mật khẩu");
 
         jPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPassword.setText("123456");
 
         jButtonLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButtonLogin.setText("Đăng nhập");
@@ -190,24 +194,29 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        String text = jTextUsername.getText();
-        if (text.equals("1")) {
-            MainForm f = new MainForm();
-            f.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//            f.setLocationRelativeTo(null);
-            f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            f.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-            f.setResizable(false);
-            f.setVisible(true);
+        AccountDAO dao = new AccountDAO();
+        Account ac = dao.loginAccount(jTextUsername.getText(), jPassword.getText());
+        if (ac == null) {
+            JOptionPane.showMessageDialog(rootPane, "Tài khoản hoặc mật khẩu không đúng !");
         } else {
-            AdminForm f = new AdminForm();
-            f.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            f.setLocationRelativeTo(null);
-            f.setResizable(false);
-            f.setVisible(true);
+            if (ac.isRole()) {
+                this.dispose();
+                AdminForm f = new AdminForm();
+                f.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                f.setLocationRelativeTo(null);
+                f.setResizable(false);
+                f.setVisible(true);
+            } else {
+                this.dispose();
+                MainForm f = new MainForm(ac);
+                f.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//            f.setLocationRelativeTo(null);
+                f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                f.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+                f.setResizable(false);
+                f.setVisible(true);
+            }
         }
-
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
@@ -248,6 +257,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 LoginForm f = new LoginForm();
                 f.setLocationRelativeTo(null);

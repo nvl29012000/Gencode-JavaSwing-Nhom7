@@ -56,19 +56,28 @@ public class TestDAO {
         }
         return list;
     }
-
-    public static void main(String[] args) {
-        List<Test> list = new ArrayList<>();
-        TestDAO dao = new TestDAO();
-        list = dao.listTest();
-        System.out.println("List Test");
-        for (Test item : list) {
-            System.out.println("ID : " + item.getTest_ID());
-            System.out.println("Code : " + item.getTest_Code());
-            System.out.println("Number Of Question : " + item.getNumber_Of_Question());
-            System.out.println("Time : " + item.getTime());
-            System.out.println("Level : " + item.getLevel());
-            System.out.println("Status : " + item.isStatus());
+    
+    public Test getTest(int Test_ID){
+        Test test = null;
+        String SqlQuery = "SELECT * FROM dbo.Test WHERE Test_ID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(SqlQuery);
+            ps.setInt(1, Test_ID);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    test = new Test();
+                    test.setTest_ID(rs.getInt("Test_ID"));
+                    test.setTest_Code(rs.getString("Test_Code"));
+                    test.setNumber_Of_Question(rs.getInt("Number_Of_Question"));
+                    test.setTime(rs.getInt("Time"));
+                    test.setLevel(rs.getInt("Level"));
+                    test.setStatus(rs.getBoolean("Status"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return test;
     }
 }
