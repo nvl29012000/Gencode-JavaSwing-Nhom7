@@ -20,25 +20,15 @@ import java.util.List;
  */
 public class TestDAO {
 
-    private Connection conn;
 
     public TestDAO() {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectionUrl = "jdbc:sqlserver://localhost:1433;database=TracNghiemCNPM;";
-            String username = "sa";
-            String password = "vietloc123";
-            conn = DriverManager.getConnection(connectionUrl, username, password);
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Failed");
-        }
     }
 
     public List<Test> listTest() {
         List<Test> list = new ArrayList<>();
         String SqlQuery = "SELECT * FROM dbo.Test WHERE Status = 1";
         try {
-            PreparedStatement ps = conn.prepareStatement(SqlQuery);
+            PreparedStatement ps = DataProvider.Connection().prepareStatement(SqlQuery);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Test test = new Test();
@@ -61,7 +51,7 @@ public class TestDAO {
         Test test = null;
         String SqlQuery = "SELECT * FROM dbo.Test WHERE Test_ID = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(SqlQuery);
+            PreparedStatement ps = DataProvider.Connection().prepareStatement(SqlQuery);
             ps.setInt(1, Test_ID);
             
             try (ResultSet rs = ps.executeQuery()) {

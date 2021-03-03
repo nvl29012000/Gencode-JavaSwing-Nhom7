@@ -18,25 +18,16 @@ import java.sql.SQLException;
  */
 public class AccountDAO {
 
-    private Connection conn;
 
     public AccountDAO() {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectionUrl = "jdbc:sqlserver://localhost:1433;database=TracNghiemCNPM;";
-            String username = "sa";
-            String password = "vietloc123";
-            conn = DriverManager.getConnection(connectionUrl, username, password);
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Failed");
-        }
+        
     }
 
     public Account loginAccount(String username, String password) {
         Account account = null;
         String SqlQuery = "SELECT * FROM dbo.Account WHERE UserName = ? AND PassWord = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(SqlQuery);
+            PreparedStatement ps = DataProvider.Connection().prepareStatement(SqlQuery);
             ps.setString(1, username.trim());
             ps.setString(2, password.trim());
             ResultSet rs = ps.executeQuery();
@@ -60,7 +51,7 @@ public class AccountDAO {
         Account account = null;;
         String SqlQuery = "SELECT * FROM dbo.Account WHERE Account_ID = ? ";
         try {
-            PreparedStatement ps = conn.prepareStatement(SqlQuery);
+            PreparedStatement ps = DataProvider.Connection().prepareStatement(SqlQuery);
             ps.setInt(1, Account_ID);
 
             ResultSet rs = ps.executeQuery();

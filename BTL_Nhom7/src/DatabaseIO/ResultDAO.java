@@ -17,25 +17,15 @@ import java.sql.SQLException;
  * @author mrloc
  */
 public class ResultDAO {
-    private Connection conn;
 
     public ResultDAO() {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String connectionUrl = "jdbc:sqlserver://localhost:1433;database=TracNghiemCNPM;";
-            String username = "sa";
-            String password = "vietloc123";
-            conn = DriverManager.getConnection(connectionUrl, username, password);
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Failed");
-        }
     }
     
     public boolean insertResult(Result a){
         boolean isInserted = false;
         String SqlQuery = "Insert into dbo.Result values(?,?,?,?,?)";
         try{
-            PreparedStatement ps = conn.prepareStatement(SqlQuery);
+            PreparedStatement ps = DataProvider.Connection().prepareStatement(SqlQuery);
             ps.setInt(1, a.getAccount());
             ps.setInt(2, a.getTest());
             ps.setInt(3, a.getTime());
