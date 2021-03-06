@@ -5,9 +5,19 @@
  */
 package View;
 
+import DatabaseIO.QuestionDAO;
+import DatabaseIO.TestDAO;
+import DatabaseIO.Test_QuestionDAO;
+import Model.Question;
+import Model.Test;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -60,26 +70,44 @@ public class AdminForm extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableLesson = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jComboBoxChapter = new javax.swing.JComboBox<>();
+        jComboBoxChapter = new javax.swing.JComboBox<String>();
         jButtonAddLesson = new javax.swing.JButton();
         jButtonEditLesson = new javax.swing.JButton();
         jButtonDeleteLesson = new javax.swing.JButton();
         jPanelQuestion = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBoxListChapter = new javax.swing.JComboBox<>();
+        jComboBoxListChapter = new javax.swing.JComboBox<String>();
         jLabel7 = new javax.swing.JLabel();
-        jComboBoxListLesson = new javax.swing.JComboBox<>();
+        jComboBoxListLesson = new javax.swing.JComboBox<String>();
         jLabel8 = new javax.swing.JLabel();
-        jComboBoxDiff = new javax.swing.JComboBox<>();
+        jComboBoxDiff = new javax.swing.JComboBox<String>();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanelExam = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanelTests = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTableTests = new javax.swing.JTable();
+        jButtonAddTest = new javax.swing.JButton();
+        jButtonEditTest = new javax.swing.JButton();
+        jButtonDeleteTest = new javax.swing.JButton();
+        jPanelTestQuestion = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTableQuestions = new javax.swing.JTable();
+        jButtonAddQuestion = new javax.swing.JButton();
+        jButtonEditQuestion = new javax.swing.JButton();
+        jButtonDeleteQuestion = new javax.swing.JButton();
         jPanelStatistic = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -189,6 +217,7 @@ public class AdminForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanelAdminAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(jPanelStudentAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -340,7 +369,7 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Chọn chương");
 
-        jComboBoxChapter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxChapter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButtonAddLesson.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAddLesson.setText("Thêm bài");
@@ -401,17 +430,17 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Chương");
 
-        jComboBoxListChapter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxListChapter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Bài");
 
-        jComboBoxListLesson.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxListLesson.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Mức độ");
 
-        jComboBoxDiff.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dễ", "Trung Bình", "Khó" }));
+        jComboBoxDiff.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dễ", "Trung Bình", "Khó" }));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -463,15 +492,181 @@ public class AdminForm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Quản lý câu hỏi", jPanelQuestion);
 
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        jPanelTests.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelTests.setPreferredSize(new java.awt.Dimension(497, 579));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Danh sách đề thi");
+
+        jTableTests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã đề", "Số câu", "Thời gian", "Độ khó"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableTests.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableTests.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTestsMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jTableTests);
+        if (jTableTests.getColumnModel().getColumnCount() > 0) {
+            jTableTests.getColumnModel().getColumn(0).setMinWidth(60);
+            jTableTests.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTableTests.getColumnModel().getColumn(0).setMaxWidth(60);
+        }
+
+        jButtonAddTest.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonAddTest.setText("Thêm đề thi");
+        jButtonAddTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddTestActionPerformed(evt);
+            }
+        });
+
+        jButtonEditTest.setText("Sửa đề thi");
+
+        jButtonDeleteTest.setText("Xóa đề thi");
+
+        javax.swing.GroupLayout jPanelTestsLayout = new javax.swing.GroupLayout(jPanelTests);
+        jPanelTests.setLayout(jPanelTestsLayout);
+        jPanelTestsLayout.setHorizontalGroup(
+            jPanelTestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+            .addGroup(jPanelTestsLayout.createSequentialGroup()
+                .addGroup(jPanelTestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelTestsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonAddTest, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEditTest, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(jButtonDeleteTest, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelTestsLayout.createSequentialGroup()
+                        .addGap(165, 165, 165)
+                        .addComponent(jLabel9)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanelTestsLayout.setVerticalGroup(
+            jPanelTestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTestsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGroup(jPanelTestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAddTest)
+                    .addComponent(jButtonEditTest)
+                    .addComponent(jButtonDeleteTest))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel4.add(jPanelTests, java.awt.BorderLayout.LINE_START);
+
+        jPanelTestQuestion.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Danh sách câu hỏi");
+
+        jTableQuestions.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Câu hỏi"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane7.setViewportView(jTableQuestions);
+        if (jTableQuestions.getColumnModel().getColumnCount() > 0) {
+            jTableQuestions.getColumnModel().getColumn(0).setMinWidth(60);
+            jTableQuestions.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTableQuestions.getColumnModel().getColumn(0).setMaxWidth(60);
+        }
+
+        jButtonAddQuestion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButtonAddQuestion.setText("Thêm câu hỏi");
+
+        jButtonEditQuestion.setText("Sửa câu hỏi");
+
+        jButtonDeleteQuestion.setText("Xóa câu hỏi");
+
+        javax.swing.GroupLayout jPanelTestQuestionLayout = new javax.swing.GroupLayout(jPanelTestQuestion);
+        jPanelTestQuestion.setLayout(jPanelTestQuestionLayout);
+        jPanelTestQuestionLayout.setHorizontalGroup(
+            jPanelTestQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+            .addGroup(jPanelTestQuestionLayout.createSequentialGroup()
+                .addGap(180, 180, 180)
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelTestQuestionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonAddQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonEditQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(jButtonDeleteQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+        jPanelTestQuestionLayout.setVerticalGroup(
+            jPanelTestQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTestQuestionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addGap(74, 74, 74)
+                .addGroup(jPanelTestQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAddQuestion)
+                    .addComponent(jButtonEditQuestion)
+                    .addComponent(jButtonDeleteQuestion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel4.add(jPanelTestQuestion, java.awt.BorderLayout.CENTER);
+
         javax.swing.GroupLayout jPanelExamLayout = new javax.swing.GroupLayout(jPanelExam);
         jPanelExam.setLayout(jPanelExamLayout);
         jPanelExamLayout.setHorizontalGroup(
             jPanelExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 995, Short.MAX_VALUE)
+            .addGroup(jPanelExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelExamLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanelExamLayout.setVerticalGroup(
             jPanelExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 579, Short.MAX_VALUE)
+            .addGroup(jPanelExamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelExamLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Quản lý đề thi", jPanelExam);
@@ -493,7 +688,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         int input = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn thoát chương trình?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -508,7 +703,111 @@ public class AdminForm extends javax.swing.JFrame {
             this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         }
     }//GEN-LAST:event_formWindowClosing
+    /*Form Load*/
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        testsLoad();
+    }//GEN-LAST:event_formWindowOpened
 
+    private void jTableTestsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTestsMouseClicked
+        int row = jTableTests.getSelectedRow();
+        if(row>=0){
+            int idTest = (Integer)jTableTests.getValueAt(row, 0);
+            testQuestionLoad(idTest);
+        }
+            
+    }//GEN-LAST:event_jTableTestsMouseClicked
+
+    private void jButtonAddTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTestActionPerformed
+        addTest();
+    }//GEN-LAST:event_jButtonAddTestActionPerformed
+    
+    void testsLoad()
+    {
+        DefaultTableModel testModel = new DefaultTableModel();
+        Vector header = new Vector();
+        header.add("ID đề");
+        header.add("Mã đề");
+        header.add("Số câu hỏi");
+        header.add("Thời gian");
+        header.add("Độ khó");
+        testModel.setColumnIdentifiers(header);
+        
+        TestDAO testDao = new TestDAO();
+        List<Test> fullTest = testDao.getFullListTest();
+        for (int i = 0; i < fullTest.size(); i++) {
+            Test test = fullTest.get(i);
+            Vector row = new Vector();
+            row.add(test.getTest_ID());
+            row.add(test.getTest_Code());
+            row.add(test.getNumber_Of_Question());
+            row.add(test.getTime());
+            row.add(test.getLevel());
+            testModel.addRow(row);
+        }
+        jTableTests.setModel(testModel);
+    }
+    void testQuestionLoad(int idTest)
+    {
+        DefaultTableModel questionsModel = new DefaultTableModel();
+        Vector header = new Vector();
+        header.add("STT");
+        header.add("Câu hỏi");
+        questionsModel.setColumnIdentifiers(header);
+        
+        QuestionDAO questionsDao = new QuestionDAO();
+        List<Question> listQuestions = questionsDao.getQuestionByIdTest(idTest);
+        
+        System.out.println(listQuestions.size());
+        for (int i = 0; i < listQuestions.size(); i++) {
+            Question question = listQuestions.get(i);
+            Vector row = new Vector();
+            row.add(i+1);
+            row.add(question.getQuestion());
+            questionsModel.addRow(row);
+        }
+        
+        jTableQuestions.setModel(questionsModel);
+    }
+    void addTest(){
+        TestDAO testDAO = new TestDAO();
+        Test t = new Test("TestCode", 4, 20, 1, true, true);
+        if(testDAO.insertTest(t)){
+            addTestQuestionRandom(2,1);
+            addTestQuestionRandom(2,2);
+            addTestQuestionRandom(2,3);
+        }
+    }
+    void addTestQuestion(int idQuestion){
+        Test_QuestionDAO tqDao = new Test_QuestionDAO();
+        TestDAO testDAO = new TestDAO();
+        int idTestPre = testDAO.getMaxIdTest();//get new id Test by get max of idTest
+        while(true){
+            if(tqDao.insertTestQuestion(idTestPre, idQuestion))
+                break;
+        }
+    }
+    void addTestQuestionRandom(int amountRandom, int level){//By Level
+        QuestionDAO questionDAO = new QuestionDAO();
+        List<Question> listAdded = new ArrayList<Question>();
+        List<Question> listQuestions = new ArrayList<Question>();
+        
+        listQuestions = questionDAO.getQuestionByLevel(level);
+        
+        int minRange=questionDAO.getMinIdQuestion(level);
+        int maxRange=questionDAO.getMaxIdQuestion(level);
+        do{
+            Random r = new Random();
+            int idQuest = minRange+ r.nextInt(maxRange-minRange+1);//just has random from 0 :V
+            Question q = new Question();
+                q.setQuestion_ID(idQuest);
+            if(!listAdded.contains(q)&&listQuestions.contains(q)){
+                listAdded.add(q);
+                addTestQuestion(idQuest);
+            }
+        }
+        while(listAdded.size()<amountRandom);
+        testsLoad();
+    }
     /**
      * @param args the command line arguments
      */
@@ -550,15 +849,22 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAddChapter;
     private javax.swing.JButton jButtonAddLesson;
     private javax.swing.JButton jButtonAddListAc;
+    private javax.swing.JButton jButtonAddQuestion;
+    private javax.swing.JButton jButtonAddTest;
     private javax.swing.JButton jButtonDeleteChapter;
     private javax.swing.JButton jButtonDeleteLesson;
+    private javax.swing.JButton jButtonDeleteQuestion;
+    private javax.swing.JButton jButtonDeleteTest;
     private javax.swing.JButton jButtonEditChapter;
     private javax.swing.JButton jButtonEditLesson;
+    private javax.swing.JButton jButtonEditQuestion;
+    private javax.swing.JButton jButtonEditTest;
     private javax.swing.JComboBox<String> jComboBoxChapter;
     private javax.swing.JComboBox<String> jComboBoxDiff;
     private javax.swing.JComboBox<String> jComboBoxListChapter;
     private javax.swing.JComboBox<String> jComboBoxListLesson;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -566,9 +872,11 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelAccount;
     private javax.swing.JPanel jPanelAdminAccount;
     private javax.swing.JPanel jPanelChapter;
@@ -578,16 +886,22 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelQuestion;
     private javax.swing.JPanel jPanelStatistic;
     private javax.swing.JPanel jPanelStudentAccount;
+    private javax.swing.JPanel jPanelTestQuestion;
+    private javax.swing.JPanel jPanelTests;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableChapter;
     private javax.swing.JTable jTableLesson;
+    private javax.swing.JTable jTableQuestions;
     private javax.swing.JTable jTableStudentAc;
     private javax.swing.JTable jTableTeacherAc;
+    private javax.swing.JTable jTableTests;
     // End of variables declaration//GEN-END:variables
 }

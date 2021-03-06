@@ -29,7 +29,7 @@ public class AnswerDAO {
         try {
             String SqlQuery = "SELECT * FROM dbo.Answer Where Question = ?";
 
-            PreparedStatement ps = DataProvider.Connection().prepareStatement(SqlQuery);
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareStatement(SqlQuery);
             ps.setInt(1, Question_ID);
 
             ResultSet rs = ps.executeQuery();

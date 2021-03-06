@@ -25,7 +25,7 @@ public class ResultDAO {
         boolean isInserted = false;
         String SqlQuery = "Insert into dbo.Result values(?,?,?,?,?)";
         try{
-            PreparedStatement ps = DataProvider.Connection().prepareStatement(SqlQuery);
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareStatement(SqlQuery);
             ps.setInt(1, a.getAccount());
             ps.setInt(2, a.getTest());
             ps.setInt(3, a.getTime());

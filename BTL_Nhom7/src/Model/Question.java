@@ -33,6 +33,27 @@ public class Question {
         this.Question_ID = Question_ID;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Question other = (Question) obj;
+        if (this.Question_ID != other.Question_ID) {
+            return false;
+        }
+        return true;
+    }
+
     public String getQuestion() {
         return Question;
     }

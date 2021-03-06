@@ -24,11 +24,11 @@ public class TestDAO {
     public TestDAO() {
     }
 
-    public List<Test> listTest() {
+    public List<Test> getFullListTest() {
         List<Test> list = new ArrayList<>();
         String SqlQuery = "SELECT * FROM dbo.Test WHERE Status = 1";
         try {
-            PreparedStatement ps = DataProvider.Connection().prepareStatement(SqlQuery);
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareStatement(SqlQuery);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Test test = new Test();
@@ -51,7 +51,7 @@ public class TestDAO {
         Test test = null;
         String SqlQuery = "SELECT * FROM dbo.Test WHERE Test_ID = ?";
         try {
-            PreparedStatement ps = DataProvider.Connection().prepareStatement(SqlQuery);
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareStatement(SqlQuery);
             ps.setInt(1, Test_ID);
             
             try (ResultSet rs = ps.executeQuery()) {
@@ -69,5 +69,43 @@ public class TestDAO {
             e.printStackTrace();
         }
         return test;
+    }
+    public int getMaxIdTest(){
+        int max = 0;
+        String sqlQuerry = "SELECT MAX(Test_ID) AS Max FROM Test WHERE Status = 1";
+        try{
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuerry);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                max = rs.getInt("Max");
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return max;
+    }
+    public boolean insertTest(Test t){
+        boolean isInsert = false;
+        String sqlQuerry = "Insert into Test values (?,?,?,?,?,?)";
+        try{
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuerry);
+            ps.setString(1, t.getTest_Code());
+            ps.setInt(2, t.getNumber_Of_Question());
+            ps.setInt(3, t.getTime());
+            ps.setInt(4, t.getLevel());
+            ps.setBoolean(5, t.isDisplay());
+            ps.setBoolean(6, t.isStatus());
+            
+            int rs = ps.executeUpdate();
+            if(rs == 1){
+                isInsert = true;
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            isInsert = false;
+        }
+        return isInsert;
     }
 }

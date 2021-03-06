@@ -347,7 +347,7 @@ public class MainForm extends javax.swing.JFrame {
     private void loadListTest() {
         TestDAO dao = new TestDAO();
         listTest = new ArrayList<>();
-        listTest = dao.listTest();          //Lấy list các Test
+        listTest = dao.getFullListTest();          //Lấy list các Test
         for (Test item : listTest) {
             JButton btn = new JButton();        //Mỗi Test sẽ là 1 button
             btn.setText(item.getTest_Code());
@@ -376,7 +376,7 @@ public class MainForm extends javax.swing.JFrame {
                     jLabelNextArrow.setVisible(true);
                     jLabelPresArrow.setVisible(true);
                     Test_Question tq = listTest_Question.get(QuestionIndex);
-                    Question qt = new QuestionDAO().getQuestion(tq.getQuestion());          //Lấy câu hỏi từ database
+                    Question qt = new QuestionDAO().getQuestionById(tq.getQuestion());          //Lấy câu hỏi từ database
                     JButton btnQuestion = new JButton();
                     btnQuestion.setText(qt.getQuestion());
                     btnQuestion.setFont(new Font(Font.SANS_SERIF, 5, 24));
@@ -525,7 +525,7 @@ public class MainForm extends javax.swing.JFrame {
             QuestionIndex--;
             return;
         }
-        Question qt = new QuestionDAO().getQuestion(tq.getQuestion());
+        Question qt = new QuestionDAO().getQuestionById(tq.getQuestion());
         JButton btnQuestion = new JButton();
         btnQuestion.setText(qt.getQuestion());
         btnQuestion.setFont(new Font(Font.SANS_SERIF, 5, 24));
@@ -549,7 +549,7 @@ public class MainForm extends javax.swing.JFrame {
             QuestionIndex++;
             return;
         }
-        Question qt = new QuestionDAO().getQuestion(tq.getQuestion());
+        Question qt = new QuestionDAO().getQuestionById(tq.getQuestion());
         JButton btnQuestion = new JButton();
         btnQuestion.setText(qt.getQuestion());
         btnQuestion.setFont(new Font(Font.SANS_SERIF, 5, 24));

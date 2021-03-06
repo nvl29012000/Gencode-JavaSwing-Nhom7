@@ -12,7 +12,20 @@ import java.sql.SQLException;
 
 public class DataProvider {
     
-    private static Connection conn;
+    private Connection conn;
+    private static DataProvider instance;
+
+    public static DataProvider getInstance() {
+        if(instance == null)
+        {
+            instance = new DataProvider();
+        }
+        return instance;
+    }
+
+    public static void setInstance(DataProvider instance) {
+        DataProvider.instance = instance;
+    }
 
     public DataProvider() {
         try {
@@ -26,7 +39,7 @@ public class DataProvider {
         }
     }
     
-    public static Connection Connection()
+    public Connection Connection()
     {
         return conn;
     }

@@ -48,7 +48,7 @@ public class Result_TestForm extends javax.swing.JDialog {
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         for (Answer item : list) {
-            Question qt = new QuestionDAO().getQuestion(item.getQuestion());
+            Question qt = new QuestionDAO().getQuestionById(item.getQuestion());
             model.addRow(new Object[]{qt.getQuestion(), item.getAnswer(), (item.isCorrect() ? "Đúng" : "Sai")});
         }
     }
