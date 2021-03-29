@@ -15,28 +15,26 @@ public class Test {
     private int Number_Of_Question;
     private int Time;
     private int Level;
-    private boolean Display;
+
     private boolean Status;
 
     public Test() {
     }
 
-    public Test(String Test_Code, int Number_Of_Question, int Time, int Level, boolean Display, boolean Status) {
+    public Test(String Test_Code, int Number_Of_Question, int Time, int Level, boolean Status) {
         this.Test_Code = Test_Code;
         this.Number_Of_Question = Number_Of_Question;
         this.Time = Time;
         this.Level = Level;
-        this.Display = Display;
         this.Status = Status;
     }
 
-    public Test(int Test_ID, String Test_Code, int Number_Of_Question, int Time, int Level, boolean Display, boolean Status) {
+    public Test(int Test_ID, String Test_Code, int Number_Of_Question, int Time, int Level, boolean Status) {
         this.Test_ID = Test_ID;
         this.Test_Code = Test_Code;
         this.Number_Of_Question = Number_Of_Question;
         this.Time = Time;
         this.Level = Level;
-        this.Display = Display;
         this.Status = Status;
     }
 
@@ -78,13 +76,6 @@ public class Test {
 
     public void setLevel(int Level) {
         this.Level = Level;
-    }
-    public boolean isDisplay() {
-        return Display;
-    }
-
-    public void setDisplay(boolean Display) {
-        this.Display = Display;
     }
     public boolean isStatus() {
         return Status;

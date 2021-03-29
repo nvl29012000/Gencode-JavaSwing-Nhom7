@@ -103,6 +103,9 @@ public class AdminForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -713,14 +716,24 @@ public class AdminForm extends javax.swing.JFrame {
         if(row>=0){
             int idTest = (Integer)jTableTests.getValueAt(row, 0);
             testQuestionLoad(idTest);
-        }
-            
+        }      
     }//GEN-LAST:event_jTableTestsMouseClicked
 
     private void jButtonAddTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTestActionPerformed
-        addTest();
+        openAddTestInfor();
     }//GEN-LAST:event_jButtonAddTestActionPerformed
-    
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        if(AddTestInfor.isClose)
+            testsLoad();
+    }//GEN-LAST:event_formWindowActivated
+    void openAddTestInfor(){
+        AddTestInfor addTestInfor = new AddTestInfor();
+        addTestInfor.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        addTestInfor.setLocationRelativeTo(null);
+        addTestInfor.setResizable(false);
+        addTestInfor.setVisible(true);
+    }
     void testsLoad()
     {
         DefaultTableModel testModel = new DefaultTableModel();
@@ -768,46 +781,7 @@ public class AdminForm extends javax.swing.JFrame {
         
         jTableQuestions.setModel(questionsModel);
     }
-    void addTest(){
-        TestDAO testDAO = new TestDAO();
-        Test t = new Test("TestCode", 4, 20, 1, true, true);
-        if(testDAO.insertTest(t)){
-            addTestQuestionRandom(2,1);
-            addTestQuestionRandom(2,2);
-            addTestQuestionRandom(2,3);
-        }
-    }
-    void addTestQuestion(int idQuestion){
-        Test_QuestionDAO tqDao = new Test_QuestionDAO();
-        TestDAO testDAO = new TestDAO();
-        int idTestPre = testDAO.getMaxIdTest();//get new id Test by get max of idTest
-        while(true){
-            if(tqDao.insertTestQuestion(idTestPre, idQuestion))
-                break;
-        }
-    }
-    void addTestQuestionRandom(int amountRandom, int level){//By Level
-        QuestionDAO questionDAO = new QuestionDAO();
-        List<Question> listAdded = new ArrayList<Question>();
-        List<Question> listQuestions = new ArrayList<Question>();
-        
-        listQuestions = questionDAO.getQuestionByLevel(level);
-        
-        int minRange=questionDAO.getMinIdQuestion(level);
-        int maxRange=questionDAO.getMaxIdQuestion(level);
-        do{
-            Random r = new Random();
-            int idQuest = minRange+ r.nextInt(maxRange-minRange+1);//just has random from 0 :V
-            Question q = new Question();
-                q.setQuestion_ID(idQuest);
-            if(!listAdded.contains(q)&&listQuestions.contains(q)){
-                listAdded.add(q);
-                addTestQuestion(idQuest);
-            }
-        }
-        while(listAdded.size()<amountRandom);
-        testsLoad();
-    }
+    
     /**
      * @param args the command line arguments
      */

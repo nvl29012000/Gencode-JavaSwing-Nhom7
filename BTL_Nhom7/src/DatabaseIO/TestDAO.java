@@ -87,14 +87,13 @@ public class TestDAO {
     }
     public boolean insertTest(Test t){
         boolean isInsert = false;
-        String sqlQuerry = "Insert into Test values (?,?,?,?,?,?)";
+        String sqlQuerry = "Insert into Test values (?,?,?,?,?)";
         try{
             PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuerry);
             ps.setString(1, t.getTest_Code());
             ps.setInt(2, t.getNumber_Of_Question());
             ps.setInt(3, t.getTime());
             ps.setInt(4, t.getLevel());
-            ps.setBoolean(5, t.isDisplay());
             ps.setBoolean(6, t.isStatus());
             
             int rs = ps.executeUpdate();

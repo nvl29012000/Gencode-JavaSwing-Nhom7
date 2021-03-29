@@ -20,7 +20,7 @@ public class Level {
         this.Level_ID = Level_ID;
         this.Level_Name = Level_Name;
     }
-
+    
     public int getLevel_ID() {
         return Level_ID;
     }
