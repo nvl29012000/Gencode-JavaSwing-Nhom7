@@ -48,7 +48,7 @@ public class Test_QuestionDAO {
     
     public boolean insertTestQuestion(int idTest, int idQuestion){
         boolean isInsert = false;
-        String sqlQuerry = "Insert into  Test_Question values (?,?,1)";
+        String sqlQuerry = "Insert into  Test_Question values (?,?)";
         try{
             PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuerry);
             ps.setInt(1, idTest);

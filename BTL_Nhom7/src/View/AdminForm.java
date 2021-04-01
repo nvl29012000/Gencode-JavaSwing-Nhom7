@@ -770,7 +770,6 @@ public class AdminForm extends javax.swing.JFrame {
         QuestionDAO questionsDao = new QuestionDAO();
         List<Question> listQuestions = questionsDao.getQuestionByIdTest(idTest);
         
-        System.out.println(listQuestions.size());
         for (int i = 0; i < listQuestions.size(); i++) {
             Question question = listQuestions.get(i);
             Vector row = new Vector();

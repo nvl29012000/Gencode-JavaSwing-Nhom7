@@ -114,4 +114,27 @@ public class QuestionDAO {
         }
         return max;
     }
+    public List<Question> getQuestionstByChapterLessonLevel(int chapter, int lesson,int level) {
+        List<Question> listQuest = new ArrayList<Question>();
+        String SqlQuery = "EXEC GetQuestionsByChapterLesson ?,?,?";
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareStatement(SqlQuery);
+            ps.setInt(1, chapter);
+            ps.setInt(2, lesson);
+            ps.setInt(3, level);
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Question qt = new Question();
+                qt.setQuestion_ID(rs.getInt("Question_ID"));
+                qt.setQuestion(rs.getString("Question"));
+                qt.setLevel(rs.getInt("Level"));
+                qt.setLesson(rs.getInt("Lesson"));
+                listQuest.add(qt);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listQuest;
+    }
 }

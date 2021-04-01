@@ -113,16 +113,16 @@ INSERT [dbo].[Level] ([Level_Name]) VALUES (N'Khó')
 GO
 
 
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'HK_001              ', 4, 1, 1, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'HK_002              ', 10, 20, 2, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'ABC_123             ', 8, 8, 1, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_001              ', 12, 9, 3, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_002              ', 15, 10, 3, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_003              ', 15, 10, 2, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_004              ', 10, 8, 1, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_005              ', 10, 7, 1, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_006              ', 10, 7, 1, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_007              ', 12, 8, 3, 1)
+INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'HK_001', 4, 1, 1, 1)
+INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'HK_002', 10, 20, 2, 1)
+INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'ABC_123', 8, 8, 1, 1)
+INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_001', 12, 9, 3, 1)
+INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_002', 15, 10, 3, 1)
+INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_003', 15, 10, 2, 1)
+INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_004', 10, 8, 1, 1)
+INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_005', 10, 7, 1, 1)
+INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_006', 10, 7, 1, 1)
+INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_007', 12, 8, 3, 1)
 
 GO
 
@@ -241,4 +241,23 @@ END
 --DROP PROC STP_GetMinIdOfQuestionByLevel
 GO
 
-SELECT * FROM Test
+--Proc get questions by chapter and lesson
+CREATE PROC GetQuestionsByChapterLesson
+@chapter INT,
+@lesson INT,
+@level INT
+AS
+BEGIN
+	SELECT * 
+	FROM Chapter AS C, LESSON AS L, Question AS Q
+	WHERE C.Chapter_ID = L.Chapter
+	AND L.Lesson_ID = Q.Lesson
+	AND C.Chapter = @chapter
+	AND L.Lesson = @lesson
+	AND Q.Level = @level
+END
+
+--EXEC GetQuestionsByChapterLesson 2,1,2
+--DROP PROC GetQuestionsByChapterLesson
+
+GO

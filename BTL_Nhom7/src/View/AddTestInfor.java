@@ -66,7 +66,6 @@ public class AddTestInfor extends javax.swing.JDialog {
         jTextFieldAmountQuestion = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jButtonRandomTest = new javax.swing.JButton();
-        jButtonChoseTest = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -165,7 +164,7 @@ public class AddTestInfor extends javax.swing.JDialog {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldAmountQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,27 +190,21 @@ public class AddTestInfor extends javax.swing.JDialog {
             }
         });
 
-        jButtonChoseTest.setText("Tạo thủ công");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(157, 157, 157)
+                .addGap(332, 332, 332)
                 .addComponent(jButtonRandomTest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonChoseTest)
-                .addGap(166, 166, 166))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonRandomTest)
-                    .addComponent(jButtonChoseTest))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jButtonRandomTest)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -268,61 +261,65 @@ public class AddTestInfor extends javax.swing.JDialog {
             String testCode = jTextFieldCodeTest.getText();
             int numberQuestion = Integer.parseInt(jTextFieldAmountQuestion.getText());
             int time = Integer.parseInt(jTextFieldTimeTest.getText());
+            int chapter = jComboBoxChapter.getSelectedIndex();
+            int lesson = jComboBoxLesson.getSelectedIndex();
             int level = jComboBoxDifficult.getSelectedIndex();
             
             ArrayList<String> testCodeList = new ArrayList<String>();
-            for(Test t :testDAO.getFullListTest())
-                testCodeList.add(t.getTest_Code());
+            List<Test> listTest = testDAO.getFullListTest();
+            for(Test t :listTest)
+                testCodeList.add(t.getTest_Code().trim());
             
             if(testCode=="")
                 throw new Exception("Mã đề không được để trống !!!");
             if(testCodeList.contains(testCode))
                 throw new Exception("Mã đề đã tồn tại !!!");
             if(time<=0)
-                throw new Exception("Thời gian không được để trống !!!");
+                throw new Exception("Thời gian phải lớn hơn 0 !!!");
             if(numberQuestion<=0)
                 throw new Exception("Số câu hỏi lớn hơn 0 !!!");
             
             
             Test t = new Test(testCode, numberQuestion, time, level+1, true);
             if(testDAO.insertTest(t)){
-                addTestQuestionRandom(2,1);
-                addTestQuestionRandom(2,2);
-                addTestQuestionRandom(2,3);
+                ArrayList<Integer> questions = calculatorAmountQuestion(numberQuestion);
+                addQuestionByLevel(questions,chapter,lesson,level);
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }       
+        }     
     }
     void addTestQuestion(int idQuestion){
         Test_QuestionDAO tqDao = new Test_QuestionDAO();
         TestDAO testDAO = new TestDAO();
         int idTestPre = testDAO.getMaxIdTest();//get new id Test by get max of idTest
-        while(true){
-            if(tqDao.insertTestQuestion(idTestPre, idQuestion))
-                break;
-        }
+
+        tqDao.insertTestQuestion(idTestPre, idQuestion);
     }
-    void addTestQuestionRandom(int amountRandom, int level){//By Level
-        QuestionDAO questionDAO = new QuestionDAO();
-        List<Question> listAdded = new ArrayList<Question>();
-        List<Question> listQuestions = new ArrayList<Question>();
-        
-        listQuestions = questionDAO.getQuestionByLevel(level);
-        
-        int minRange=questionDAO.getMinIdQuestion(level);
-        int maxRange=questionDAO.getMaxIdQuestion(level);
-        do{
-            Random r = new Random();
-            int idQuest = minRange+ r.nextInt(maxRange-minRange+1);//just has random from 0 :V
-            Question q = new Question();
-                q.setQuestion_ID(idQuest);
-            if(!listAdded.contains(q)&&listQuestions.contains(q)){//trường hợp trong khoảng từ 1-20 có lẫn lộn 3 độ khó
-                listAdded.add(q);
-                addTestQuestion(idQuest);
+    void addTestQuestionRandom(int amountRandom, int chapter, int lesson, int level)throws Exception{//By Level
+
+            QuestionDAO questionDAO = new QuestionDAO();
+            List<Question> listAdded = new ArrayList<Question>();
+            List<Question> listQuestions = questionDAO.getQuestionstByChapterLessonLevel(chapter,lesson,level);
+            
+            if(amountRandom>listQuestions.size())
+                throw new Exception("Không đủ câu hỏi để tạo đề!!!");
+
+            int minRange=questionDAO.getMinIdQuestion(level);
+            int maxRange=questionDAO.getMaxIdQuestion(level);
+            do{
+                Random r = new Random();
+                int idQuest = minRange+ r.nextInt(maxRange-minRange+1);//just has random from 0 :V
+                Question q = new Question();
+                    q.setQuestion_ID(idQuest);
+                if(!listAdded.contains(q)&&listQuestions.contains(q)){//trường hợp trong khoảng từ 1-20 có lẫn lộn 3 độ khó
+                    listAdded.add(q);
+                    addTestQuestion(idQuest);
+                }
             }
-        }
-        while(listAdded.size()<amountRandom);
+            while(listAdded.size()<amountRandom);
+ 
     }
     void loadData(){
         jPanel2.setBorder(BorderFactory.createTitledBorder("Đề"));
@@ -349,6 +346,50 @@ public class AddTestInfor extends javax.swing.JDialog {
         for(Lesson ls:lessonList)
             jComboBoxLesson.addItem(ls.getLesson());
         
+    }
+    ArrayList<Integer> calculatorAmountQuestion(int totalQuestion){
+        ArrayList<Integer> question = new ArrayList<Integer>();//defaul easy
+        int level1 = (int)(totalQuestion*0.5);
+        int level2 = (int)(totalQuestion*0.3);
+        int level3 = totalQuestion-level1-level2;
+        question.add(level1);
+        question.add(level2);
+        question.add(level3);
+        return question;
+    }
+    void addQuestionByLevel(ArrayList<Integer> questions, int chapter, int lesson,int level){
+        try{
+            switch(level){
+                case 0://Dễ
+                    addTestQuestionRandom(questions.get(0),chapter,lesson,1);
+                    addTestQuestionRandom(questions.get(1),chapter,lesson,2);
+                    addTestQuestionRandom(questions.get(2),chapter,lesson,3);
+                    break;
+                case 1://TB
+                    addTestQuestionRandom(questions.get(0),chapter,lesson,2);
+                    addTestQuestionRandom(questions.get(1),chapter,lesson,1);
+                    addTestQuestionRandom(questions.get(2),chapter,lesson,3);
+                    break;
+                case 2://Khó
+                    addTestQuestionRandom(questions.get(0),chapter,lesson,3);
+                    addTestQuestionRandom(questions.get(1),chapter,lesson,2);
+                    addTestQuestionRandom(questions.get(2),chapter,lesson,1);
+                    break;
+            }   
+        }     
+        catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            cancelTest();
+        }
+    }
+    void cancelTest(){
+        TestDAO testDAO = new TestDAO();
+        int idTestPre = testDAO.getMaxIdTest();//get new id Test by get max of idTest
+        
+        while(true){//lặp xóa bằng dc thì thôi
+            if(testDAO.deleteTestById(idTestPre))
+                break;
+        }
     }
     /**
      * @param args the command line arguments
@@ -393,7 +434,6 @@ public class AddTestInfor extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonChoseTest;
     private javax.swing.JButton jButtonRandomTest;
     private javax.swing.JComboBox jComboBoxChapter;
     private javax.swing.JComboBox jComboBoxDifficult;

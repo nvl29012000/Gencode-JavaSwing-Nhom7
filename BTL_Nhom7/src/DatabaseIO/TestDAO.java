@@ -94,7 +94,7 @@ public class TestDAO {
             ps.setInt(2, t.getNumber_Of_Question());
             ps.setInt(3, t.getTime());
             ps.setInt(4, t.getLevel());
-            ps.setBoolean(6, t.isStatus());
+            ps.setBoolean(5, t.isStatus());
             
             int rs = ps.executeUpdate();
             if(rs == 1){
@@ -107,4 +107,23 @@ public class TestDAO {
         }
         return isInsert;
     }
+    public boolean deleteTestById(int id){
+        boolean isDelete = false;
+        String query = "DELETE FROM Test WHERE Test_ID = ?";
+        try{
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(query);
+            ps.setInt(1, id);
+            
+            int rs = ps.executeUpdate();
+            if(rs == 1){
+                isDelete = true;
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            isDelete = false;
+        }
+        return isDelete;
+    }
+
 }
