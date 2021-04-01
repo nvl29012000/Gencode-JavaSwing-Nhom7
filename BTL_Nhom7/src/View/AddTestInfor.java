@@ -259,8 +259,9 @@ public class AddTestInfor extends javax.swing.JDialog {
         try {
             TestDAO testDAO = new TestDAO();
             String testCode = jTextFieldCodeTest.getText();
-            int numberQuestion = Integer.parseInt(jTextFieldAmountQuestion.getText());
+            int numberQuestion = Integer.parseInt(jTextFieldAmountQuestion.getText());        
             int time = Integer.parseInt(jTextFieldTimeTest.getText());
+            
             int chapter = jComboBoxChapter.getSelectedIndex();
             int lesson = jComboBoxLesson.getSelectedIndex();
             int level = jComboBoxDifficult.getSelectedIndex();
@@ -270,7 +271,7 @@ public class AddTestInfor extends javax.swing.JDialog {
             for(Test t :listTest)
                 testCodeList.add(t.getTest_Code().trim());
             
-            if(testCode=="")
+            if(testCode.compareToIgnoreCase("")==0)
                 throw new Exception("Mã đề không được để trống !!!");
             if(testCodeList.contains(testCode))
                 throw new Exception("Mã đề đã tồn tại !!!");
@@ -285,10 +286,13 @@ public class AddTestInfor extends javax.swing.JDialog {
                 ArrayList<Integer> questions = calculatorAmountQuestion(numberQuestion);
                 addQuestionByLevel(questions,chapter,lesson,level);
             }
-        } 
+        }
+        catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(rootPane,("Sai định dạng nhập!!!"));
+        }
         catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }     
+        }
     }
     void addTestQuestion(int idQuestion){
         Test_QuestionDAO tqDao = new Test_QuestionDAO();
@@ -379,17 +383,15 @@ public class AddTestInfor extends javax.swing.JDialog {
         }     
         catch(Exception e){
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
-            cancelTest();
+            
+            deleteTestById();
         }
     }
-    void cancelTest(){
+    boolean deleteTestById(){
         TestDAO testDAO = new TestDAO();
         int idTestPre = testDAO.getMaxIdTest();//get new id Test by get max of idTest
         
-        while(true){//lặp xóa bằng dc thì thôi
-            if(testDAO.deleteTestById(idTestPre))
-                break;
-        }
+        return testDAO.deleteTestById(idTestPre);
     }
     /**
      * @param args the command line arguments

@@ -919,11 +919,17 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="S&#x1eed;a &#x111;&#x1ec1; thi"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditTestActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButtonDeleteTest">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="X&#xf3;a &#x111;&#x1ec1; thi"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDeleteTestActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -950,15 +956,6 @@
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonAddQuestion" min="-2" pref="114" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButtonEditQuestion" min="-2" pref="114" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                              <Component id="jButtonDeleteQuestion" min="-2" pref="114" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -966,13 +963,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButtonAddQuestion" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonEditQuestion" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonDeleteQuestion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="42" max="32767" attributes="0"/>
+                              <EmptySpace pref="140" max="32767" attributes="0"/>
                               <Component id="jScrollPane7" min="-2" pref="407" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1024,24 +1015,6 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="jButtonAddQuestion">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="12" style="0"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Th&#xea;m c&#xe2;u h&#x1ecf;i"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jButtonEditQuestion">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="S&#x1eed;a c&#xe2;u h&#x1ecf;i"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jButtonDeleteQuestion">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="X&#xf3;a c&#xe2;u h&#x1ecf;i"/>
-                      </Properties>
-                    </Component>
                   </SubComponents>
                 </Container>
               </SubComponents>

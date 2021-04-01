@@ -125,5 +125,23 @@ public class TestDAO {
         }
         return isDelete;
     }
-
+    public boolean editTestById(int id,String testCode, int time){
+        String query = "EXEC EditTestById ?,?,?";
+        boolean isEdited = false;
+        try{
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(query);
+            ps.setInt(1, id);
+            ps.setString(2, testCode);
+            ps.setInt(3, time);
+            
+            int rs = ps.executeUpdate();
+            if(rs==1)
+                isEdited = true;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            isEdited = false;
+        }
+        return isEdited;
+    }
 }

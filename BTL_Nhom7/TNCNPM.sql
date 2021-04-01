@@ -259,5 +259,19 @@ END
 
 --EXEC GetQuestionsByChapterLesson 2,1,2
 --DROP PROC GetQuestionsByChapterLesson
-
 GO
+
+--Proc Edit Test by IdTest
+Create Proc EditTestById
+@idTest INT,
+@testCode NCHAR(20),
+@time INT
+AS
+BEGIN
+	UPDATE Test 
+	SET Test_Code = @testCode,TIME = @time
+	WHERE Test_ID = @idTest
+END
+
+--EXEC EditTestById 1,N'Edited',3
+--DROP PROC EditTestById
