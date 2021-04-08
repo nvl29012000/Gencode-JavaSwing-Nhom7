@@ -135,8 +135,61 @@ INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đá
 INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp án đúng 7', 3, 4)
 INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp án đúng 8', 3, 4)
 INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp án đúng 9', 3, 4)
-
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 10', 1, 1)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 11', 1, 1)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 12', 1, 1)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 13', 2, 1)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 14', 2, 1)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 15', 2, 1)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 16', 3, 1)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 17', 3, 1)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 18', 3, 1)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 19', 1, 2)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 20', 1, 2)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 21', 1, 2)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 22', 2, 2)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 23', 2, 2)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 24', 2, 2)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 25', 3, 2)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 26', 3, 2)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 27', 3, 2)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 28', 1, 3)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 29', 1, 3)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 30', 2, 3)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 31', 2, 3)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 32', 2, 3)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 33', 3, 3)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 34', 3, 3)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 35', 3, 3)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 36', 1, 4)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 37', 1, 4)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 38', 1, 4)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 39', 2, 4)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 40', 2, 4)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 41', 2, 4)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 42', 3, 4)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 43', 3, 4)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 44', 3, 4)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 45', 1, 5)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 46', 1, 5)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 47', 1, 5)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 48', 2, 5)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 49', 2, 5)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 50', 2, 5)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 51', 3, 5)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 52', 3, 5)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 53', 3, 5)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 54', 1, 6)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 55', 1, 6)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 56', 1, 6)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 57', 2, 6)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 58', 2, 6)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 59', 2, 6)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 60', 3, 6)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 61', 3, 6)
+INSERT [dbo].[Question] ([Question], [Level], [Lesson]) VALUES (N'Đâu là đáp đúng câu 62', 3, 6)
 GO
+
 INSERT [dbo].[Answer] ([Answer], [Correct], [Question]) VALUES (N'Câu trả lời đúng', 1, 1)
 INSERT [dbo].[Answer] ([Answer], [Correct], [Question]) VALUES (N'Câu trả lời sai Câu trả lời sai Câu trả lời sai Câu trả lời sai Câu trả lời sai Câu trả lời sai', 0, 1)
 INSERT [dbo].[Answer] ([Answer], [Correct], [Question]) VALUES (N'Đây vẫn là một câu trả lời sai nhưng ghi dài ra', 0, 1)
@@ -275,3 +328,10 @@ END
 
 --EXEC EditTestById 1,N'Edited',3
 --DROP PROC EditTestById
+
+SELECT Q.Question ,Q.Level
+FROM Question AS Q, Chapter AS C, Lesson AS L
+WHERE Q.Lesson = L.Lesson
+AND L.Chapter = C.Chapter
+AND C.Chapter = 3
+AND L.Lesson = 2
