@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,28 +14,32 @@ import java.util.ArrayList;
 
 /**
  *
- * @author BINHBILL
+ * @author ADMIN
  */
 public class ChapterDAO {
 
     public ChapterDAO() {
     }
-    public ArrayList<Chapter> getFullListChapter(){
-        ArrayList<Chapter> list = new ArrayList<Chapter>();
-        try{
-            String query = "SELECT * FROM Chapter";
-            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(query);
-            
+    
+    public ArrayList<Chapter> getListChapter(){
+        ArrayList<Chapter> listC = new ArrayList<>();
+        String sql = "SELECT * FROM dbo.Chapter";
+        
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                Chapter ch = new Chapter(rs.getInt("Chapter_ID"), rs.getInt("Chapter"), rs.getString("Chapter_Name"));
-                list.add(ch);
+            while (rs.next()) {
+                Chapter c = new Chapter();
+                c.setChapter_ID(rs.getInt("Chapter_ID"));
+                c.setChapter(rs.getInt("Chapter"));
+                c.setChapter_Name(rs.getString("Chapter_Name"));
+                
+                listC.add(c);
             }
-            
+        } catch (SQLException e) {
         }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        return list;
-    }
+        
+        return listC;
+    }  
+
 }

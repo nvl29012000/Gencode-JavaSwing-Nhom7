@@ -6,8 +6,6 @@
 package DatabaseIO;
 
 import Model.Answer;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,4 +45,37 @@ public class AnswerDAO {
         return list;
     }
     
+    public boolean addAnswer(Answer asw){
+        String sql = "INSERT INTO dbo.Answer(Answer, Correct, Question)"
+                + "VALUES(?, ?, ?)";
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
+            ps.setString(1, asw.getAnswer());
+            ps.setBoolean(2, asw.isCorrect());
+            ps.setInt(3, asw.getQuestion());
+            
+            return ps.executeUpdate() > 0;
+            
+        } catch (SQLException e) {
+        }
+           
+        return false;
+    }
+    
+    public boolean updateAnswer(Answer asw){
+        String sql = "UPDATE dbo.Answer SET Answer = ?, Correct = ?"
+                + " WHERE Answer_ID = ?";
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
+            ps.setString(1, asw.getAnswer());
+            ps.setBoolean(2, asw.isCorrect());
+            ps.setInt(3, asw.getAnswer_ID());
+            
+            return ps.executeUpdate() > 0;
+            
+        } catch (SQLException e) {
+        }
+        
+        return false;
+    }
 }

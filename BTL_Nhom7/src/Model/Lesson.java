@@ -56,5 +56,9 @@ public class Lesson {
     public void setChapter(int Chapter) {
         this.Chapter = Chapter;
     }
-    
+
+    @Override
+    public String toString() {
+        return String.valueOf(Lesson);
+    }
 }

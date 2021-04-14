@@ -6,13 +6,10 @@
 package DatabaseIO;
 
 import Model.Question;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -24,94 +21,89 @@ public class QuestionDAO {
         
     }
 
-    public Question getQuestionById(int ID) {
-        Question qt = null;
-        String SqlQuery = "Select * from dbo.Question where Question_ID = ? ";
+    public ArrayList<Question> getListQuestion(){
+        ArrayList<Question> listQ = new ArrayList<>();
+        String sql = "SELECT * FROM dbo.Question";
+        
         try {
-            PreparedStatement ps = DataProvider.getInstance().Connection().prepareStatement(SqlQuery);
-            ps.setInt(1, ID);
-
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                qt = new Question();
-                qt.setQuestion_ID(rs.getInt("Question_ID"));
-                qt.setQuestion(rs.getString("Question"));
-                qt.setLevel(rs.getInt("Level"));
-                qt.setLesson(rs.getInt("Lesson"));
+                Question q = new Question();
+                q.setQuestion_ID(rs.getInt("Question_ID"));
+                q.setQuestion(rs.getString("Question"));
+                q.setLevel(rs.getInt("Level"));
+                q.setLesson(rs.getInt("Lesson"));
+                
+                listQ.add(q);
             }
         } catch (SQLException e) {
         }
-        return qt;
+        
+        return listQ;
     }
-    public List<Question> getQuestionByIdTest(int idTest){
-        List<Question> listQuest = new ArrayList<Question>();
-        String sqlQuery = "EXEC STP_GetQuestionByIdTest ? ";
-        try{
-            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuery);
-            ps.setInt(1, idTest);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Question qt = new Question();
-                qt.setQuestion_ID(rs.getInt("Question_ID"));
-                qt.setQuestion(rs.getString("Question"));
-                qt.setLevel(rs.getInt("Level"));
-                qt.setLesson(rs.getInt("Lesson"));
-                listQuest.add(qt);
-            }
+    
+    public boolean addQuestion(Question q){
+        String sql = "INSERT INTO dbo.Question(Question, Level, Lesson)"
+                + "VALUES(?, ?, ?)";
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
+            ps.setString(1, q.getQuestion());
+            ps.setInt(2, q.getLevel());
+            ps.setInt(3, q.getLesson());
+            
+            return ps.executeUpdate() > 0;
+            
+        } catch (SQLException e) {
         }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        return listQuest;
+           
+        return false;
     }
-    public List<Question> getQuestionByLevel(int level){
-        List<Question> listQuest = new ArrayList<Question>();
-        String sqlQuery = "EXEC STP_GetQuestionByLevel ? ";
-        try{
-            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuery);
-            ps.setInt(1, level);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Question qt = new Question();
-                qt.setQuestion_ID(rs.getInt("Question_ID"));
-                listQuest.add(qt);
-            }
+    
+    public boolean updateQuestion(Question q){
+        String sql = "UPDATE dbo.Question SET Question = ?, Level = ?, Lesson = ?"
+                + " WHERE Question_ID = ?";
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
+            ps.setString(1, q.getQuestion());
+            ps.setInt(2, q.getLevel());
+            ps.setInt(3, q.getLesson());
+            ps.setInt(4, q.getQuestion_ID());
+            
+            return ps.executeUpdate() > 0;
+            
+        } catch (SQLException e) {
         }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        return listQuest;
+        
+        return false;
     }
-    public int getMinIdQuestion(int level){
-        int min = 0;
-        String sqlQuerry = "EXEC STP_GetMinIdOfQuestionByLevel ?";
-        try{
-            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuerry);
-            ps.setInt(1, level);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                min = rs.getInt("Min");
-            }
+    
+    public boolean deleteQuestion(int id){
+        String sql = "DELETE FROM dbo.Question WHERE Question_ID = ?";
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
+            ps.setInt(1, id);
+            
+            return ps.executeUpdate() > 0;
+            
+        } catch (SQLException e) {
         }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        return min;
+        
+        return false;
     }
-    public int getMaxIdQuestion(int level){
-        int max = 0;
-        String sqlQuerry = "EXEC STP_GetMaxIdOfQuestionByLevel ?";
-        try{
-            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuerry);
-            ps.setInt(1, level);
+    
+    public int getLastQuestionID(){
+        int id = 0;
+        String sql = "SELECT TOP 1 Question_ID FROM dbo.Question ORDER BY Question_ID DESC";
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                max = rs.getInt("Max");
+                id = rs.getInt("Question_ID");
             }
+        } catch (SQLException e) {
         }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        return max;
+        
+        return id;
     }
 }

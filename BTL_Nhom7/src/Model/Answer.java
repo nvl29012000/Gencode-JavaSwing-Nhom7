@@ -38,7 +38,7 @@ public class Answer {
     }
 
     public void setAnswer(String Answer) {
-        this.Answer = Answer;
+            this.Answer = Answer;
     }
 
     public boolean isCorrect() {

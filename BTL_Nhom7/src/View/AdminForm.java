@@ -5,15 +5,17 @@
  */
 package View;
 
+import DatabaseIO.AnswerDAO;
+import DatabaseIO.ChapterDAO;
+import DatabaseIO.LessonDAO;
 import DatabaseIO.QuestionDAO;
-import DatabaseIO.TestDAO;
-import DatabaseIO.Test_QuestionDAO;
+import Model.Answer;
+import Model.Chapter;
+import Model.Lesson;
 import Model.Question;
-import Model.Test;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
@@ -24,14 +26,56 @@ import javax.swing.table.DefaultTableModel;
  * @author mrloc
  */
 public class AdminForm extends javax.swing.JFrame {
-
+    private ArrayList<Question> listQ;
+    DefaultTableModel model;
+    private int selectedIndex;
     /**
      * Creates new form AdminForm
      */
     public AdminForm() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        model = (DefaultTableModel) jTableQuestion.getModel();
+        showChapterCombobox();
+        showLessonCombobox();
+        showTableQuestion();
     }
-
+    
+    // hiển thị thông tin ra bảng
+    public void showTableQuestion(){
+        listQ = new QuestionDAO().getListQuestion();
+        model.setRowCount(0); //reset nội dung bảng
+        for(Question q : listQ){
+            String Lv = "Dễ";
+            if(q.getLevel() == 2){
+                Lv = "Trung bình";
+            }
+            if(q.getLevel() == 3){
+                Lv = "Khó";
+            }
+            model.addRow(new Object[]{
+                q.getQuestion_ID(), q.getQuestion(), Lv, q.getLesson()
+            });
+        }
+    }
+    // hiển thị chương lên combobox
+    private void showChapterCombobox(){
+        jComboBoxListChapter.addItem("Tất cả");
+        ArrayList<Chapter> listC = new ArrayList<Chapter>();
+        listC = new ChapterDAO().getListChapter();
+        for (Chapter chapter : listC) {
+            jComboBoxListChapter.addItem(String.valueOf(chapter.getChapter()));
+        }
+    }
+    // hiển thị bài lên combobox
+    private void showLessonCombobox(){
+        jComboBoxListLesson.addItem("Tất cả");
+        ArrayList<Lesson> listL = new ArrayList<Lesson>();
+        listL = new LessonDAO().getListLesson();
+        for (Lesson lesson : listL) {
+            jComboBoxListLesson.addItem(String.valueOf(lesson.getLesson()));
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,19 +114,24 @@ public class AdminForm extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableLesson = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jComboBoxChapter = new javax.swing.JComboBox<String>();
+        jComboBoxChapter = new javax.swing.JComboBox<>();
         jButtonAddLesson = new javax.swing.JButton();
         jButtonEditLesson = new javax.swing.JButton();
         jButtonDeleteLesson = new javax.swing.JButton();
         jPanelQuestion = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBoxListChapter = new javax.swing.JComboBox<String>();
+        jComboBoxListChapter = new javax.swing.JComboBox<>();
+        jComboBoxListLesson = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jComboBoxListLesson = new javax.swing.JComboBox<String>();
         jLabel8 = new javax.swing.JLabel();
-        jComboBoxDiff = new javax.swing.JComboBox<String>();
+        jComboBoxDiff = new javax.swing.JComboBox<>();
+        btnLoc = new javax.swing.JButton();
+        btnAddQt = new javax.swing.JButton();
+        btnEditQt = new javax.swing.JButton();
+        btnDeleteQt = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableQuestion = new javax.swing.JTable();
+        btnViewAns = new javax.swing.JButton();
         jPanelExam = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanelTests = new javax.swing.JPanel();
@@ -103,9 +152,6 @@ public class AdminForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -372,7 +418,7 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Chọn chương");
 
-        jComboBoxChapter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxChapter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButtonAddLesson.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAddLesson.setText("Thêm bài");
@@ -431,52 +477,132 @@ public class AdminForm extends javax.swing.JFrame {
         jTabbedPane1.addTab("Quản lý chương trình học", jPanelLesson);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Chương");
+        jLabel6.setText("Chương:");
 
-        jComboBoxListChapter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxListChapter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxListChapterActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("Bài");
-
-        jComboBoxListLesson.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel7.setText("Bài:");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Mức độ");
+        jLabel8.setText("Mức độ:");
 
-        jComboBoxDiff.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dễ", "Trung Bình", "Khó" }));
+        jComboBoxDiff.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Dễ", "Trung Bình", "Khó" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        btnLoc.setText("Lọc");
+        btnLoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLocActionPerformed(evt);
+            }
+        });
+
+        btnAddQt.setText("Thêm mới");
+        btnAddQt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddQtActionPerformed(evt);
+            }
+        });
+
+        btnEditQt.setText("Sửa");
+        btnEditQt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditQtActionPerformed(evt);
+            }
+        });
+
+        btnDeleteQt.setText("Xóa");
+        btnDeleteQt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteQtActionPerformed(evt);
+            }
+        });
+
+        jTableQuestion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTableQuestion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Question ID", "Question", "Level", "Lesson"
             }
-        ));
-        jScrollPane5.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableQuestion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTableQuestion.setDragEnabled(true);
+        jTableQuestion.setFocusable(false);
+        jTableQuestion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableQuestion.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableQuestion.setShowGrid(true);
+        jTableQuestion.setShowHorizontalLines(false);
+        jTableQuestion.setSurrendersFocusOnKeystroke(true);
+        jScrollPane5.setViewportView(jTableQuestion);
+        if (jTableQuestion.getColumnModel().getColumnCount() > 0) {
+            jTableQuestion.getColumnModel().getColumn(0).setMinWidth(100);
+            jTableQuestion.getColumnModel().getColumn(0).setMaxWidth(100);
+            jTableQuestion.getColumnModel().getColumn(2).setMinWidth(100);
+            jTableQuestion.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTableQuestion.getColumnModel().getColumn(3).setMinWidth(100);
+            jTableQuestion.getColumnModel().getColumn(3).setMaxWidth(100);
+        }
+
+        btnViewAns.setText("Xem câu trả lời");
+        btnViewAns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewAnsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelQuestionLayout = new javax.swing.GroupLayout(jPanelQuestion);
         jPanelQuestion.setLayout(jPanelQuestionLayout);
         jPanelQuestionLayout.setHorizontalGroup(
             jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5)
             .addGroup(jPanelQuestionLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBoxListChapter, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBoxListLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelQuestionLayout.createSequentialGroup()
+                        .addComponent(btnAddQt)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditQt, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDeleteQt, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelQuestionLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxListChapter, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxListLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBoxDiff, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelQuestionLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxDiff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnViewAns))
+                .addContainerGap(393, Short.MAX_VALUE))
         );
         jPanelQuestionLayout.setVerticalGroup(
             jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,8 +614,15 @@ public class AdminForm extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jComboBoxListLesson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBoxDiff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                    .addComponent(jComboBoxDiff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLoc))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddQt)
+                    .addComponent(btnEditQt)
+                    .addComponent(btnDeleteQt)
+                    .addComponent(btnViewAns))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -521,11 +654,6 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
         jTableTests.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTableTests.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableTestsMouseClicked(evt);
-            }
-        });
         jScrollPane6.setViewportView(jTableTests);
         if (jTableTests.getColumnModel().getColumnCount() > 0) {
             jTableTests.getColumnModel().getColumn(0).setMinWidth(60);
@@ -535,11 +663,6 @@ public class AdminForm extends javax.swing.JFrame {
 
         jButtonAddTest.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonAddTest.setText("Thêm đề thi");
-        jButtonAddTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAddTestActionPerformed(evt);
-            }
-        });
 
         jButtonEditTest.setText("Sửa đề thi");
 
@@ -693,7 +816,6 @@ public class AdminForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
         int input = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn thoát chương trình?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (input == 0) {
             this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -708,80 +830,172 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
     /*Form Load*/
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        testsLoad();
+       
     }//GEN-LAST:event_formWindowOpened
 
-    private void jTableTestsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTestsMouseClicked
-        int row = jTableTests.getSelectedRow();
-        if(row>=0){
-            int idTest = (Integer)jTableTests.getValueAt(row, 0);
-            testQuestionLoad(idTest);
-        }      
-    }//GEN-LAST:event_jTableTestsMouseClicked
-
-    private void jButtonAddTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTestActionPerformed
-        openAddTestInfor();
-    }//GEN-LAST:event_jButtonAddTestActionPerformed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if(AddTestInfor.isClose)
-            testsLoad();
-    }//GEN-LAST:event_formWindowActivated
-    void openAddTestInfor(){
-        AddTestInfor addTestInfor = new AddTestInfor();
-        addTestInfor.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        addTestInfor.setLocationRelativeTo(null);
-        addTestInfor.setResizable(false);
-        addTestInfor.setVisible(true);
-    }
-    void testsLoad()
-    {
-        DefaultTableModel testModel = new DefaultTableModel();
-        Vector header = new Vector();
-        header.add("ID đề");
-        header.add("Mã đề");
-        header.add("Số câu hỏi");
-        header.add("Thời gian");
-        header.add("Độ khó");
-        testModel.setColumnIdentifiers(header);
-        
-        TestDAO testDao = new TestDAO();
-        List<Test> fullTest = testDao.getFullListTest();
-        for (int i = 0; i < fullTest.size(); i++) {
-            Test test = fullTest.get(i);
-            Vector row = new Vector();
-            row.add(test.getTest_ID());
-            row.add(test.getTest_Code());
-            row.add(test.getNumber_Of_Question());
-            row.add(test.getTime());
-            row.add(test.getLevel());
-            testModel.addRow(row);
+    // lọc câu hỏi theo độ khó
+    private void getQuestionByDiff(int d){
+        listQ = new QuestionDAO().getListQuestion();
+        model.setRowCount(0);
+        for(Question q : listQ){
+            if(d == 0){
+                showTableQuestion();
+            } else{
+                if(q.getLevel() == d){
+                    String Lv = "Dễ";
+                    if(q.getLevel() == 2){
+                        Lv = "Trung bình";
+                    }
+                    if(q.getLevel() == 3){
+                        Lv = "Khó";
+                    }
+                    model.addRow(new Object[]{
+                        q.getQuestion_ID(), q.getQuestion(), Lv, q.getLesson()
+                    });
+                }
+            }
         }
-        jTableTests.setModel(testModel);
-    }
-    void testQuestionLoad(int idTest)
-    {
-        DefaultTableModel questionsModel = new DefaultTableModel();
-        Vector header = new Vector();
-        header.add("STT");
-        header.add("Câu hỏi");
-        questionsModel.setColumnIdentifiers(header);
-        
-        QuestionDAO questionsDao = new QuestionDAO();
-        List<Question> listQuestions = questionsDao.getQuestionByIdTest(idTest);
-        
-        System.out.println(listQuestions.size());
-        for (int i = 0; i < listQuestions.size(); i++) {
-            Question question = listQuestions.get(i);
-            Vector row = new Vector();
-            row.add(i+1);
-            row.add(question.getQuestion());
-            questionsModel.addRow(row);
+    }   
+    // lọc câu hỏi theo lesson
+    private void getQuestionByLesson(int l){
+        listQ = new QuestionDAO().getListQuestion();
+        model.setRowCount(0);
+        for(Question q : listQ){
+            if(l < 1){
+                showTableQuestion();
+            } else{
+                if(q.getLesson() == l){
+                    String Lv = "Dễ";
+                    if(q.getLevel() == 2){
+                        Lv = "Trung bình";
+                    }
+                    if(q.getLevel() == 3){
+                        Lv = "Khó";
+                    }
+                    model.addRow(new Object[]{
+                        q.getQuestion_ID(), q.getQuestion(), Lv, q.getLesson()
+                    });
+                }
+            }
         }
-        
-        jTableQuestions.setModel(questionsModel);
     }
-    
+    // lọc câu hỏi theo độ khó và bài
+    private void getQuestionByLessAndDiff(int l, int d){
+        listQ = new QuestionDAO().getListQuestion();
+            model.setRowCount(0);
+            for(Question q : listQ){
+                if(q.getLevel() == d && q.getLesson() == l){
+                    String Lv = "Dễ";
+                    if(q.getLevel() == 2){
+                        Lv = "Trung bình";
+                    }
+                    if(q.getLevel() == 3){
+                        Lv = "Khó";
+                    }
+                    model.addRow(new Object[]{
+                        q.getQuestion_ID(), q.getQuestion(), Lv, q.getLesson()
+                    });
+                }
+            }
+    }
+    private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
+        int indexLess = jComboBoxListLesson.getSelectedIndex();
+        int indexDiff = jComboBoxDiff.getSelectedIndex();
+        if(indexDiff == 0 && indexLess == 0){
+            showTableQuestion();
+        } else if(indexDiff == 0 && indexLess > 0){
+            int Less = Integer.parseInt(jComboBoxListLesson.getSelectedItem().toString());
+            getQuestionByLesson(Less);
+        } else if(indexLess == 0 && indexDiff != 0){
+            getQuestionByDiff(indexDiff);
+        } else{
+            int Less = Integer.parseInt(jComboBoxListLesson.getSelectedItem().toString());
+            getQuestionByLessAndDiff(Less, indexDiff);
+        }
+    }//GEN-LAST:event_btnLocActionPerformed
+
+    private void btnAddQtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQtActionPerformed
+        AddQuestionDialog f = new AddQuestionDialog(this, rootPaneCheckingEnabled);
+        f.setVisible(true);
+    }//GEN-LAST:event_btnAddQtActionPerformed
+
+    private void btnEditQtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditQtActionPerformed
+        selectedIndex = jTableQuestion.getSelectedRow();
+        if(listQ.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane,
+                "Hãy nhập thêm câu hỏi rồi sửa!");
+        } else if(selectedIndex == -1) {
+            JOptionPane.showMessageDialog(rootPane,
+                "Hãy chọn dòng có câu hỏi cần sửa rồi ấn Sửa!");
+        } else {
+            EditQuestionDialog edit = new EditQuestionDialog(this, rootPaneCheckingEnabled);
+            Question q = new Question();
+            q = listQ.get(selectedIndex);
+            edit.getOldQuestionData(q);
+            List<Answer> listAsw = new ArrayList<>();
+            listAsw = new AnswerDAO().list(q.getQuestion_ID());
+            edit.getOldAnswerData(listAsw.get(0), listAsw.get(1), listAsw.get(2), listAsw.get(3));
+            edit.setVisible(true);
+        }
+    }//GEN-LAST:event_btnEditQtActionPerformed
+
+    private void btnDeleteQtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteQtActionPerformed
+        selectedIndex = jTableQuestion.getSelectedRow();
+        if(listQ.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane,
+                "Hãy nhập thêm câu hỏi rồi xóa!");
+        } else if(selectedIndex == -1) {
+            JOptionPane.showMessageDialog(rootPane,
+                "Hãy chọn dòng có câu hỏi cần xóa rồi ấn Xóa!");
+        } else {
+            int dialogResult = JOptionPane.showConfirmDialog(rootPane,
+                "Bạn chắc chắn muốn xóa câu hỏi này?", "Thông báo", JOptionPane.YES_NO_OPTION);
+            if(dialogResult == 0){
+                try {
+                    int id = listQ.get(selectedIndex).getQuestion_ID();
+                    if(new QuestionDAO().deleteQuestion(id)){
+                        showTableQuestion();
+                        JOptionPane.showMessageDialog(jPanelAccount, "Xóa thành công!");
+                    } else{
+                        JOptionPane.showMessageDialog(jPanelAccount, "Xóa thất bại!");
+                    }
+                } catch (Exception e) {
+                }
+            }
+        }
+    }//GEN-LAST:event_btnDeleteQtActionPerformed
+
+    private void btnViewAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAnsActionPerformed
+        selectedIndex = jTableQuestion.getSelectedRow();
+        if(listQ.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane,
+                "Hãy nhập thêm câu hỏi rồi xem!");
+        } else if(selectedIndex == -1) {
+            JOptionPane.showMessageDialog(rootPane,
+                "Hãy chọn dòng có câu hỏi cần xem rồi ấn Xem câu trả lời!");
+        } else {
+            ViewAnswerJDialog view = new ViewAnswerJDialog(this, rootPaneCheckingEnabled);
+            Question q = new Question();
+            q = listQ.get(selectedIndex);
+            List<Answer> listAsw = new ArrayList<>();
+            listAsw = new AnswerDAO().list(q.getQuestion_ID());
+            view.getOldAnswerData(q, listAsw.get(0), listAsw.get(1), listAsw.get(2), listAsw.get(3));
+            view.setVisible(true);
+        }
+    }//GEN-LAST:event_btnViewAnsActionPerformed
+
+    private void jComboBoxListChapterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxListChapterActionPerformed
+        if(jComboBoxListChapter.getSelectedItem() == "Tất cả"){
+            jComboBoxListLesson.removeAllItems();
+            showLessonCombobox();
+        }else{
+            int chapter = Integer.parseInt(jComboBoxListChapter.getSelectedItem().toString());
+            ArrayList<Lesson> listL = new ArrayList<Lesson>();
+            listL = new LessonDAO().getListLessonByChapter(chapter);
+            jComboBoxListLesson.setModel(new DefaultComboBoxModel(listL.toArray()));
+        }
+    }//GEN-LAST:event_jComboBoxListChapterActionPerformed
+        
     /**
      * @param args the command line arguments
      */
@@ -818,6 +1032,11 @@ public class AdminForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddQt;
+    private javax.swing.JButton btnDeleteQt;
+    private javax.swing.JButton btnEditQt;
+    private javax.swing.JButton btnLoc;
+    private javax.swing.JButton btnViewAns;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddAc;
     private javax.swing.JButton jButtonAddChapter;
@@ -870,9 +1089,9 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableChapter;
     private javax.swing.JTable jTableLesson;
+    private javax.swing.JTable jTableQuestion;
     private javax.swing.JTable jTableQuestions;
     private javax.swing.JTable jTableStudentAc;
     private javax.swing.JTable jTableTeacherAc;

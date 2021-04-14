@@ -32,7 +32,7 @@ public class DataProvider {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionUrl = "jdbc:sqlserver://localhost:1433;database=TracNghiemCNPM;";
             String username = "sa";
-            String password = "vietloc123";
+            String password = "sa";
             conn = DriverManager.getConnection(connectionUrl, username, password);
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Failed");

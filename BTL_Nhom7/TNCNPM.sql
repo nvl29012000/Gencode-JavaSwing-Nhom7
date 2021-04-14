@@ -44,8 +44,13 @@ GO
 CREATE TABLE Question(
 	Question_ID INT IDENTITY PRIMARY KEY,
 	Question NVARCHAR(200),
+<<<<<<< HEAD
+	Level INT FOREIGN KEY REFERENCES Level(Level_ID) ON DELETE CASCADE,
+	Lesson INT FOREIGN KEY REFERENCES Lesson(Lesson_ID) ON DELETE CASCADE
+=======
 	Level INT FOREIGN KEY REFERENCES Level(Level_ID),
 	Lesson INT FOREIGN KEY REFERENCES Lesson(Lesson_ID)
+>>>>>>> 2332b1e30802ea4a40c0cc583b92a7abf449c78c
 )
 GO
 
@@ -53,7 +58,11 @@ CREATE TABLE Answer (
 	Answer_ID INT IDENTITY PRIMARY KEY,
 	Answer NVARCHAR(200),
 	Correct BIT, --1 là đúng, 0 là sai
+<<<<<<< HEAD
+	Question INT FOREIGN KEY REFERENCES Question(Question_ID) ON DELETE CASCADE
+=======
 	Question INT FOREIGN KEY REFERENCES Question(Question_ID)
+>>>>>>> 2332b1e30802ea4a40c0cc583b92a7abf449c78c
 )
 GO
 
@@ -70,7 +79,11 @@ GO
 CREATE TABLE Test_Question(
 	T_QT_ID INT IDENTITY PRIMARY KEY,
 	Test INT FOREIGN KEY REFERENCES Test(Test_ID),
+<<<<<<< HEAD
+	Question INT FOREIGN KEY REFERENCES Question(Question_ID) ON DELETE CASCADE
+=======
 	Question INT FOREIGN KEY REFERENCES Question(Question_ID)
+>>>>>>> 2332b1e30802ea4a40c0cc583b92a7abf449c78c
 )
 GO
 

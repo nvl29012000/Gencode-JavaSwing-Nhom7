@@ -46,6 +46,4 @@ public class Chapter {
     public void setChapter_Name(String Chapter_Name) {
         this.Chapter_Name = Chapter_Name;
     }
-    
-    
 }
