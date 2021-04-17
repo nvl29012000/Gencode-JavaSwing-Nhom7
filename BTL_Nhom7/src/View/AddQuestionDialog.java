@@ -38,11 +38,20 @@ public class AddQuestionDialog extends javax.swing.JDialog {
 
     }
     private void showChapterCombobox(){
-        ArrayList<Chapter> listC = new ArrayList<Chapter>();
-        listC = new ChapterDAO().getListChapter();
-        for (Chapter chapter : listC) {
-            cbbChapter.addItem(String.valueOf(chapter.getChapter()));
-        }
+//        try {
+            ArrayList<Chapter> listC = new ArrayList<Chapter>();
+            listC = new ChapterDAO().getListChapter();
+//            if(listC.isEmpty()){
+//                throw new Exception("Hãy thêm chương trước!!");
+//            }else{
+                for (Chapter chapter : listC) {
+                cbbChapter.addItem(String.valueOf(chapter.getChapter()));
+                }
+//            }
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Thông báo!",
+//                    JOptionPane.WARNING_MESSAGE);
+//        }
     }
 
     /**
@@ -310,62 +319,80 @@ public class AddQuestionDialog extends javax.swing.JDialog {
     // thêm câu hỏi mới
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         try {
-            // thêm câu hỏi
-            Question q = new Question();
-            q.setQuestion(txtQuestion.getText());
-            q.setLevel(cbbLevel.getSelectedIndex() + 1);
-            int c = Integer.parseInt(cbbChapter.getSelectedItem().toString());
-            int l = Integer.parseInt(cbbLesson.getSelectedItem().toString());
-            Lesson less = new LessonDAO().getLessonByChapter(l, c);
-            q.setLesson(less.getLesson_ID());
-            boolean addQ = new QuestionDAO().addQuestion(q);
+            String question = txtQuestion.getText();
+            String answer1 = txtAnswer1.getText();
+            String answer2 = txtAnswer2.getText();
+            String answer3 = txtAnswer3.getText();
+            String answer4 = txtAnswer4.getText();
             
-            // thêm câu trả lời
-            int questionID = new QuestionDAO().getLastQuestionID();
-            // thêm câu trả lời 1
-            Answer asw1 = new Answer();
-            asw1.setAnswer(txtAnswer1.getText());
-            asw1.setCorrect(rdbTrue1.isSelected());
-            asw1.setQuestion(questionID);
-            // thêm câu trả lời 2
-            Answer asw2 = new Answer();
-            asw2.setAnswer(txtAnswer2.getText());
-            asw2.setCorrect(rdbTrue2.isSelected());
-            asw2.setQuestion(questionID);
-            // thêm câu trả lời 3
-            Answer asw3 = new Answer();
-            asw3.setAnswer(txtAnswer3.getText());
-            asw3.setCorrect(rdbTrue3.isSelected());
-            asw3.setQuestion(questionID);
-            // thêm câu trả lời 4
-            Answer asw4 = new Answer();
-            asw4.setAnswer(txtAnswer4.getText());
-            asw4.setCorrect(rdbTrue4.isSelected());
-            asw4.setQuestion(questionID);
-            
-            boolean addA1 = new AnswerDAO().addAnswer(asw1);
-            boolean addA2 = new AnswerDAO().addAnswer(asw2);
-            boolean addA3 = new AnswerDAO().addAnswer(asw3);
-            boolean addA4 = new AnswerDAO().addAnswer(asw4);
-            
-            if(addQ == true && addA1 == true && addA2 == true && addA3 == true
-                    && addA4 == true){
-                adminForm.showTableQuestion();
-                int dialogResult = JOptionPane.showConfirmDialog(rootPane,
-                    "Thêm thành công!! Bạn có muốn tiếp tục thêm?", "Thông báo",
-                    JOptionPane.YES_NO_OPTION);
-                if(dialogResult == 1){                    
-                    this.dispose();
+            if(question.trim().equals("")){
+                throw new Exception("Câu hỏi không được để trống!");
+            }else if(answer1.trim().equals("") || answer2.trim().equals("")
+                    || answer3.trim().equals("") || answer4.trim().equals("")){
+                throw new Exception("Câu trả lời không được để trống!");
+            }else{
+                // thêm câu hỏi
+                Question q = new Question();
+                q.setQuestion(question);
+                q.setLevel(cbbLevel.getSelectedIndex() + 1);
+                int c = Integer.parseInt(cbbChapter.getSelectedItem().toString());
+                int l = Integer.parseInt(cbbLesson.getSelectedItem().toString());
+                Lesson less = new LessonDAO().getLessonByChapter(l, c);
+                q.setLesson(less.getLesson_ID());
+                    
+                boolean addQ = new QuestionDAO().addQuestion(q);
+
+                // thêm câu trả lời
+                int questionID = new QuestionDAO().getLastQuestionID();
+                // thêm câu trả lời 1
+                Answer asw1 = new Answer();
+                asw1.setAnswer(answer1);
+                asw1.setCorrect(rdbTrue1.isSelected());
+                asw1.setQuestion(questionID);
+                // thêm câu trả lời 2
+                Answer asw2 = new Answer();
+                asw2.setAnswer(answer2);
+                asw2.setCorrect(rdbTrue2.isSelected());
+                asw2.setQuestion(questionID);
+                // thêm câu trả lời 3
+                Answer asw3 = new Answer();
+                asw3.setAnswer(answer3);
+                asw3.setCorrect(rdbTrue3.isSelected());
+                asw3.setQuestion(questionID);
+                // thêm câu trả lời 4
+                Answer asw4 = new Answer();
+                asw4.setAnswer(answer4);
+                asw4.setCorrect(rdbTrue4.isSelected());
+                asw4.setQuestion(questionID);
+
+                boolean addA1 = new AnswerDAO().addAnswer(asw1);
+                boolean addA2 = new AnswerDAO().addAnswer(asw2);
+                boolean addA3 = new AnswerDAO().addAnswer(asw3);
+                boolean addA4 = new AnswerDAO().addAnswer(asw4);
+
+                if(addQ == true && addA1 == true && addA2 == true && addA3 == true
+                        && addA4 == true){
+                    adminForm.showTableQuestion();
+                    int dialogResult = JOptionPane.showConfirmDialog(rootPane,
+                        "Thêm thành công!! Bạn có muốn tiếp tục thêm?", "Thông báo",
+                        JOptionPane.YES_NO_OPTION);
+                    if(dialogResult == 1){                    
+                        this.dispose();
+                    }
+                    else{
+                        resetForm();
+                    }
+                } else{
+                    JOptionPane.showMessageDialog(rootPane, "Thêm thất bại!!");
                 }
-                else{
-                    resetForm();
-                }
-            } else{
-                JOptionPane.showMessageDialog(rootPane, "Thêm thất bại!!");
             }
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Thông báo!",
+                    JOptionPane.WARNING_MESSAGE);
         }
+        
     }//GEN-LAST:event_btnAddActionPerformed
+    
     private void resetForm(){
         txtQuestion.setText("");
         cbbLevel.setSelectedIndex(0);

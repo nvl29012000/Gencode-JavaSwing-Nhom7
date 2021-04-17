@@ -11,9 +11,6 @@ import Model.Question;
 import View.AdminForm;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,7 +48,10 @@ public class EditQuestionDialog extends javax.swing.JDialog {
         Chapter c = new ChapterDAO().getChapterByChapter(chapter);
         ArrayList<Lesson> listL = new ArrayList<Lesson>();
         listL = new LessonDAO().getListLessonByChapter(c.getChapter_ID());
-        cbbLesson.setModel(new DefaultComboBoxModel(listL.toArray()));
+        cbbLesson.removeAllItems();
+        for (Lesson lesson : listL) {
+            cbbLesson.addItem(String.valueOf(lesson.getLesson()));
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,12 +88,13 @@ public class EditQuestionDialog extends javax.swing.JDialog {
         cbbLesson = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtQuestion = new javax.swing.JTextField();
         cbbChapter = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtAreaQuestion = new javax.swing.JTextArea();
+        lbID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -190,7 +191,7 @@ public class EditQuestionDialog extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,9 +227,6 @@ public class EditQuestionDialog extends javax.swing.JDialog {
 
         jLabel5.setText("ID:");
 
-        txtID.setEditable(false);
-        txtID.setEnabled(false);
-
         jLabel3.setText("Độ khó:");
 
         jLabel4.setText("Bài:");
@@ -241,52 +239,67 @@ public class EditQuestionDialog extends javax.swing.JDialog {
 
         jLabel10.setText("Chương:");
 
+        txtAreaQuestion.setColumns(20);
+        txtAreaQuestion.setLineWrap(true);
+        txtAreaQuestion.setRows(5);
+        jScrollPane2.setViewportView(txtAreaQuestion);
+
+        lbID.setText("ID");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQuestion)
-                    .addComponent(cbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cbbLesson, javax.swing.GroupLayout.Alignment.LEADING, 0, 57, Short.MAX_VALUE)
-                        .addComponent(cbbChapter, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel3)
+                        .addGap(10, 10, 10)
+                        .addComponent(cbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(cbbChapter, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel4)
+                        .addGap(10, 10, 10)
+                        .addComponent(cbbLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbID, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(cbbChapter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbLesson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbID))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(cbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10)
+                        .addComponent(cbbChapter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbbLesson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -299,30 +312,30 @@ public class EditQuestionDialog extends javax.swing.JDialog {
                         .addGap(241, 241, 241)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
+                        .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(228, 228, 228)
+                        .addGap(229, 229, 229)
                         .addComponent(btnSave)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
-                .addGap(33, 33, 33))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -330,53 +343,67 @@ public class EditQuestionDialog extends javax.swing.JDialog {
     // cập nhật câu hỏi
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
+            String question = txtAreaQuestion.getText();
+            String answer1 = txtAreaAns1.getText();
+            String answer2 = txtAreaAns2.getText();
+            String answer3 = txtAreaAns3.getText();
+            String answer4 = txtAreaAns4.getText();
             
-            Question q = new Question();
-            q.setQuestion_ID(Integer.parseInt(txtID.getText()));
-            q.setQuestion(txtQuestion.getText());
-            q.setLevel(cbLevel.getSelectedIndex() + 1);
-            q.setLesson(Integer.parseInt(cbbLesson.getSelectedItem().toString()));
-            
-            boolean editQ = new QuestionDAO().updateQuestion(q);
-            List<Answer> listAsw = new ArrayList<>();
-            listAsw = new AnswerDAO().list(q.getQuestion_ID());
-            // thêm câu trả lời 1
-            Answer asw1 = new Answer();
-            asw1.setAnswer(txtAreaAns1.getText());
-            asw1.setCorrect(rdbTrue1.isSelected());
-            asw1.setAnswer_ID(listAsw.get(0).getAnswer_ID());
-            // thêm câu trả lời 2
-            Answer asw2 = new Answer();
-            asw2.setAnswer(txtAreaAns2.getText());
-            asw2.setCorrect(rdbTrue2.isSelected());
-            asw2.setAnswer_ID(listAsw.get(1).getAnswer_ID());
-            // thêm câu trả lời 3
-            Answer asw3 = new Answer();
-            asw3.setAnswer(txtAreaAns3.getText());
-            asw3.setCorrect(rdbTrue3.isSelected());
-            asw3.setAnswer_ID(listAsw.get(2).getAnswer_ID());
-            // thêm câu trả lời 4
-            Answer asw4 = new Answer();
-            asw4.setAnswer(txtAreaAns4.getText());
-            asw4.setCorrect(rdbTrue4.isSelected());
-            asw4.setAnswer_ID(listAsw.get(3).getAnswer_ID());
-            
-            boolean editA1 = new AnswerDAO().updateAnswer(asw1);
-            boolean editA2 = new AnswerDAO().updateAnswer(asw2);
-            boolean editA3 = new AnswerDAO().updateAnswer(asw3);
-            boolean editA4 = new AnswerDAO().updateAnswer(asw4);
-                       
-            if(editQ == editA1 == editA2 == editA3 == editA4 == true){
-                adminForm.showTableQuestion();
-                int dialogResult = JOptionPane.showConfirmDialog(rootPane,
-                    "Sửa thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
-                if(dialogResult == 0){                    
-                    this.dispose();
+            if(question.trim().equals("")){
+                throw new Exception("Câu hỏi không được để trống!");
+            }else if(answer1.trim().equals("") || answer2.trim().equals("")
+                    || answer3.trim().equals("") || answer4.trim().equals("")){
+                throw new Exception("Câu trả lời không được để trống!");
+            }else{
+                Question q = new Question();
+                q.setQuestion_ID(Integer.parseInt(lbID.getText()));
+                q.setQuestion(question);
+                q.setLevel(cbLevel.getSelectedIndex() + 1);
+                q.setLesson(Integer.valueOf(cbbLesson.getSelectedItem().toString()));
+
+                boolean editQ = new QuestionDAO().updateQuestion(q);
+                List<Answer> listAsw = new ArrayList<>();
+                listAsw = new AnswerDAO().list(q.getQuestion_ID());
+                // thêm câu trả lời 1
+                Answer asw1 = new Answer();
+                asw1.setAnswer(answer1);
+                asw1.setCorrect(rdbTrue1.isSelected());
+                asw1.setAnswer_ID(listAsw.get(0).getAnswer_ID());
+                // thêm câu trả lời 2
+                Answer asw2 = new Answer();
+                asw2.setAnswer(answer2);
+                asw2.setCorrect(rdbTrue2.isSelected());
+                asw2.setAnswer_ID(listAsw.get(1).getAnswer_ID());
+                // thêm câu trả lời 3
+                Answer asw3 = new Answer();
+                asw3.setAnswer(answer3);
+                asw3.setCorrect(rdbTrue3.isSelected());
+                asw3.setAnswer_ID(listAsw.get(2).getAnswer_ID());
+                // thêm câu trả lời 4
+                Answer asw4 = new Answer();
+                asw4.setAnswer(answer4);
+                asw4.setCorrect(rdbTrue4.isSelected());
+                asw4.setAnswer_ID(listAsw.get(3).getAnswer_ID());
+
+                boolean editA1 = new AnswerDAO().updateAnswer(asw1);
+                boolean editA2 = new AnswerDAO().updateAnswer(asw2);
+                boolean editA3 = new AnswerDAO().updateAnswer(asw3);
+                boolean editA4 = new AnswerDAO().updateAnswer(asw4);
+
+                if(editQ == editA1 == editA2 == editA3 == editA4 == true){
+                    adminForm.showTableQuestion();
+                    int dialogResult = JOptionPane.showConfirmDialog(rootPane,
+                        "Sửa thành công!", "Thông báo", JOptionPane.DEFAULT_OPTION);
+                    if(dialogResult == 0){                    
+                        this.dispose();
+                    }
+                } else{
+                    JOptionPane.showMessageDialog(rootPane, "Sửa thất bại!");
                 }
-            } else{
-                JOptionPane.showMessageDialog(rootPane, "Sửa thất bại!");
             }
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Thông báo!",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
     // hủy cập nhật
@@ -385,12 +412,12 @@ public class EditQuestionDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void cbbChapterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbChapterActionPerformed
-//        showLessonByChapterCombobox();
+        showLessonByChapterCombobox();
     }//GEN-LAST:event_cbbChapterActionPerformed
     // lấy dữ liệu cũ của câu hỏi và hiển thị ra 
     public void getOldQuestionData(Question q) {
-        txtID.setText(Integer.toString(q.getQuestion_ID()));
-        txtQuestion.setText(q.getQuestion());
+        lbID.setText(Integer.toString(q.getQuestion_ID()));
+        txtAreaQuestion.setText(q.getQuestion());
         cbLevel.setSelectedItem("Dễ");
         if(q.getLevel() == 2){
             cbLevel.setSelectedItem("Trung bình");
@@ -400,8 +427,6 @@ public class EditQuestionDialog extends javax.swing.JDialog {
         }
         Lesson l = new LessonDAO().getLessonByLesson_ID(q.getLesson());
         Chapter c = new ChapterDAO().getChapterByChapter_ID(l.getChapter());
-//        showChapterCombobox();
-        showLessonByChapterCombobox();
         cbbChapter.setSelectedItem(String.valueOf(c.getChapter()));
         cbbLesson.setSelectedItem(String.valueOf(l.getLesson()));
     }
@@ -481,9 +506,11 @@ public class EditQuestionDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel lbID;
     private javax.swing.JRadioButton rdbTrue1;
     private javax.swing.JRadioButton rdbTrue2;
     private javax.swing.JRadioButton rdbTrue3;
@@ -492,7 +519,6 @@ public class EditQuestionDialog extends javax.swing.JDialog {
     private javax.swing.JTextArea txtAreaAns2;
     private javax.swing.JTextArea txtAreaAns3;
     private javax.swing.JTextArea txtAreaAns4;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtQuestion;
+    private javax.swing.JTextArea txtAreaQuestion;
     // End of variables declaration//GEN-END:variables
 }

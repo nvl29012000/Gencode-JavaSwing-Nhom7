@@ -586,28 +586,27 @@ public class AdminForm extends javax.swing.JFrame {
                     .addGroup(jPanelQuestionLayout.createSequentialGroup()
                         .addComponent(btnAddQt)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEditQt, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditQt)
                         .addGap(18, 18, 18)
-                        .addComponent(btnDeleteQt, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDeleteQt)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnViewAns)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelQuestionLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbbChapter, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
+                        .addComponent(cbbChapter, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbbLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelQuestionLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addComponent(cbbLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBoxDiff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59)
-                        .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnViewAns))
-                .addContainerGap(393, Short.MAX_VALUE))
+                        .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(402, 402, 402))))
         );
         jPanelQuestionLayout.setVerticalGroup(
             jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -622,11 +621,12 @@ public class AdminForm extends javax.swing.JFrame {
                     .addComponent(jComboBoxDiff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLoc))
                 .addGap(18, 18, 18)
-                .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddQt)
-                    .addComponent(btnDeleteQt)
-                    .addComponent(btnViewAns)
-                    .addComponent(btnEditQt, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEditQt)
+                    .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAddQt)
+                        .addComponent(btnDeleteQt)
+                        .addComponent(btnViewAns)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -936,6 +936,7 @@ public class AdminForm extends javax.swing.JFrame {
         } else {
             EditQuestionDialog edit = new EditQuestionDialog(this, rootPaneCheckingEnabled);
             edit.showChapterCombobox();
+//            edit.showLessonByChapterCombobox();
             Question q = new Question();
             q = listQ.get(selectedIndex);
             edit.getOldQuestionData(q);
