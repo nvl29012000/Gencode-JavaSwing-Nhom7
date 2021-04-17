@@ -41,5 +41,40 @@ public class ChapterDAO {
         
         return listC;
     }  
-
+    
+    public Chapter getChapterByChapter_ID(int Chapter_ID){
+        String sql = "SELECT * FROM dbo.Chapter WHERE Chapter_ID = ?";
+        Chapter c = new Chapter();
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
+            ps.setInt(1, Chapter_ID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                c.setChapter_ID(rs.getInt("Chapter_ID"));
+                c.setChapter(rs.getInt("Chapter"));
+                c.setChapter_Name(rs.getString("Chapter_Name"));
+            }
+            
+        } catch (Exception e) {
+        }
+        return c;
+    }
+    
+    public Chapter getChapterByChapter(int Chapter){
+        String sql = "SELECT * FROM dbo.Chapter WHERE Chapter = ?";
+        Chapter c = new Chapter();
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
+            ps.setInt(1, Chapter);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                c.setChapter_ID(rs.getInt("Chapter_ID"));
+                c.setChapter(rs.getInt("Chapter"));
+                c.setChapter_Name(rs.getString("Chapter_Name"));
+            }
+            
+        } catch (Exception e) {
+        }
+        return c;
+    }
 }

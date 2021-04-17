@@ -63,4 +63,41 @@ public class LessonDAO {
         
         return listL;
     }
+    public Lesson getLessonByChapter(int Lesson, int Chapter){
+        String sql = "SELECT * FROM dbo.Lesson WHERE Lesson = ? AND Chapter = ?";
+        Lesson l = new Lesson();
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
+            ps.setInt(1, Lesson);
+            ps.setInt(2, Chapter);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                l.setLesson_ID(rs.getInt("Lesson_ID"));
+                l.setLesson(rs.getInt("Lesson"));
+                l.setLesson_Name(rs.getString("Lesson_Name"));
+                l.setChapter(rs.getInt("Chapter"));
+            }
+            
+        } catch (Exception e) {
+        }
+        return l;
+    }
+    public Lesson getLessonByLesson_ID(int Lesson_ID){
+        String sql = "SELECT * FROM dbo.Lesson WHERE Lesson_ID = ?";
+        Lesson l = new Lesson();
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
+            ps.setInt(1, Lesson_ID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                l.setLesson_ID(rs.getInt("Lesson_ID"));
+                l.setLesson(rs.getInt("Lesson"));
+                l.setLesson_Name(rs.getString("Lesson_Name"));
+                l.setChapter(rs.getInt("Chapter"));
+            }
+            
+        } catch (Exception e) {
+        }
+        return l;
+    }
 }

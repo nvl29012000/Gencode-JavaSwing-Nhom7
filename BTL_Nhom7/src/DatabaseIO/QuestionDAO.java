@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,6 +20,26 @@ public class QuestionDAO {
 
     public QuestionDAO() {
         
+    }
+    
+    public Question getQuestionById(int ID) {
+        Question qt = null;
+        String SqlQuery = "Select * from dbo.Question where Question_ID = ? ";
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareStatement(SqlQuery);
+            ps.setInt(1, ID);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                qt = new Question();
+                qt.setQuestion_ID(rs.getInt("Question_ID"));
+                qt.setQuestion(rs.getString("Question"));
+                qt.setLevel(rs.getInt("Level"));
+                qt.setLesson(rs.getInt("Lesson"));
+            }
+        } catch (SQLException e) {
+        }
+        return qt;
     }
 
     public ArrayList<Question> getListQuestion(){

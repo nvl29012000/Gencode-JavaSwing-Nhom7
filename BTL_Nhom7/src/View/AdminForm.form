@@ -637,11 +637,11 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jComboBoxListChapter" min="-2" pref="65" max="-2" attributes="0"/>
+                              <Component id="cbbChapter" min="-2" pref="65" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                               <Component id="jLabel7" min="-2" pref="23" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jComboBoxListLesson" min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="cbbLesson" min="-2" pref="70" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -666,9 +666,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBoxListChapter" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbbChapter" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBoxListLesson" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbbLesson" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBoxDiff" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnLoc" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -676,9 +676,9 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnAddQt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnEditQt" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnDeleteQt" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnViewAns" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnEditQt" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="9" max="32767" attributes="0"/>
                       <Component id="jScrollPane5" min="-2" pref="495" max="-2" attributes="0"/>
@@ -695,20 +695,20 @@
                 <Property name="text" type="java.lang.String" value="Ch&#x1b0;&#x1a1;ng:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxListChapter">
+            <Component class="javax.swing.JComboBox" name="cbbChapter">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxListChapterActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbChapterActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxListLesson">
+            <Component class="javax.swing.JComboBox" name="cbbLesson">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -796,10 +796,11 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="0">
+                      <Table columnCount="5" rowCount="0">
                         <Column editable="false" title="Question ID" type="java.lang.Integer"/>
                         <Column editable="false" title="Question" type="java.lang.String"/>
                         <Column editable="false" title="Level" type="java.lang.String"/>
+                        <Column editable="false" title="Chapter" type="java.lang.Integer"/>
                         <Column editable="false" title="Lesson" type="java.lang.Integer"/>
                       </Table>
                     </Property>
@@ -811,6 +812,11 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="100" minWidth="100" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>

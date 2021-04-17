@@ -3,17 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/View/MainForm.java</file>
-            <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/View/Result_TestForm.java</file>
-            <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/Model/Chapter.java</file>
             <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/DatabaseIO/QuestionDAO.java</file>
-            <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/View/ViewAnswerJDialog.java</file>
-            <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/DatabaseIO/AnswerDAO.java</file>
             <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/View/AddQuestionDialog.java</file>
             <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/View/EditQuestionDialog.java</file>
             <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/DatabaseIO/LessonDAO.java</file>
             <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/DatabaseIO/ChapterDAO.java</file>
-            <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/Model/Lesson.java</file>
             <file>file:/D:/Nam3/Ki2/Java/Gencode-JavaSwing-Nhom7/BTL_Nhom7/src/View/AdminForm.java</file>
         </group>
     </open-files>

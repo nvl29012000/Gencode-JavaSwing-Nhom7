@@ -44,6 +44,8 @@ public class AdminForm extends javax.swing.JFrame {
     // hiển thị thông tin ra bảng
     public void showTableQuestion(){
         listQ = new QuestionDAO().getListQuestion();
+        Lesson l = new Lesson();
+        Chapter c = new Chapter();
         model.setRowCount(0); //reset nội dung bảng
         for(Question q : listQ){
             String Lv = "Dễ";
@@ -53,27 +55,28 @@ public class AdminForm extends javax.swing.JFrame {
             if(q.getLevel() == 3){
                 Lv = "Khó";
             }
+            l = new LessonDAO().getLessonByLesson_ID(q.getLesson());
+            c = new ChapterDAO().getChapterByChapter_ID(l.getChapter());
             model.addRow(new Object[]{
-                q.getQuestion_ID(), q.getQuestion(), Lv, q.getLesson()
+                q.getQuestion_ID(), q.getQuestion(), Lv, c.getChapter(), l.getLesson()
             });
         }
     }
     // hiển thị chương lên combobox
-    private void showChapterCombobox(){
-        jComboBoxListChapter.addItem("Tất cả");
+    public void showChapterCombobox(){
+        cbbChapter.addItem("Tất cả");
         ArrayList<Chapter> listC = new ArrayList<Chapter>();
         listC = new ChapterDAO().getListChapter();
         for (Chapter chapter : listC) {
-            jComboBoxListChapter.addItem(String.valueOf(chapter.getChapter()));
+            cbbChapter.addItem(String.valueOf(chapter.getChapter()));
         }
     }
     // hiển thị bài lên combobox
-    private void showLessonCombobox(){
-        jComboBoxListLesson.addItem("Tất cả");
+    public void showLessonCombobox(){
         ArrayList<Lesson> listL = new ArrayList<Lesson>();
         listL = new LessonDAO().getListLesson();
         for (Lesson lesson : listL) {
-            jComboBoxListLesson.addItem(String.valueOf(lesson.getLesson()));
+            cbbLesson.addItem(String.valueOf(lesson.getLesson()));
         }
     }
     /**
@@ -120,8 +123,8 @@ public class AdminForm extends javax.swing.JFrame {
         jButtonDeleteLesson = new javax.swing.JButton();
         jPanelQuestion = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBoxListChapter = new javax.swing.JComboBox<>();
-        jComboBoxListLesson = new javax.swing.JComboBox<>();
+        cbbChapter = new javax.swing.JComboBox<>();
+        cbbLesson = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jComboBoxDiff = new javax.swing.JComboBox<>();
@@ -479,9 +482,9 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Chương:");
 
-        jComboBoxListChapter.addActionListener(new java.awt.event.ActionListener() {
+        cbbChapter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxListChapterActionPerformed(evt);
+                cbbChapterActionPerformed(evt);
             }
         });
 
@@ -527,14 +530,14 @@ public class AdminForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Question ID", "Question", "Level", "Lesson"
+                "Question ID", "Question", "Level", "Chapter", "Lesson"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -561,6 +564,8 @@ public class AdminForm extends javax.swing.JFrame {
             jTableQuestion.getColumnModel().getColumn(2).setMaxWidth(100);
             jTableQuestion.getColumnModel().getColumn(3).setMinWidth(100);
             jTableQuestion.getColumnModel().getColumn(3).setMaxWidth(100);
+            jTableQuestion.getColumnModel().getColumn(4).setMinWidth(100);
+            jTableQuestion.getColumnModel().getColumn(4).setMaxWidth(100);
         }
 
         btnViewAns.setText("Xem câu trả lời");
@@ -587,11 +592,11 @@ public class AdminForm extends javax.swing.JFrame {
                     .addGroup(jPanelQuestionLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxListChapter, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbbChapter, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxListLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbbLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelQuestionLayout.createSequentialGroup()
@@ -610,18 +615,18 @@ public class AdminForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBoxListChapter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbChapter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBoxListLesson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbLesson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(jComboBoxDiff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLoc))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddQt)
-                    .addComponent(btnEditQt)
                     .addComponent(btnDeleteQt)
-                    .addComponent(btnViewAns))
+                    .addComponent(btnViewAns)
+                    .addComponent(btnEditQt, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -898,18 +903,19 @@ public class AdminForm extends javax.swing.JFrame {
                 }
             }
     }
+    
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
-        int indexLess = jComboBoxListLesson.getSelectedIndex();
+        int indexLess = cbbLesson.getSelectedIndex();
         int indexDiff = jComboBoxDiff.getSelectedIndex();
         if(indexDiff == 0 && indexLess == 0){
             showTableQuestion();
         } else if(indexDiff == 0 && indexLess > 0){
-            int Less = Integer.parseInt(jComboBoxListLesson.getSelectedItem().toString());
+            int Less = Integer.parseInt(cbbLesson.getSelectedItem().toString());
             getQuestionByLesson(Less);
         } else if(indexLess == 0 && indexDiff != 0){
             getQuestionByDiff(indexDiff);
         } else{
-            int Less = Integer.parseInt(jComboBoxListLesson.getSelectedItem().toString());
+            int Less = Integer.parseInt(cbbLesson.getSelectedItem().toString());
             getQuestionByLessAndDiff(Less, indexDiff);
         }
     }//GEN-LAST:event_btnLocActionPerformed
@@ -918,8 +924,8 @@ public class AdminForm extends javax.swing.JFrame {
         AddQuestionDialog f = new AddQuestionDialog(this, rootPaneCheckingEnabled);
         f.setVisible(true);
     }//GEN-LAST:event_btnAddQtActionPerformed
-
-    private void btnEditQtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditQtActionPerformed
+    
+    private void getOldData(){
         selectedIndex = jTableQuestion.getSelectedRow();
         if(listQ.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane,
@@ -929,6 +935,7 @@ public class AdminForm extends javax.swing.JFrame {
                 "Hãy chọn dòng có câu hỏi cần sửa rồi ấn Sửa!");
         } else {
             EditQuestionDialog edit = new EditQuestionDialog(this, rootPaneCheckingEnabled);
+            edit.showChapterCombobox();
             Question q = new Question();
             q = listQ.get(selectedIndex);
             edit.getOldQuestionData(q);
@@ -937,6 +944,9 @@ public class AdminForm extends javax.swing.JFrame {
             edit.getOldAnswerData(listAsw.get(0), listAsw.get(1), listAsw.get(2), listAsw.get(3));
             edit.setVisible(true);
         }
+    }
+    private void btnEditQtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditQtActionPerformed
+        getOldData();
     }//GEN-LAST:event_btnEditQtActionPerformed
 
     private void btnDeleteQtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteQtActionPerformed
@@ -984,17 +994,17 @@ public class AdminForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnViewAnsActionPerformed
 
-    private void jComboBoxListChapterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxListChapterActionPerformed
-        if(jComboBoxListChapter.getSelectedItem() == "Tất cả"){
-            jComboBoxListLesson.removeAllItems();
+    private void cbbChapterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbChapterActionPerformed
+        if(cbbChapter.getSelectedItem() == "Tất cả"){
+            cbbLesson.removeAllItems();
             showLessonCombobox();
         }else{
-            int chapter = Integer.parseInt(jComboBoxListChapter.getSelectedItem().toString());
+            int chapter = Integer.parseInt(cbbChapter.getSelectedItem().toString());
             ArrayList<Lesson> listL = new ArrayList<Lesson>();
             listL = new LessonDAO().getListLessonByChapter(chapter);
-            jComboBoxListLesson.setModel(new DefaultComboBoxModel(listL.toArray()));
+            cbbLesson.setModel(new DefaultComboBoxModel(listL.toArray()));
         }
-    }//GEN-LAST:event_jComboBoxListChapterActionPerformed
+    }//GEN-LAST:event_cbbChapterActionPerformed
         
     /**
      * @param args the command line arguments
@@ -1037,6 +1047,8 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton btnEditQt;
     private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnViewAns;
+    private javax.swing.JComboBox<String> cbbChapter;
+    private javax.swing.JComboBox<String> cbbLesson;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddAc;
     private javax.swing.JButton jButtonAddChapter;
@@ -1054,8 +1066,6 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEditTest;
     private javax.swing.JComboBox<String> jComboBoxChapter;
     private javax.swing.JComboBox<String> jComboBoxDiff;
-    private javax.swing.JComboBox<String> jComboBoxListChapter;
-    private javax.swing.JComboBox<String> jComboBoxListLesson;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
