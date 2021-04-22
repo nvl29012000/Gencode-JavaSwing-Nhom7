@@ -37,6 +37,7 @@ public class LessonDAO {
                 listL.add(l);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         
         return listL;
@@ -59,11 +60,12 @@ public class LessonDAO {
                 listL.add(l);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         
         return listL;
     }
-    public Lesson getLessonByChapter(int Lesson, int Chapter){
+    public Lesson getLessonByLessonAndChapter(int Lesson, int Chapter){
         String sql = "SELECT * FROM dbo.Lesson WHERE Lesson = ? AND Chapter = ?";
         Lesson l = new Lesson();
         try {
@@ -79,6 +81,7 @@ public class LessonDAO {
             }
             
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return l;
     }
@@ -97,6 +100,7 @@ public class LessonDAO {
             }
             
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return l;
     }

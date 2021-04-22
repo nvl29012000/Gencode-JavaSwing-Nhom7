@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -38,6 +37,7 @@ public class QuestionDAO {
                 qt.setLesson(rs.getInt("Lesson"));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         return qt;
     }
@@ -59,6 +59,7 @@ public class QuestionDAO {
                 listQ.add(q);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         
         return listQ;
@@ -76,6 +77,7 @@ public class QuestionDAO {
             return ps.executeUpdate() > 0;
             
         } catch (SQLException e) {
+            e.printStackTrace();
         }
            
         return false;
@@ -94,6 +96,7 @@ public class QuestionDAO {
             return ps.executeUpdate() > 0;
             
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         
         return false;
@@ -108,6 +111,7 @@ public class QuestionDAO {
             return ps.executeUpdate() > 0;
             
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         
         return false;
@@ -123,8 +127,32 @@ public class QuestionDAO {
                 id = rs.getInt("Question_ID");
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         
         return id;
+    }
+    
+    public ArrayList<Question> getListQuestionByChapter(int chapter){
+        ArrayList<Question> listQ = new ArrayList<>();
+        String sql = "EXEC STP_GetListQuestionByChapter ?";
+        try {
+            PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sql);
+            ps.setInt(1, chapter);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Question q = new Question();
+                q.setQuestion_ID(rs.getInt("Question_ID"));
+                q.setQuestion(rs.getString("Question"));
+                q.setLevel(rs.getInt("Level"));
+                q.setLesson(rs.getInt("Lesson"));
+                
+                listQ.add(q);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listQ;
     }
 }

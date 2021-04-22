@@ -8,10 +8,12 @@ package View;
 import DatabaseIO.AnswerDAO;
 import DatabaseIO.ChapterDAO;
 import DatabaseIO.LessonDAO;
+import DatabaseIO.LevelDAO;
 import DatabaseIO.QuestionDAO;
 import Model.Answer;
 import Model.Chapter;
 import Model.Lesson;
+import Model.Level;
 import Model.Question;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdminForm extends javax.swing.JFrame {
     private ArrayList<Question> listQ;
+    private Level lv;
+    private Chapter c;
+    private Lesson l;
     DefaultTableModel model;
     private int selectedIndex;
     /**
@@ -37,46 +42,29 @@ public class AdminForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         model = (DefaultTableModel) jTableQuestion.getModel();
         showChapterCombobox();
-        showLessonCombobox();
         showTableQuestion();
     }
     
     // hiển thị thông tin ra bảng
     public void showTableQuestion(){
         listQ = new QuestionDAO().getListQuestion();
-        Lesson l = new Lesson();
-        Chapter c = new Chapter();
         model.setRowCount(0); //reset nội dung bảng
         for(Question q : listQ){
-            String Lv = "Dễ";
-            if(q.getLevel() == 2){
-                Lv = "Trung bình";
-            }
-            if(q.getLevel() == 3){
-                Lv = "Khó";
-            }
+            lv = new LevelDAO().getLevelByLevel_ID(q.getLevel());
             l = new LessonDAO().getLessonByLesson_ID(q.getLesson());
             c = new ChapterDAO().getChapterByChapter_ID(l.getChapter());
             model.addRow(new Object[]{
-                q.getQuestion_ID(), q.getQuestion(), Lv, c.getChapter(), l.getLesson()
+                q.getQuestion_ID(), q.getQuestion(), lv.getLevel_Name(), c.getChapter(), l.getLesson()
             });
         }
     }
     // hiển thị chương lên combobox
     public void showChapterCombobox(){
         cbbChapter.addItem("Tất cả");
-        ArrayList<Chapter> listC = new ArrayList<Chapter>();
+        ArrayList<Chapter> listC;
         listC = new ChapterDAO().getListChapter();
         for (Chapter chapter : listC) {
             cbbChapter.addItem(String.valueOf(chapter.getChapter()));
-        }
-    }
-    // hiển thị bài lên combobox
-    public void showLessonCombobox(){
-        ArrayList<Lesson> listL = new ArrayList<Lesson>();
-        listL = new LessonDAO().getListLesson();
-        for (Lesson lesson : listL) {
-            cbbLesson.addItem(String.valueOf(lesson.getLesson()));
         }
     }
     /**
@@ -127,7 +115,7 @@ public class AdminForm extends javax.swing.JFrame {
         cbbLesson = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBoxDiff = new javax.swing.JComboBox<>();
+        cbbDiff = new javax.swing.JComboBox<>();
         btnLoc = new javax.swing.JButton();
         btnAddQt = new javax.swing.JButton();
         btnEditQt = new javax.swing.JButton();
@@ -135,6 +123,7 @@ public class AdminForm extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableQuestion = new javax.swing.JTable();
         btnViewAns = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         jPanelExam = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanelTests = new javax.swing.JPanel();
@@ -494,7 +483,7 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Mức độ:");
 
-        jComboBoxDiff.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Dễ", "Trung Bình", "Khó" }));
+        cbbDiff.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Dễ", "Trung Bình", "Khó" }));
 
         btnLoc.setText("Lọc");
         btnLoc.addActionListener(new java.awt.event.ActionListener() {
@@ -524,13 +513,12 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
-        jTableQuestion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTableQuestion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Question ID", "Question", "Level", "Chapter", "Lesson"
+                "Mã", "Câu hỏi", "Mức độ", "Chương", "Bài"
             }
         ) {
             Class[] types = new Class [] {
@@ -575,6 +563,13 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelQuestionLayout = new javax.swing.GroupLayout(jPanelQuestion);
         jPanelQuestion.setLayout(jPanelQuestionLayout);
         jPanelQuestionLayout.setHorizontalGroup(
@@ -582,7 +577,7 @@ public class AdminForm extends javax.swing.JFrame {
             .addComponent(jScrollPane5)
             .addGroup(jPanelQuestionLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanelQuestionLayout.createSequentialGroup()
                         .addComponent(btnAddQt)
                         .addGap(18, 18, 18)
@@ -591,6 +586,8 @@ public class AdminForm extends javax.swing.JFrame {
                         .addComponent(btnDeleteQt)
                         .addGap(18, 18, 18)
                         .addComponent(btnViewAns)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelQuestionLayout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -603,7 +600,7 @@ public class AdminForm extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxDiff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbbDiff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59)
                         .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(402, 402, 402))))
@@ -618,7 +615,7 @@ public class AdminForm extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(cbbLesson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBoxDiff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbDiff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLoc))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -626,7 +623,8 @@ public class AdminForm extends javax.swing.JFrame {
                     .addGroup(jPanelQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAddQt)
                         .addComponent(btnDeleteQt)
-                        .addComponent(btnViewAns)))
+                        .addComponent(btnViewAns)
+                        .addComponent(btnReset)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -837,89 +835,101 @@ public class AdminForm extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        
     }//GEN-LAST:event_formWindowOpened
-
-    // lọc câu hỏi theo độ khó
-    private void getQuestionByDiff(int d){
-        listQ = new QuestionDAO().getListQuestion();
-        model.setRowCount(0);
-        for(Question q : listQ){
-            if(d == 0){
-                showTableQuestion();
-            } else{
-                if(q.getLevel() == d){
-                    String Lv = "Dễ";
-                    if(q.getLevel() == 2){
-                        Lv = "Trung bình";
-                    }
-                    if(q.getLevel() == 3){
-                        Lv = "Khó";
-                    }
-                    model.addRow(new Object[]{
-                        q.getQuestion_ID(), q.getQuestion(), Lv, q.getLesson()
-                    });
-                }
-            }
-        }
-    }   
-    // lọc câu hỏi theo lesson
-    private void getQuestionByLesson(int l){
-        listQ = new QuestionDAO().getListQuestion();
-        model.setRowCount(0);
-        for(Question q : listQ){
-            if(l < 1){
-                showTableQuestion();
-            } else{
-                if(q.getLesson() == l){
-                    String Lv = "Dễ";
-                    if(q.getLevel() == 2){
-                        Lv = "Trung bình";
-                    }
-                    if(q.getLevel() == 3){
-                        Lv = "Khó";
-                    }
-                    model.addRow(new Object[]{
-                        q.getQuestion_ID(), q.getQuestion(), Lv, q.getLesson()
-                    });
-                }
-            }
-        }
-    }
-    // lọc câu hỏi theo độ khó và bài
-    private void getQuestionByLessAndDiff(int l, int d){
-        listQ = new QuestionDAO().getListQuestion();
-            model.setRowCount(0);
-            for(Question q : listQ){
-                if(q.getLevel() == d && q.getLesson() == l){
-                    String Lv = "Dễ";
-                    if(q.getLevel() == 2){
-                        Lv = "Trung bình";
-                    }
-                    if(q.getLevel() == 3){
-                        Lv = "Khó";
-                    }
-                    model.addRow(new Object[]{
-                        q.getQuestion_ID(), q.getQuestion(), Lv, q.getLesson()
-                    });
-                }
-            }
-    }
     
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
-        int indexLess = cbbLesson.getSelectedIndex();
-        int indexDiff = jComboBoxDiff.getSelectedIndex();
-        if(indexDiff == 0 && indexLess == 0){
+        String chap = cbbChapter.getSelectedItem().toString();
+        String less = cbbLesson.getSelectedItem().toString();
+        String diff = cbbDiff.getSelectedItem().toString();
+        if(diff.equals("Tất cả") && chap.equals("Tất cả")){
             showTableQuestion();
-        } else if(indexDiff == 0 && indexLess > 0){
-            int Less = Integer.parseInt(cbbLesson.getSelectedItem().toString());
-            getQuestionByLesson(Less);
-        } else if(indexLess == 0 && indexDiff != 0){
-            getQuestionByDiff(indexDiff);
+        } else if(diff.equals("Tất cả") && !chap.equals("Tất cả") && less.equals("Tất cả")){
+            getQuestionByChapter(Integer.parseInt(chap));
+        } else if(!diff.equals("Tất cả") && !chap.equals("Tất cả") && less.equals("Tất cả")){
+            getQuestionByChapterAndDiff(Integer.parseInt(chap), diff);
+        } else if(diff.equals("Tất cả") && !chap.equals("Tất cả")){
+            getQuestionByLesson(Integer.parseInt(less), Integer.parseInt(chap));
+        } else if(!diff.equals("Tất cả") && chap.equals("Tất cả")){
+            getQuestionByDiff(diff);
         } else{
-            int Less = Integer.parseInt(cbbLesson.getSelectedItem().toString());
-            getQuestionByLessAndDiff(Less, indexDiff);
+            getQuestionByLessAndDiff(Integer.parseInt(chap), Integer.parseInt(less), diff);
         }
     }//GEN-LAST:event_btnLocActionPerformed
 
+    // lấy câu hỏi theo độ khó
+    private void getQuestionByDiff(String d){
+        lv = new LevelDAO().getLevelByLevel_Name(d);
+        listQ = new QuestionDAO().getListQuestion();
+        model.setRowCount(0);
+        for(Question q : listQ){
+            if(d.equals("Tất cả")){
+                showTableQuestion();
+            } else{
+                if(q.getLevel() == lv.getLevel_ID()){
+                    l = new LessonDAO().getLessonByLesson_ID(q.getLesson());
+                    model.addRow(new Object[]{
+                        q.getQuestion_ID(), q.getQuestion(), d, l.getChapter(), l.getLesson()
+                    });
+                }
+            }
+        }
+    }
+    // lấy câu hỏi theo chương
+    private void getQuestionByChapter(int chapter){
+        c = new ChapterDAO().getChapterByChapter(chapter);
+        listQ = new QuestionDAO().getListQuestionByChapter(c.getChapter_ID());
+        model.setRowCount(0);
+        for (Question q : listQ) {
+            lv = new LevelDAO().getLevelByLevel_ID(q.getLevel());
+            l = new LessonDAO().getLessonByLesson_ID(q.getLesson());
+            model.addRow(new Object[]{
+                q.getQuestion_ID(), q.getQuestion(), lv.getLevel_Name(), chapter, l.getLesson()
+            });
+        }
+    }
+    // lấy câu hỏi theo chương, độ khó
+    private void getQuestionByChapterAndDiff(int chapter, String diff){
+        c = new ChapterDAO().getChapterByChapter(chapter);
+        lv = new LevelDAO().getLevelByLevel_Name(diff);
+        listQ = new QuestionDAO().getListQuestionByChapter(c.getChapter_ID());
+        model.setRowCount(0);
+        for (Question q : listQ) {
+            if(q.getLevel() == lv.getLevel_ID()){
+                l = new LessonDAO().getLessonByLesson_ID(q.getLesson());
+                model.addRow(new Object[]{
+                q.getQuestion_ID(), q.getQuestion(), diff, chapter, l.getLesson()
+            });
+            }
+        }
+    }
+    // lấy câu hỏi theo chương, bài
+    private void getQuestionByLesson(int lesson, int chapter){
+        l = new LessonDAO().getLessonByLessonAndChapter(lesson, chapter);
+        listQ = new QuestionDAO().getListQuestion();
+        model.setRowCount(0);
+        for(Question q : listQ){
+            if(q.getLesson() == l.getLesson_ID()){
+                lv = new LevelDAO().getLevelByLevel_ID(q.getLevel());
+                model.addRow(new Object[]{
+                    q.getQuestion_ID(), q.getQuestion(), lv.getLevel_Name(), chapter, lesson
+                });
+            }
+        }
+    }
+    // lấy câu hỏi theo chương, bài, độ khó
+    private void getQuestionByLessAndDiff(int chapter, int lesson, String diff){
+        l = new LessonDAO().getLessonByLessonAndChapter(lesson, chapter);
+        lv = new LevelDAO().getLevelByLevel_Name(diff);
+        listQ = new QuestionDAO().getListQuestion();
+        model.setRowCount(0);
+        for(Question q : listQ){
+            if(q.getLevel() == lv.getLevel_ID() && q.getLesson() == l.getLesson_ID()){
+                model.addRow(new Object[]{
+                    q.getQuestion_ID(), q.getQuestion(), diff, chapter, lesson
+                });
+            }
+        }
+    }
+    
     private void btnAddQtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddQtActionPerformed
         AddQuestionDialog f = new AddQuestionDialog(this, rootPaneCheckingEnabled);
         f.setVisible(true);
@@ -929,14 +939,14 @@ public class AdminForm extends javax.swing.JFrame {
         selectedIndex = jTableQuestion.getSelectedRow();
         if(listQ.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane,
-                "Hãy nhập thêm câu hỏi rồi sửa!");
+                "Hãy nhập thêm câu hỏi rồi sửa!", "Thông báo!", JOptionPane.WARNING_MESSAGE);
         } else if(selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane,
-                "Hãy chọn dòng có câu hỏi cần sửa rồi ấn Sửa!");
+                "Hãy chọn dòng có câu hỏi cần sửa rồi ấn Sửa!", "Thông báo!",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
             EditQuestionDialog edit = new EditQuestionDialog(this, rootPaneCheckingEnabled);
             edit.showChapterCombobox();
-//            edit.showLessonByChapterCombobox();
             Question q = new Question();
             q = listQ.get(selectedIndex);
             edit.getOldQuestionData(q);
@@ -954,10 +964,11 @@ public class AdminForm extends javax.swing.JFrame {
         selectedIndex = jTableQuestion.getSelectedRow();
         if(listQ.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane,
-                "Hãy nhập thêm câu hỏi rồi xóa!");
+                "Hãy nhập thêm câu hỏi rồi xóa!", "Thông báo!", JOptionPane.WARNING_MESSAGE);
         } else if(selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane,
-                "Hãy chọn dòng có câu hỏi cần xóa rồi ấn Xóa!");
+                "Hãy chọn dòng có câu hỏi cần xóa rồi ấn Xóa!", "Thông báo!",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
             int dialogResult = JOptionPane.showConfirmDialog(rootPane,
                 "Bạn chắc chắn muốn xóa câu hỏi này?", "Thông báo", JOptionPane.YES_NO_OPTION);
@@ -980,10 +991,11 @@ public class AdminForm extends javax.swing.JFrame {
         selectedIndex = jTableQuestion.getSelectedRow();
         if(listQ.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane,
-                "Hãy nhập thêm câu hỏi rồi xem!");
+                "Hãy nhập thêm câu hỏi rồi xem!", "Thông báo!", JOptionPane.WARNING_MESSAGE);
         } else if(selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane,
-                "Hãy chọn dòng có câu hỏi cần xem rồi ấn Xem câu trả lời!");
+                "Hãy chọn dòng có câu hỏi cần xem rồi ấn Xem câu trả lời!", "Thông báo!",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
             ViewAnswerJDialog view = new ViewAnswerJDialog(this, rootPaneCheckingEnabled);
             Question q = new Question();
@@ -998,14 +1010,22 @@ public class AdminForm extends javax.swing.JFrame {
     private void cbbChapterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbChapterActionPerformed
         if(cbbChapter.getSelectedItem() == "Tất cả"){
             cbbLesson.removeAllItems();
-            showLessonCombobox();
+            cbbLesson.addItem("Tất cả");
         }else{
+            cbbLesson.removeAllItems();
+            cbbLesson.addItem("Tất cả");
             int chapter = Integer.parseInt(cbbChapter.getSelectedItem().toString());
             ArrayList<Lesson> listL = new ArrayList<Lesson>();
             listL = new LessonDAO().getListLessonByChapter(chapter);
-            cbbLesson.setModel(new DefaultComboBoxModel(listL.toArray()));
+            for (Lesson l : listL) {
+                cbbLesson.addItem(String.valueOf(l.getLesson()));
+            }
         }
     }//GEN-LAST:event_cbbChapterActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        showTableQuestion();
+    }//GEN-LAST:event_btnResetActionPerformed
         
     /**
      * @param args the command line arguments
@@ -1047,8 +1067,10 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteQt;
     private javax.swing.JButton btnEditQt;
     private javax.swing.JButton btnLoc;
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnViewAns;
     private javax.swing.JComboBox<String> cbbChapter;
+    private javax.swing.JComboBox<String> cbbDiff;
     private javax.swing.JComboBox<String> cbbLesson;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddAc;
@@ -1066,7 +1088,6 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEditQuestion;
     private javax.swing.JButton jButtonEditTest;
     private javax.swing.JComboBox<String> jComboBoxChapter;
-    private javax.swing.JComboBox<String> jComboBoxDiff;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

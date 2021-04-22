@@ -37,6 +37,7 @@ public class ChapterDAO {
                 listC.add(c);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         
         return listC;
@@ -56,6 +57,7 @@ public class ChapterDAO {
             }
             
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return c;
     }
@@ -74,6 +76,7 @@ public class ChapterDAO {
             }
             
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return c;
     }

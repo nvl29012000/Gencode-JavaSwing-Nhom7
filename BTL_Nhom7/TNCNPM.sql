@@ -1,8 +1,9 @@
 ﻿USE master
 GO
 
-IF(EXISTS(SELECT * FROM SYSDATABASES WHERE NAME='TracNghiemCNPM'))
+IF(EXISTS(SELECT * FROM SYSDATABASES WHERE name='TracNghiemCNPM'))
 	DROP DATABASE TracNghiemCNPM
+GO
 
 CREATE DATABASE TracNghiemCNPM
 GO
@@ -241,4 +242,10 @@ END
 --DROP PROC STP_GetMinIdOfQuestionByLevel
 GO
 
-SELECT * FROM Test
+-- PROC Get List Question By Chapter
+CREATE PROC STP_GetListQuestionByChapter @chapter int
+AS
+SELECT Q.Question_ID, Question, Level, Q.Lesson
+FROM Question Q INNER JOIN Lesson L ON Q.Lesson = L.Lesson_ID
+WHERE Chapter = @chapter
+GO

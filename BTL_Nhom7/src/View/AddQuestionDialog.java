@@ -38,22 +38,12 @@ public class AddQuestionDialog extends javax.swing.JDialog {
 
     }
     private void showChapterCombobox(){
-//        try {
-            ArrayList<Chapter> listC = new ArrayList<Chapter>();
-            listC = new ChapterDAO().getListChapter();
-//            if(listC.isEmpty()){
-//                throw new Exception("Hãy thêm chương trước!!");
-//            }else{
-                for (Chapter chapter : listC) {
-                cbbChapter.addItem(String.valueOf(chapter.getChapter()));
-                }
-//            }
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Thông báo!",
-//                    JOptionPane.WARNING_MESSAGE);
-//        }
-    }
-
+        ArrayList<Chapter> listC = new ArrayList<Chapter>();
+        listC = new ChapterDAO().getListChapter();
+            for (Chapter chapter : listC) {
+            cbbChapter.addItem(String.valueOf(chapter.getChapter()));
+            }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -258,8 +248,9 @@ public class AddQuestionDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbChapter, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbLesson, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cbbChapter, javax.swing.GroupLayout.Alignment.LEADING, 0, 50, Short.MAX_VALUE)
+                        .addComponent(cbbLesson, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -337,7 +328,7 @@ public class AddQuestionDialog extends javax.swing.JDialog {
                 q.setLevel(cbbLevel.getSelectedIndex() + 1);
                 int c = Integer.parseInt(cbbChapter.getSelectedItem().toString());
                 int l = Integer.parseInt(cbbLesson.getSelectedItem().toString());
-                Lesson less = new LessonDAO().getLessonByChapter(l, c);
+                Lesson less = new LessonDAO().getLessonByLessonAndChapter(l, c);
                 q.setLesson(less.getLesson_ID());
                     
                 boolean addQ = new QuestionDAO().addQuestion(q);
