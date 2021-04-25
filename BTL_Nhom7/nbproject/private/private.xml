@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desktop/Java_BTL/BTL_Nhom7/src/View/LoginForm.java</file>
-            <file>file:/D:/Desktop/Java_BTL/BTL_Nhom7/src/View/EditTestInfor.java</file>
-            <file>file:/D:/Desktop/Java_BTL/BTL_Nhom7/src/Model/Account.java</file>
             <file>file:/D:/Desktop/Java_BTL/BTL_Nhom7/src/View/AdminForm.java</file>
-            <file>file:/D:/Desktop/Java_BTL/BTL_Nhom7/src/DatabaseIO/AnswerDAO.java</file>
             <file>file:/D:/Desktop/Java_BTL/BTL_Nhom7/src/View/AddTestInfor.java</file>
-            <file>file:/D:/Desktop/Java_BTL/BTL_Nhom7/src/DatabaseIO/AccountDAO.java</file>
+            <file>file:/D:/Desktop/Java_BTL/BTL_Nhom7/src/DatabaseIO/TestDAO.java</file>
         </group>
     </open-files>
 </project-private>

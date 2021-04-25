@@ -33,7 +33,7 @@ public class TestDAO {
             while (rs.next()) {
                 Test test = new Test();
                 test.setTest_ID(rs.getInt("Test_ID"));
-                test.setTest_Code(rs.getString("Test_Code"));
+                test.setTest_Code(rs.getString("Test_Name"));
                 test.setNumber_Of_Question(rs.getInt("Number_Of_Question"));
                 test.setTime(rs.getInt("Time"));
                 test.setLevel(rs.getInt("Level"));

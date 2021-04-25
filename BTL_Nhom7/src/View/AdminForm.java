@@ -749,7 +749,17 @@ public class AdminForm extends javax.swing.JFrame {
             row.add(test.getTest_Code());
             row.add(test.getNumber_Of_Question());
             row.add(test.getTime());
-            row.add(test.getLevel());
+            switch(test.getLevel()){
+                case 1:
+                    row.add("Dễ");
+                    break;
+                case 2:
+                    row.add("TB");
+                    break;
+                case 3:
+                    row.add("Khó");
+                    break;
+            }   
             testModel.addRow(row);
         }
         jTableTests.setModel(testModel);

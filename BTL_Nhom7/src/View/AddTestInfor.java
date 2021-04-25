@@ -245,7 +245,7 @@ public class AddTestInfor extends javax.swing.JDialog {
     private void jButtonRandomTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRandomTestActionPerformed
         addTest();
         isClose = true;
-        this.dispose();
+        
     }//GEN-LAST:event_jButtonRandomTestActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -262,8 +262,8 @@ public class AddTestInfor extends javax.swing.JDialog {
             int numberQuestion = Integer.parseInt(jTextFieldAmountQuestion.getText());        
             int time = Integer.parseInt(jTextFieldTimeTest.getText());
             
-            int chapter = jComboBoxChapter.getSelectedIndex();
-            int lesson = jComboBoxLesson.getSelectedIndex();
+            int chapter = jComboBoxChapter.getSelectedIndex()+1;
+            int lesson = jComboBoxLesson.getSelectedIndex()+1;
             int level = jComboBoxDifficult.getSelectedIndex();
             
             ArrayList<String> testCodeList = new ArrayList<String>();
@@ -285,6 +285,12 @@ public class AddTestInfor extends javax.swing.JDialog {
             if(testDAO.insertTest(t)){
                 ArrayList<Integer> questions = calculatorAmountQuestion(numberQuestion);
                 addQuestionByLevel(questions,chapter,lesson,level);
+                int chose = JOptionPane.showConfirmDialog(rootPane, "Thêm thành công. Bạn đã muốn thêm đề tiếp không?","Thông báo", JOptionPane.YES_NO_OPTION);
+                if (chose == 1) {     
+                    this.dispose();
+                }
+                else
+                    clearBox();
             }
         }
         catch(NumberFormatException ex){
@@ -307,9 +313,10 @@ public class AddTestInfor extends javax.swing.JDialog {
             List<Question> listAdded = new ArrayList<Question>();
             List<Question> listQuestions = questionDAO.getQuestionstByChapterLessonLevel(chapter,lesson,level);
             
-            if(amountRandom>listQuestions.size())
+            if(amountRandom>listQuestions.size()){
+                deleteTestById();
                 throw new Exception("Không đủ câu hỏi để tạo đề!!!");
-
+            }
             int minRange=questionDAO.getMinIdQuestion(level);
             int maxRange=questionDAO.getMaxIdQuestion(level);
             do{
@@ -361,8 +368,7 @@ public class AddTestInfor extends javax.swing.JDialog {
         question.add(level3);
         return question;
     }
-    void addQuestionByLevel(ArrayList<Integer> questions, int chapter, int lesson,int level){
-        try{
+    void addQuestionByLevel(ArrayList<Integer> questions, int chapter, int lesson,int level) throws Exception{
             switch(level){
                 case 0://Dễ
                     addTestQuestionRandom(questions.get(0),chapter,lesson,1);
@@ -379,19 +385,22 @@ public class AddTestInfor extends javax.swing.JDialog {
                     addTestQuestionRandom(questions.get(1),chapter,lesson,2);
                     addTestQuestionRandom(questions.get(2),chapter,lesson,1);
                     break;
-            }   
-        }     
-        catch(Exception e){
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
-            
-            deleteTestById();
-        }
+            }     
     }
     boolean deleteTestById(){
         TestDAO testDAO = new TestDAO();
         int idTestPre = testDAO.getMaxIdTest();//get new id Test by get max of idTest
         
         return testDAO.deleteTestById(idTestPre);
+    }
+    void clearBox(){
+        jTextFieldAmountQuestion.setText("");
+        jTextFieldCodeTest.setText("");
+        jTextFieldTimeTest.setText("");
+        
+        jComboBoxChapter.setSelectedIndex(0);
+        jComboBoxDifficult.setSelectedIndex(0);
+        jComboBoxLesson.setSelectedIndex(0);
     }
     /**
      * @param args the command line arguments

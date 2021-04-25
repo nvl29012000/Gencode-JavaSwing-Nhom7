@@ -59,7 +59,7 @@ GO
 
 CREATE TABLE Test(
 	Test_ID INT IDENTITY PRIMARY KEY,
-	Test_Code NCHAR(20), --mã đề
+	Test_Name NCHAR(20), --tên đề
 	Number_Of_Question INT,
 	Time INT, --Thời gian làm đề. Tính là phút, nếu thời gian dài hơn sẽ làm hàm convert ở phía xử lý code.
 	Level INT FOREIGN KEY REFERENCES Level(Level_ID),
@@ -113,16 +113,16 @@ INSERT [dbo].[Level] ([Level_Name]) VALUES (N'Khó')
 GO
 
 
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'HK_001', 4, 1, 1, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'HK_002', 10, 20, 2, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'ABC_123', 8, 8, 1, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_001', 12, 9, 3, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_002', 15, 10, 3, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_003', 15, 10, 2, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_004', 10, 8, 1, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_005', 10, 7, 1, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_006', 10, 7, 1, 1)
-INSERT [dbo].[Test] ([Test_Code], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_007', 12, 8, 3, 1)
+INSERT [dbo].[Test] ([Test_Name], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'HK_001', 4, 1, 1, 1)
+INSERT [dbo].[Test] ([Test_Name], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'HK_002', 10, 20, 2, 1)
+INSERT [dbo].[Test] ([Test_Name], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'ABC_123', 8, 8, 1, 1)
+INSERT [dbo].[Test] ([Test_Name], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_001', 12, 9, 3, 1)
+INSERT [dbo].[Test] ([Test_Name], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_002', 15, 10, 3, 1)
+INSERT [dbo].[Test] ([Test_Name], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_003', 15, 10, 2, 1)
+INSERT [dbo].[Test] ([Test_Name], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_004', 10, 8, 1, 1)
+INSERT [dbo].[Test] ([Test_Name], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_005', 10, 7, 1, 1)
+INSERT [dbo].[Test] ([Test_Name], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_006', 10, 7, 1, 1)
+INSERT [dbo].[Test] ([Test_Name], [Number_Of_Question], [Time], [Level], [Status]) VALUES (N'MT_007', 12, 8, 3, 1)
 
 GO
 
@@ -334,4 +334,4 @@ FROM Question AS Q, Chapter AS C, Lesson AS L
 WHERE Q.Lesson = L.Lesson
 AND L.Chapter = C.Chapter
 AND C.Chapter = 3
-AND L.Lesson = 2
+AND L.Lesson = 1
