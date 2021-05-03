@@ -8,6 +8,7 @@ package View;
 import DatabaseIO.QuestionDAO;
 import DatabaseIO.TestDAO;
 import DatabaseIO.Test_QuestionDAO;
+import Model.CustomTableTest;
 import Model.Question;
 import Model.Test;
 import java.util.ArrayList;
@@ -90,8 +91,7 @@ public class AdminForm extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         jTableTests = new javax.swing.JTable();
         jButtonAddTest = new javax.swing.JButton();
-        jButtonEditTest = new javax.swing.JButton();
-        jButtonDeleteTest = new javax.swing.JButton();
+        jButtonDisableTest = new javax.swing.JButton();
         jPanelTestQuestion = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -538,17 +538,10 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
-        jButtonEditTest.setText("Sửa đề thi");
-        jButtonEditTest.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDisableTest.setText("Vô hiệu hóa");
+        jButtonDisableTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEditTestActionPerformed(evt);
-            }
-        });
-
-        jButtonDeleteTest.setText("Xóa đề thi");
-        jButtonDeleteTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeleteTestActionPerformed(evt);
+                jButtonDisableTestActionPerformed(evt);
             }
         });
 
@@ -563,9 +556,7 @@ public class AdminForm extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jButtonAddTest, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonEditTest, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jButtonDeleteTest, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonDisableTest, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelTestsLayout.createSequentialGroup()
                         .addGap(165, 165, 165)
                         .addComponent(jLabel9)
@@ -580,8 +571,7 @@ public class AdminForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(jPanelTestsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAddTest)
-                    .addComponent(jButtonEditTest)
-                    .addComponent(jButtonDeleteTest))
+                    .addComponent(jButtonDisableTest))
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -678,7 +668,7 @@ public class AdminForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         int input = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn thoát chương trình?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -688,8 +678,7 @@ public class AdminForm extends javax.swing.JFrame {
             f.setLocationRelativeTo(null);
             f.setResizable(false);
             f.setVisible(true);
-        }
-        else{
+        } else {
             this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         }
     }//GEN-LAST:event_formWindowClosing
@@ -700,10 +689,16 @@ public class AdminForm extends javax.swing.JFrame {
 
     private void jTableTestsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTestsMouseClicked
         int row = jTableTests.getSelectedRow();
-        if(row>=0){
-            int idTest = (Integer)jTableTests.getValueAt(row, 0);
+        if (row >= 0) {
+            int idTest = (Integer) jTableTests.getValueAt(row, 0);
             testQuestionLoad(idTest);
-        }      
+            if (((String) jTableTests.getValueAt(row, 4)).compareToIgnoreCase("Hoạt động") == 0) {
+                jButtonDisableTest.setText("Vô hiệu hóa");
+            } else {
+                jButtonDisableTest.setText("Kích hoạt");
+            }
+
+        }
     }//GEN-LAST:event_jTableTestsMouseClicked
 
     private void jButtonAddTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTestActionPerformed
@@ -711,124 +706,75 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddTestActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if(AddTestInfor.isClose||EditTestInfor.isClose)
+        if (AddTestInfor.isClose) {
             testsLoad();
+        }
     }//GEN-LAST:event_formWindowActivated
 
-    private void jButtonDeleteTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteTestActionPerformed
+    private void jButtonDisableTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisableTestActionPerformed
         deleteTest();
-    }//GEN-LAST:event_jButtonDeleteTestActionPerformed
-
-    private void jButtonEditTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditTestActionPerformed
-        editTest();
-    }//GEN-LAST:event_jButtonEditTestActionPerformed
-    void openAddTestInfor(){
+    }//GEN-LAST:event_jButtonDisableTestActionPerformed
+    void openAddTestInfor() {
         AddTestInfor addTestInfor = new AddTestInfor();
         addTestInfor.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addTestInfor.setLocationRelativeTo(null);
         addTestInfor.setResizable(false);
         addTestInfor.setVisible(true);
     }
-    void testsLoad()
-    {
-        DefaultTableModel testModel = new DefaultTableModel();
-        Vector header = new Vector();
-        header.add("ID đề");
-        header.add("Mã đề");
-        header.add("Số câu hỏi");
-        header.add("Thời gian");
-        header.add("Độ khó");
-        testModel.setColumnIdentifiers(header);
-        
+
+    void testsLoad() {
         TestDAO testDao = new TestDAO();
-        List<Test> fullTest = testDao.getFullListTest();
-        for (int i = 0; i < fullTest.size(); i++) {
-            Test test = fullTest.get(i);
-            Vector row = new Vector();
-            row.add(test.getTest_ID());
-            row.add(test.getTest_Code());
-            row.add(test.getNumber_Of_Question());
-            row.add(test.getTime());
-            switch(test.getLevel()){
-                case 1:
-                    row.add("Dễ");
-                    break;
-                case 2:
-                    row.add("TB");
-                    break;
-                case 3:
-                    row.add("Khó");
-                    break;
-            }   
-            testModel.addRow(row);
-        }
-        jTableTests.setModel(testModel);
+        ArrayList<Test> fullTest = testDao.getFullListTest();
+        CustomTableTest c = new CustomTableTest(fullTest);
+        jTableTests.setModel(new CustomTableTest(fullTest));
+
     }
-    void testQuestionLoad(int idTest)
-    {
+
+    void testQuestionLoad(int idTest) {
         DefaultTableModel questionsModel = new DefaultTableModel();
         Vector header = new Vector();
         header.add("STT");
         header.add("Câu hỏi");
         questionsModel.setColumnIdentifiers(header);
-        
+
         QuestionDAO questionsDao = new QuestionDAO();
         List<Question> listQuestions = questionsDao.getQuestionByIdTest(idTest);
-        
+
         for (int i = 0; i < listQuestions.size(); i++) {
             Question question = listQuestions.get(i);
             Vector row = new Vector();
-            row.add(i+1);
+            row.add(i + 1);
             row.add(question.getQuestion());
             questionsModel.addRow(row);
         }
-        
+
         jTableQuestions.setModel(questionsModel);
     }
+
     private void deleteTest() {
-        try{
+        try {
             TestDAO testDAO = new TestDAO();
             int row = jTableTests.getSelectedRow();
-            
-            if(row>=0){
-                int idTest = (Integer)jTableTests.getValueAt(row, 0);
-                
-                if(JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn xóa mã đề "+ jTableTests.getValueAt(row,1))==0){
-                    if(testDAO.deleteTestById(idTest)){
+
+            if (row >= 0) {
+                int idTest = (Integer) jTableTests.getValueAt(row, 0);
+
+                if (JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn xóa mã đề " + jTableTests.getValueAt(row, 1)) == 0) {
+                    if (testDAO.deleteTestById(idTest)) {
                         testsLoad();
                         throw new Exception("Xóa thành công!!!");
-                    }
-                    else
+                    } else {
                         throw new Exception("Xóa không thành công!!!");
+                    }
                 }
-            }
-            else
+            } else {
                 throw new Exception("Chọn đề cần xóa!!!");
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }
-    }
-    private void editTest() {
-        try{
-            TestDAO testDAO = new TestDAO();
-            int row = jTableTests.getSelectedRow();
-            
-            if(row>=0){
-                int idTest = (Integer)jTableTests.getValueAt(row, 0);
-                EditTestInfor editForm = new EditTestInfor(idTest);
-                editForm.show();
-                editForm.setLocationRelativeTo(null);
-                
-                
             }
-            else
-                throw new Exception("Chọn đề cần sửa!!!");
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        } 
+        }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -873,10 +819,9 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAddTest;
     private javax.swing.JButton jButtonDeleteChapter;
     private javax.swing.JButton jButtonDeleteLesson;
-    private javax.swing.JButton jButtonDeleteTest;
+    private javax.swing.JButton jButtonDisableTest;
     private javax.swing.JButton jButtonEditChapter;
     private javax.swing.JButton jButtonEditLesson;
-    private javax.swing.JButton jButtonEditTest;
     private javax.swing.JComboBox<String> jComboBoxChapter;
     private javax.swing.JComboBox<String> jComboBoxDiff;
     private javax.swing.JComboBox<String> jComboBoxListChapter;
@@ -923,7 +868,4 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JTable jTableTests;
     // End of variables declaration//GEN-END:variables
 
-
-
-    
 }

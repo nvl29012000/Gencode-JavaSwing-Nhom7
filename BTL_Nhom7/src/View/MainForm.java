@@ -350,7 +350,7 @@ public class MainForm extends javax.swing.JFrame {
         listTest = dao.getFullListTest();          //Lấy list các Test
         for (Test item : listTest) {
             JButton btn = new JButton();        //Mỗi Test sẽ là 1 button
-            btn.setText(item.getTest_Code());
+            btn.setText(item.getTest_Name());
             btn.setPreferredSize(new Dimension(250, 150));
             btn.setFont(new Font(Font.SANS_SERIF, 4, 14));
             btn.setBackground(Color.BLUE);
@@ -367,7 +367,7 @@ public class MainForm extends javax.swing.JFrame {
                     choose = item;
                     listTest_Question = new Test_QuestionDAO().list((int) item.getTest_ID());       //Lấy list câu hỏi từ database
                     if (listTest_Question.size() == 0) {                    //Nếu danh sách câu hỏi có size = 0 => Thông báo và return
-                        JOptionPane.showMessageDialog(rootPane, "Mã đề " + item.getTest_Code().trim() + " không có câu hỏi nào");
+                        JOptionPane.showMessageDialog(rootPane, "Mã đề " + item.getTest_Name().trim() + " không có câu hỏi nào");
                         return;
                     }
                     loadTime(item.getTime());           //Nếu có câu hỏi bắt đầu làm bài. Hàm gọi thời gian đếm ngược ở trên

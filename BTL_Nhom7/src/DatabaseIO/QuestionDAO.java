@@ -54,8 +54,8 @@ public class QuestionDAO {
                 Question qt = new Question();
                 qt.setQuestion_ID(rs.getInt("Question_ID"));
                 qt.setQuestion(rs.getString("Question"));
-                qt.setLevel(rs.getInt("Level"));
-                qt.setLesson(rs.getInt("Lesson"));
+                qt.setLevel(rs.getInt("Level_ID"));
+                qt.setLesson(rs.getInt("Lesson_ID"));
                 listQuest.add(qt);
             }
         }
@@ -128,8 +128,8 @@ public class QuestionDAO {
                 Question qt = new Question();
                 qt.setQuestion_ID(rs.getInt("Question_ID"));
                 qt.setQuestion(rs.getString("Question"));
-                qt.setLevel(rs.getInt("Level"));
-                qt.setLesson(rs.getInt("Lesson"));
+                qt.setLevel(rs.getInt("Level_ID"));
+                qt.setLesson(rs.getInt("Lesson_ID"));
                 listQuest.add(qt);
             }
         } catch (SQLException e) {

@@ -41,7 +41,7 @@ public class Result_TestForm extends javax.swing.JDialog {
         Account user = new AccountDAO().getAccount(res.getAccount());
         Test test = new TestDAO().getTest(res.getTest());
         jTextFieldName.setText(user.getName());
-        jTextFieldTestCode.setText(test.getTest_Code());
+        jTextFieldTestCode.setText(test.getTest_Name());
         jTextFieldCorrectQT.setText(res.getCorrect_QT() + " / " + test.getNumber_Of_Question());
         jTextFieldTime.setText(res.getTime() + " phút");
         jTextFieldMark.setText(Double.toString((double) res.getCorrect_QT() / test.getNumber_Of_Question() * 10));

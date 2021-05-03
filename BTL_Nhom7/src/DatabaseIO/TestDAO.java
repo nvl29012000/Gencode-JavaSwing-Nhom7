@@ -24,19 +24,18 @@ public class TestDAO {
     public TestDAO() {
     }
 
-    public List<Test> getFullListTest() {
-        List<Test> list = new ArrayList<>();
-        String SqlQuery = "SELECT * FROM dbo.Test WHERE Status = 1";
+    public ArrayList<Test> getFullListTest() {
+        ArrayList<Test> list = new ArrayList<>();
+        String SqlQuery = "SELECT * FROM dbo.Test";
         try {
             PreparedStatement ps = DataProvider.getInstance().Connection().prepareStatement(SqlQuery);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Test test = new Test();
                 test.setTest_ID(rs.getInt("Test_ID"));
-                test.setTest_Code(rs.getString("Test_Name"));
-                test.setNumber_Of_Question(rs.getInt("Number_Of_Question"));
+                test.setTest_Name(rs.getString("Test_Name"));
                 test.setTime(rs.getInt("Time"));
-                test.setLevel(rs.getInt("Level"));
+                test.setLevel(rs.getInt("Level_ID"));
                 test.setStatus(rs.getBoolean("Status"));
                 list.add(test);
             }
@@ -58,10 +57,9 @@ public class TestDAO {
                 while (rs.next()) {
                     test = new Test();
                     test.setTest_ID(rs.getInt("Test_ID"));
-                    test.setTest_Code(rs.getString("Test_Code"));
-                    test.setNumber_Of_Question(rs.getInt("Number_Of_Question"));
+                    test.setTest_Name(rs.getString("Test_Code"));
                     test.setTime(rs.getInt("Time"));
-                    test.setLevel(rs.getInt("Level"));
+                    test.setLevel(rs.getInt("Level_ID"));
                     test.setStatus(rs.getBoolean("Status"));
                 }
             }
@@ -90,8 +88,7 @@ public class TestDAO {
         String sqlQuerry = "Insert into Test values (?,?,?,?,?)";
         try{
             PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuerry);
-            ps.setString(1, t.getTest_Code());
-            ps.setInt(2, t.getNumber_Of_Question());
+            ps.setString(1, t.getTest_Name());
             ps.setInt(3, t.getTime());
             ps.setInt(4, t.getLevel());
             ps.setBoolean(5, t.isStatus());

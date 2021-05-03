@@ -819,9 +819,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButtonAddTest" min="-2" pref="114" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jButtonEditTest" min="-2" pref="114" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                                      <Component id="jButtonDeleteTest" min="-2" pref="114" max="-2" attributes="0"/>
+                                      <Component id="jButtonDisableTest" min="-2" pref="114" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
@@ -841,8 +839,7 @@
                               <EmptySpace pref="78" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jButtonAddTest" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonEditTest" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonDeleteTest" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonDisableTest" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                               <Component id="jScrollPane6" min="-2" pref="407" max="-2" attributes="0"/>
@@ -915,20 +912,12 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAddTestActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButtonEditTest">
+                    <Component class="javax.swing.JButton" name="jButtonDisableTest">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="S&#x1eed;a &#x111;&#x1ec1; thi"/>
+                        <Property name="text" type="java.lang.String" value="V&#xf4; hi&#x1ec7;u h&#xf3;a"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditTestActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jButtonDeleteTest">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="X&#xf3;a &#x111;&#x1ec1; thi"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDeleteTestActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDisableTestActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>

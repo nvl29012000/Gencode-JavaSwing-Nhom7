@@ -269,7 +269,7 @@ public class AddTestInfor extends javax.swing.JDialog {
             ArrayList<String> testCodeList = new ArrayList<String>();
             List<Test> listTest = testDAO.getFullListTest();
             for(Test t :listTest)
-                testCodeList.add(t.getTest_Code().trim());
+                testCodeList.add(t.getTest_Name().trim());
             
             if(testCode.compareToIgnoreCase("")==0)
                 throw new Exception("Mã đề không được để trống !!!");
@@ -281,7 +281,7 @@ public class AddTestInfor extends javax.swing.JDialog {
                 throw new Exception("Số câu hỏi lớn hơn 0 !!!");
             
             
-            Test t = new Test(testCode, numberQuestion, time, level+1, true);
+            Test t = new Test(testCode, time, level+1, true);
             if(testDAO.insertTest(t)){
                 ArrayList<Integer> questions = calculatorAmountQuestion(numberQuestion);
                 addQuestionByLevel(questions,chapter,lesson,level);
@@ -389,8 +389,7 @@ public class AddTestInfor extends javax.swing.JDialog {
     }
     boolean deleteTestById(){
         TestDAO testDAO = new TestDAO();
-        int idTestPre = testDAO.getMaxIdTest();//get new id Test by get max of idTest
-        
+        int idTestPre = testDAO.getMaxIdTest();//get new id Test by get max of idTest      
         return testDAO.deleteTestById(idTestPre);
     }
     void clearBox(){
