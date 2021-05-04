@@ -22,7 +22,7 @@ public class LessonDAO {
     public ArrayList<Lesson> getFullListLessonByChapter(int chapter){
         ArrayList<Lesson> list = new ArrayList<Lesson>();
         try{
-            String query = "SELECT * FROM Lesson WHERE Chapter = ?";
+            String query = "SELECT * FROM Lesson WHERE Chapter_ID = ?";
             PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(query);
             ps.setInt(1, chapter);
             

@@ -85,13 +85,13 @@ public class TestDAO {
     }
     public boolean insertTest(Test t){
         boolean isInsert = false;
-        String sqlQuerry = "Insert into Test values (?,?,?,?,?)";
+        String sqlQuerry = "Insert into Test values (?,?,?,?)";
         try{
             PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuerry);
             ps.setString(1, t.getTest_Name());
-            ps.setInt(3, t.getTime());
-            ps.setInt(4, t.getLevel());
-            ps.setBoolean(5, t.isStatus());
+            ps.setInt(2, t.getTime());
+            ps.setInt(3, t.getLevel());
+            ps.setBoolean(4, t.isStatus());
             
             int rs = ps.executeUpdate();
             if(rs == 1){
@@ -122,14 +122,13 @@ public class TestDAO {
         }
         return isDelete;
     }
-    public boolean editTestById(int id,String testCode, int time){
-        String query = "EXEC EditTestById ?,?,?";
+    public boolean activeTestById(int id,boolean status){
+        String query = "EXEC ActiveTestById ?,?";
         boolean isEdited = false;
         try{
             PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(query);
             ps.setInt(1, id);
-            ps.setString(2, testCode);
-            ps.setInt(3, time);
+            ps.setBoolean(2, status);
             
             int rs = ps.executeUpdate();
             if(rs==1)

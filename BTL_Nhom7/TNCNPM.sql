@@ -312,3 +312,16 @@ END
 --EXEC GetQuestionsByChapterLesson 2,1,2
 --DROP PROC GetQuestionsByChapterLesson
 GO
+--Proc Active Test by IdTest
+Create Proc ActiveTestById
+@idTest INT,
+@status bit
+AS
+BEGIN
+	UPDATE Test 
+	SET Status = @status
+	WHERE Test_ID = @idTest
+END
+--EXEC ActiveTestById 1,0
+--DROP PROC ActiveTestById
+GO

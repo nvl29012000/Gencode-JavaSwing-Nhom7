@@ -43,8 +43,8 @@ public class QuestionDAO {
         }
         return qt;
     }
-    public List<Question> getQuestionByIdTest(int idTest){
-        List<Question> listQuest = new ArrayList<Question>();
+    public ArrayList<Question> getQuestionByIdTest(int idTest){
+        ArrayList<Question> listQuest = new ArrayList<Question>();
         String sqlQuery = "EXEC STP_GetQuestionByIdTest ? ";
         try{
             PreparedStatement ps = DataProvider.getInstance().Connection().prepareCall(sqlQuery);

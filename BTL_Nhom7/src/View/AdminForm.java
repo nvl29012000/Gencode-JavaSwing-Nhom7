@@ -9,6 +9,7 @@ import DatabaseIO.QuestionDAO;
 import DatabaseIO.TestDAO;
 import DatabaseIO.Test_QuestionDAO;
 import Model.CustomTableTest;
+import Model.CustomTableTestQuestion;
 import Model.Question;
 import Model.Test;
 import java.util.ArrayList;
@@ -712,7 +713,7 @@ public class AdminForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jButtonDisableTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisableTestActionPerformed
-        deleteTest();
+        ActiveTest();
     }//GEN-LAST:event_jButtonDisableTestActionPerformed
     void openAddTestInfor() {
         AddTestInfor addTestInfor = new AddTestInfor();
@@ -721,37 +722,23 @@ public class AdminForm extends javax.swing.JFrame {
         addTestInfor.setResizable(false);
         addTestInfor.setVisible(true);
     }
-
+    ArrayList<Test> fullTest = new ArrayList<Test>();
     void testsLoad() {
         TestDAO testDao = new TestDAO();
-        ArrayList<Test> fullTest = testDao.getFullListTest();
+        fullTest = testDao.getFullListTest();
         CustomTableTest c = new CustomTableTest(fullTest);
         jTableTests.setModel(new CustomTableTest(fullTest));
 
     }
 
     void testQuestionLoad(int idTest) {
-        DefaultTableModel questionsModel = new DefaultTableModel();
-        Vector header = new Vector();
-        header.add("STT");
-        header.add("Câu hỏi");
-        questionsModel.setColumnIdentifiers(header);
-
         QuestionDAO questionsDao = new QuestionDAO();
-        List<Question> listQuestions = questionsDao.getQuestionByIdTest(idTest);
+        ArrayList<Question> listQuestions = questionsDao.getQuestionByIdTest(idTest);
 
-        for (int i = 0; i < listQuestions.size(); i++) {
-            Question question = listQuestions.get(i);
-            Vector row = new Vector();
-            row.add(i + 1);
-            row.add(question.getQuestion());
-            questionsModel.addRow(row);
-        }
-
-        jTableQuestions.setModel(questionsModel);
+        jTableQuestions.setModel(new CustomTableTestQuestion(listQuestions));
     }
 
-    private void deleteTest() {
+    private void ActiveTest() {
         try {
             TestDAO testDAO = new TestDAO();
             int row = jTableTests.getSelectedRow();
@@ -759,16 +746,16 @@ public class AdminForm extends javax.swing.JFrame {
             if (row >= 0) {
                 int idTest = (Integer) jTableTests.getValueAt(row, 0);
 
-                if (JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn xóa mã đề " + jTableTests.getValueAt(row, 1)) == 0) {
-                    if (testDAO.deleteTestById(idTest)) {
+                if (JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn "+jButtonDisableTest.getText()+" mã đề " + jTableTests.getValueAt(row, 1)) == 0) {
+                    if (testDAO.activeTestById(idTest,!fullTest.get(row).isStatus())) {
                         testsLoad();
-                        throw new Exception("Xóa thành công!!!");
+                        throw new Exception(jButtonDisableTest.getText()+" thành công!!!");
                     } else {
-                        throw new Exception("Xóa không thành công!!!");
+                        throw new Exception(jButtonDisableTest.getText()+" không thành công!!!");
                     }
                 }
             } else {
-                throw new Exception("Chọn đề cần xóa!!!");
+                throw new Exception("Chưa chọn đề!!!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
