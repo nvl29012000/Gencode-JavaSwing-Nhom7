@@ -13,16 +13,16 @@ public class Lesson {
     private int Lesson_ID;
     private int Lesson;
     private String Lesson_Name;
-    private int Chapter;
+    private int Chapter_ID;
 
     public Lesson() {
     }
 
-    public Lesson(int Lesson_ID, int Lesson, String Lesson_Name, int Chapter) {
+    public Lesson(int Lesson_ID, int Lesson, String Lesson_Name, int Chapter_ID) {
         this.Lesson_ID = Lesson_ID;
         this.Lesson = Lesson;
         this.Lesson_Name = Lesson_Name;
-        this.Chapter = Chapter;
+        this.Chapter_ID = Chapter_ID;
     }
 
     public int getLesson_ID() {
@@ -49,12 +49,11 @@ public class Lesson {
         this.Lesson_Name = Lesson_Name;
     }
 
-    public int getChapter() {
-        return Chapter;
+    public int getChapter_ID() {
+        return Chapter_ID;
     }
 
-    public void setChapter(int Chapter) {
-        this.Chapter = Chapter;
+    public void setChapter_ID(int Chapter_ID) {
+        this.Chapter_ID = Chapter_ID;
     }
-    
 }

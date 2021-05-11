@@ -12,17 +12,17 @@ package Model;
 public class Question {
     private int Question_ID;
     private String Question;
-    private int Level;
-    private int Lesson;
+    private int Level_ID;
+    private int Lesson_ID;
 
     public Question() {
     }
 
-    public Question(int Question_ID, String Question, int Level, int Lesson) {
+    public Question(int Question_ID, String Question, int Level_ID, int Lesson_ID) {
         this.Question_ID = Question_ID;
         this.Question = Question;
-        this.Level = Level;
-        this.Lesson = Lesson;
+        this.Level_ID = Level_ID;
+        this.Lesson_ID = Lesson_ID;
     }
 
     public int getQuestion_ID() {
@@ -33,27 +33,6 @@ public class Question {
         this.Question_ID = Question_ID;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Question other = (Question) obj;
-        if (this.Question_ID != other.Question_ID) {
-            return false;
-        }
-        return true;
-    }
-
     public String getQuestion() {
         return Question;
     }
@@ -62,20 +41,21 @@ public class Question {
         this.Question = Question;
     }
 
-    public int getLevel() {
-        return Level;
+    public int getLevel_ID() {
+        return Level_ID;
     }
 
-    public void setLevel(int Level) {
-        this.Level = Level;
+    public void setLevel_ID(int Level_ID) {
+        this.Level_ID = Level_ID;
     }
 
-    public int getLesson() {
-        return Lesson;
+    public int getLesson_ID() {
+        return Lesson_ID;
     }
 
-    public void setLesson(int Lesson) {
-        this.Lesson = Lesson;
+    public void setLesson_ID(int Lesson_ID) {
+        this.Lesson_ID = Lesson_ID;
     }
-    
+
+       
 }

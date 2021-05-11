@@ -13,16 +13,16 @@ public class Answer {
     private int Answer_ID;
     private String Answer;
     private boolean Correct;
-    private int Question;
+    private int Question_ID;
 
     public Answer() {
     }
 
-    public Answer(int Answer_ID, String Answer, boolean Correct, int Question) {
+    public Answer(int Answer_ID, String Answer, boolean Correct, int Question_ID) {
         this.Answer_ID = Answer_ID;
         this.Answer = Answer;
         this.Correct = Correct;
-        this.Question = Question;
+        this.Question_ID = Question_ID;
     }
 
     public int getAnswer_ID() {
@@ -49,13 +49,14 @@ public class Answer {
         this.Correct = Correct;
     }
 
-    public int getQuestion() {
-        return Question;
+    public int getQuestion_ID() {
+        return Question_ID;
     }
 
-    public void setQuestion(int Question) {
-        this.Question = Question;
+    public void setQuestion_ID(int Question_ID) {
+        this.Question_ID = Question_ID;
     }
+
     
     
 }

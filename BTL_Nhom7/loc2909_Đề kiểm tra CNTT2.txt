@@ -1,0 +1,34 @@
+Tài khoản : Lộc đẹp trai
+Đề : Đề kiểm tra CNTT2
+Ngày : 2021-05-07
+
+Đâu là đáp đúng câu 35	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 33	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 20	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 30	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 21	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 31	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 28	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 27	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 34	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 26	 | 	null	 | 	Sai
+Đâu là đáp án đúng 6	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 35	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 25	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 20	 | 	null	 | 	Sai
+Đâu là đáp án đúng 4	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 34	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 29	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 29	 | 	null	 | 	Sai
+Đâu là đáp án đúng 6	 | 	Câu đúng 6	 | 	Đúng
+Đâu là đáp đúng câu 21	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 24	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 23	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 30	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 27	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 25	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 28	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 24	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 22	 | 	null	 | 	Sai
+Đâu là đáp đúng câu 19	 | 	null	 | 	Sai
+Đâu là đáp án đúng 3	 | 	Giờ là sai 3 nè	 | 	Sai

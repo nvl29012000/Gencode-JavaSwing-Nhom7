@@ -46,6 +46,10 @@ public class Chapter {
     public void setChapter_Name(String Chapter_Name) {
         this.Chapter_Name = Chapter_Name;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Chương " + this.Chapter + " : " + this.Chapter_Name;
+    }
     
 }

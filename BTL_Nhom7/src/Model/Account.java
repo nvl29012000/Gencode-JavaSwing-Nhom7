@@ -17,6 +17,7 @@ public class Account {
     private boolean Role;
     private String Name;
     private boolean Status;
+    private String StatusString;
     
     public Account() {
         
@@ -31,6 +32,16 @@ public class Account {
         this.Status = Status;
     }
 
+    public String getStatusString() {
+        return Status ? "Đã kích hoạt" : "Đã vô hiệu hóa";
+    }
+
+    public void setStatusString(String StatusString) {
+        this.StatusString = StatusString;
+    }
+
+    
+    
     public int getAccount_ID() {
         return Account_ID;
     }

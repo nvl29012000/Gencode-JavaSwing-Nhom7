@@ -13,32 +13,28 @@ import java.sql.Date;
  */
 public class Result {
     private int Result_ID;
-    private int Account;
-    private int Test;
+    private int Account_ID;
+    private int Test_ID;
     private int Time;
     private int Correct_QT;
-    private Date date;
+    private Date Result_Date;
+    private float Mark;
+
+    
 
     public Result() {
     }
-    
-    public Result(int Account, int Test, int Time, int Correct_QT, Date date){
-        this.Account = Account;
-        this.Test = Test;
-        this.Time = Time;
-        this.Correct_QT = Correct_QT;
-        this.date = date;
-    }
-    
-    public Result(int Result_ID, int Account, int Test, int Time, int Correct_QT, Date date) {
-        this.Result_ID = Result_ID;
-        this.Account = Account;
-        this.Test = Test;
-        this.Time = Time;
-        this.Correct_QT = Correct_QT;
-        this.date = date;
-    }
 
+    public Result(int Result_ID, int Account_ID, int Test_ID, int Time, int Correct_QT, Date Result_Date, float Mark) {
+        this.Result_ID = Result_ID;
+        this.Account_ID = Account_ID;
+        this.Test_ID = Test_ID;
+        this.Time = Time;
+        this.Correct_QT = Correct_QT;
+        this.Result_Date = Result_Date;
+        this.Mark = Mark;
+    }
+    
     public int getResult_ID() {
         return Result_ID;
     }
@@ -47,20 +43,20 @@ public class Result {
         this.Result_ID = Result_ID;
     }
 
-    public int getAccount() {
-        return Account;
+    public int getAccount_ID() {
+        return Account_ID;
     }
 
-    public void setAccount(int Account) {
-        this.Account = Account;
+    public void setAccount_ID(int Account_ID) {
+        this.Account_ID = Account_ID;
     }
 
-    public int getTest() {
-        return Test;
+    public int getTest_ID() {
+        return Test_ID;
     }
 
-    public void setTest(int Test) {
-        this.Test = Test;
+    public void setTest_ID(int Test_ID) {
+        this.Test_ID = Test_ID;
     }
 
     public int getTime() {
@@ -79,13 +75,19 @@ public class Result {
         this.Correct_QT = Correct_QT;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getResult_Date() {
+        return Result_Date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setResult_Date(Date Result_Date) {
+        this.Result_Date = Result_Date;
     }
-    
-    
+
+    public void setMark(float Mark) {
+        this.Mark = Mark;
+    }
+
+    public float getMark() {
+        return Mark;
+    }
 }

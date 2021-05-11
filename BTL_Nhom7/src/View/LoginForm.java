@@ -5,10 +5,8 @@
  */
 package View;
 
-import DatabaseIO.AccountDAO;
+import DAO.Implement.AccountDAO;
 import Model.Account;
-import java.awt.Toolkit;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,12 +14,16 @@ import javax.swing.JOptionPane;
  * @author mrloc
  */
 public class LoginForm extends javax.swing.JFrame {
+    
+    AccountDAO accountDAO = new AccountDAO();
 
+    int positionX,positionY;
     /**
      * Creates new form MainForm
      */
     public LoginForm() {
         initComponents();
+        accountDAO.findByUserName("");
     }
 
     /**
@@ -46,7 +48,7 @@ public class LoginForm extends javax.swing.JFrame {
         jButtonExit = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Phần mềm trắc nghiệm Công Nghệ Phầm Mềm");
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(800, 500));
@@ -194,26 +196,19 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         // TODO add your handling code here:
-        AccountDAO dao = new AccountDAO();
-        Account ac = dao.loginAccount(jTextUsername.getText(), jPassword.getText());
+        Account ac = accountDAO.findByUserNameAndPassWord(jTextUsername.getText().trim(), jPassword.getText().trim(),1);
         if (ac == null) {
             JOptionPane.showMessageDialog(rootPane, "Tài khoản hoặc mật khẩu không đúng !");
         } else {
             if (ac.isRole()) {
                 this.dispose();
-                AdminForm f = new AdminForm();
-                f.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                AdminForm f = new AdminForm(ac);
                 f.setLocationRelativeTo(null);
-                f.setResizable(false);
                 f.setVisible(true);
             } else {
                 this.dispose();
-                MainForm f = new MainForm(ac);
-                f.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//            f.setLocationRelativeTo(null);
-                f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                f.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-                f.setResizable(false);
+                HomeForm f = new HomeForm(ac);
+                f.setLocationRelativeTo(null);
                 f.setVisible(true);
             }
         }

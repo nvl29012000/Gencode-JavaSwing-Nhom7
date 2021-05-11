@@ -11,30 +11,19 @@ package Model;
  */
 public class Test {
     private int Test_ID;
-    private String Test_Code;
-    private int Number_Of_Question;
+    private String Test_Name;
     private int Time;
-    private int Level;
-
+    private int Level_ID;
     private boolean Status;
 
     public Test() {
     }
 
-    public Test(String Test_Code, int Number_Of_Question, int Time, int Level, boolean Status) {
-        this.Test_Code = Test_Code;
-        this.Number_Of_Question = Number_Of_Question;
-        this.Time = Time;
-        this.Level = Level;
-        this.Status = Status;
-    }
-
-    public Test(int Test_ID, String Test_Code, int Number_Of_Question, int Time, int Level, boolean Status) {
+    public Test(int Test_ID, String Test_Name, int Time, int Level_ID, boolean Status) {
         this.Test_ID = Test_ID;
-        this.Test_Code = Test_Code;
-        this.Number_Of_Question = Number_Of_Question;
+        this.Test_Name = Test_Name;
         this.Time = Time;
-        this.Level = Level;
+        this.Level_ID = Level_ID;
         this.Status = Status;
     }
 
@@ -46,20 +35,12 @@ public class Test {
         this.Test_ID = Test_ID;
     }
 
-    public String getTest_Code() {
-        return Test_Code;
+    public String getTest_Name() {
+        return Test_Name;
     }
 
-    public void setTest_Code(String Test_Code) {
-        this.Test_Code = Test_Code;
-    }
-
-    public int getNumber_Of_Question() {
-        return Number_Of_Question;
-    }
-
-    public void setNumber_Of_Question(int Number_Of_Question) {
-        this.Number_Of_Question = Number_Of_Question;
+    public void setTest_Name(String Test_Name) {
+        this.Test_Name = Test_Name;
     }
 
     public int getTime() {
@@ -70,18 +51,20 @@ public class Test {
         this.Time = Time;
     }
 
-    public int getLevel() {
-        return Level;
+    public int getLevel_ID() {
+        return Level_ID;
     }
 
-    public void setLevel(int Level) {
-        this.Level = Level;
+    public void setLevel_ID(int Level_ID) {
+        this.Level_ID = Level_ID;
     }
+
     public boolean isStatus() {
         return Status;
     }
 
     public void setStatus(boolean Status) {
         this.Status = Status;
-    }   
+    }
+
 }
