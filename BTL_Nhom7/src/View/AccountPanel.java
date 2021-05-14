@@ -23,15 +23,15 @@ public class AccountPanel extends javax.swing.JPanel {
      * Creates new form AccountPanel
      */
     int listIndex = -1;
-    ArrayList<Account> listTeacher = new ArrayList<>(); //Danh sách tài khoản giáo viên
-    ArrayList<Account> listStudent = new ArrayList<>(); //Danh sách tài khoản sinh viên
-    AccountDAO dao = new AccountDAO();              //accountDAO truy vấn dữ liệu bảng Account
+    ArrayList<Account> listTeacher = new ArrayList<>(); 
+    ArrayList<Account> listStudent = new ArrayList<>(); 
+    AccountDAO dao = new AccountDAO();           
 
     public AccountPanel() {
         initComponents();
         jTableTeacher.getTableHeader().setFont(new Font("Tomaho", Font.BOLD, 12));
         jTableStudent.getTableHeader().setFont(new Font("Tomaho", Font.BOLD, 12));
-        loadData();         //Hàm load dữ liệu vào bảng
+        loadData();     
     }
 
     /**
@@ -247,9 +247,8 @@ public class AccountPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void loadData() {
-        listTeacher = (ArrayList<Account>) dao.findByRoles(true);   //Tìm kiếm tài khoản có Roles là 1
-        listStudent = (ArrayList<Account>) dao.findByRoles(false);  //Tìm kiếm tài khoản có Roles là 0
-        //Customtablemodel theo cô để load dữ liệu
+        listTeacher = (ArrayList<Account>) dao.findByRoles(true);   
+        listStudent = (ArrayList<Account>) dao.findByRoles(false); 
         jTableTeacher.setModel(new CustomTableAccount(listTeacher));    
         jTableStudent.setModel(new CustomTableAccount(listStudent));
     }
@@ -265,7 +264,6 @@ public class AccountPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabelBackMouseExited
 
     private void jLabelBackMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBackMousePressed
-        // Đây là hàm quay về. Cái mũi tên ý. Nó lấy cái panel cha rồi removeall đi và thêm panel main vào
         JPanel a = (JPanel) this.getParent();
         a.removeAll();
         a.add(new MainAdminPanel());

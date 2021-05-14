@@ -39,15 +39,15 @@ public class QuestionPanel extends javax.swing.JPanel {
 
     public QuestionPanel() {
         initComponents();
-        loadData();     //load data vào chapter
+        loadChapter();
+        loadLevel();
+        loadData();
     }
 
     public void loadData() {
-        loadChapter();
-        loadLevel();
         loadAllQuestion();
     }
-    
+
     //cái này là load toàn bộ câu hỏi
     private void loadAllQuestion() {
         listQuestion = (ArrayList<Question>) questionDAO.getAllQuestion();
@@ -59,11 +59,13 @@ public class QuestionPanel extends javax.swing.JPanel {
         listQuestion = (ArrayList<Question>) questionDAO.getQuestionsByChapterID(chapter_ID);
         jTableQuestion.setModel(new CustomTableQuestion(listQuestion));
     }
+
     //cái này là load theo chương và độ khó
     private void loadQuestionByChapterAndLevel(int chapter_ID, int level_ID) {
         listQuestion = (ArrayList<Question>) questionDAO.getQuestionsByChapterIDAndLevelID(chapter_ID, level_ID);
         jTableQuestion.setModel(new CustomTableQuestion(listQuestion));
     }
+
     //cái này là load theo độ khó
     private void loadQuestionByLevel(int level_ID) {
         listQuestion = (ArrayList<Question>) questionDAO.getQuestionByLevelID(level_ID);
@@ -71,17 +73,17 @@ public class QuestionPanel extends javax.swing.JPanel {
     }
 
     //cái này là load theo bài
-    private void loadQuestionByLessonID(int lesson_ID){
+    private void loadQuestionByLessonID(int lesson_ID) {
         listQuestion = (ArrayList<Question>) questionDAO.getQuestionByLessonID(lesson_ID);
         jTableQuestion.setModel(new CustomTableQuestion(listQuestion));
     }
-    
+
     //cái này là load theo bài và độ khó
-    private void loadQuestionByLessonAndLevel(int lessonID, int leveID){
-        listQuestion = (ArrayList<Question>) questionDAO.getQuestionByLessonIDAndLevelID(lessonID,leveID);
+    private void loadQuestionByLessonAndLevel(int lessonID, int leveID) {
+        listQuestion = (ArrayList<Question>) questionDAO.getQuestionByLessonIDAndLevelID(lessonID, leveID);
         jTableQuestion.setModel(new CustomTableQuestion(listQuestion));
     }
-    
+
     private void loadChapter() {
         jComboBoxChapter.addItem("Tất cả");
         for (Chapter item : listChapter) {
@@ -369,22 +371,22 @@ public class QuestionPanel extends javax.swing.JPanel {
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         // TODO add your handling code here:
-        try{
-            if(indexQuestion == -1)
+        try {
+            if (indexQuestion == -1) {
                 throw new Exception("Hãy chọn câu hỏi cần xóa");
-            else{
-                if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá câu hỏi : " + listQuestion.get(indexQuestion).getQuestion() + " không?","Thông báo",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            } else {
+                if (JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá câu hỏi : " + listQuestion.get(indexQuestion).getQuestion() + " không?", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     //Lấy cái câu hỏi tại vị trí indexQuestion trong list và xóa theo ID
-                    if(questionDAO.deleteQuestion(listQuestion.get(indexQuestion).getQuestion_ID())){
-                      JOptionPane.showMessageDialog(this, "Xóa thành công!");
-                      loadData();
-                      indexQuestion = -1;
-                  }else{
-                      throw new Exception("Lỗi! Xóa không thành công");
-                  }
+                    if (questionDAO.deleteQuestion(listQuestion.get(indexQuestion).getQuestion_ID())) {
+                        JOptionPane.showMessageDialog(this, "Xóa thành công!");
+                        loadData();
+                        indexQuestion = -1;
+                    } else {
+                        throw new Exception("Lỗi! Xóa không thành công");
+                    }
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
@@ -413,17 +415,17 @@ public class QuestionPanel extends javax.swing.JPanel {
                 loadQuestionByLevel(listLevel.get(jComboBoxLevel.getSelectedIndex() - 1).getLevel_ID());
             }
         } else {
-            if(less.equals("Tất cả")){
-                if(diff.equals("Tất cả")){
-                    loadQuestionByChapter(listChapter.get(jComboBoxChapter.getSelectedIndex()-1).getChapter_ID());
-                }else{
+            if (less.equals("Tất cả")) {
+                if (diff.equals("Tất cả")) {
+                    loadQuestionByChapter(listChapter.get(jComboBoxChapter.getSelectedIndex() - 1).getChapter_ID());
+                } else {
                     loadQuestionByChapterAndLevel(listChapter.get(jComboBoxChapter.getSelectedIndex() - 1).getChapter_ID(), listLevel.get(jComboBoxLevel.getSelectedIndex() - 1).getLevel_ID());
                 }
-            }else{
-                if(diff.equals("Tất cả")){
-                    loadQuestionByLessonID(listLesson.get(jComboBoxLesson.getSelectedIndex()-1).getLesson_ID());
-                }else{
-                    loadQuestionByLessonAndLevel(listLesson.get(jComboBoxLesson.getSelectedIndex()-1).getLesson_ID(),listLevel.get(jComboBoxLevel.getSelectedIndex() - 1).getLevel_ID());
+            } else {
+                if (diff.equals("Tất cả")) {
+                    loadQuestionByLessonID(listLesson.get(jComboBoxLesson.getSelectedIndex() - 1).getLesson_ID());
+                } else {
+                    loadQuestionByLessonAndLevel(listLesson.get(jComboBoxLesson.getSelectedIndex() - 1).getLesson_ID(), listLevel.get(jComboBoxLevel.getSelectedIndex() - 1).getLevel_ID());
                 }
             }
         }

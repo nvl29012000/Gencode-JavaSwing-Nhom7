@@ -89,15 +89,13 @@ public class HomeForm extends javax.swing.JFrame {
         jPanelChangePass = new javax.swing.JPanel();
         jLabelChangePassIcon = new javax.swing.JLabel();
         jLabelChangePass = new javax.swing.JLabel();
+        jLabelChangePassIcon2 = new javax.swing.JLabel();
         jPanelUserName = new javax.swing.JPanel();
         jLabelUserIcon = new javax.swing.JLabel();
         jLabelUserName = new javax.swing.JLabel();
         jPanelLoadListTest = new javax.swing.JPanel();
         jLabelListTestIcon = new javax.swing.JLabel();
         jLabelListTest = new javax.swing.JLabel();
-        jPanelTest = new javax.swing.JPanel();
-        jLabelTestIcon = new javax.swing.JLabel();
-        jLabelTest = new javax.swing.JLabel();
         jScrollButtonQuestion = new javax.swing.JScrollPane();
         jPanelButtonQuestion = new javax.swing.JPanel();
         jPanelMain = new javax.swing.JPanel();
@@ -215,7 +213,11 @@ public class HomeForm extends javax.swing.JFrame {
         });
         jPanelChangePass.add(jLabelChangePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 170, 50));
 
-        jPanelDashboard.add(jPanelChangePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 200, 50));
+        jLabelChangePassIcon2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelChangePassIcon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/security.png"))); // NOI18N
+        jPanelChangePass.add(jLabelChangePassIcon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
+
+        jPanelDashboard.add(jPanelChangePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 200, 50));
 
         jPanelUserName.setBackground(new java.awt.Color(153, 153, 255));
         jPanelUserName.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -242,7 +244,7 @@ public class HomeForm extends javax.swing.JFrame {
         jLabelListTest.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelListTest.setForeground(new java.awt.Color(255, 255, 255));
         jLabelListTest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelListTest.setText("Danh Sách Đề");
+        jLabelListTest.setText("Vào thi");
         jLabelListTest.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelListTest.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -252,28 +254,6 @@ public class HomeForm extends javax.swing.JFrame {
         jPanelLoadListTest.add(jLabelListTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 170, 50));
 
         jPanelDashboard.add(jPanelLoadListTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 200, 50));
-
-        jPanelTest.setBackground(new java.awt.Color(51, 0, 153));
-        jPanelTest.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabelTestIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTestIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/doTest.png"))); // NOI18N
-        jPanelTest.add(jLabelTestIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
-
-        jLabelTest.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelTest.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelTest.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTest.setText("Làm Bài");
-        jLabelTest.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelTest.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabelTestMousePressed(evt);
-            }
-        });
-        jPanelTest.add(jLabelTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 170, 50));
-
-        jPanelDashboard.add(jPanelTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 200, 50));
 
         jScrollButtonQuestion.setBackground(new java.awt.Color(0, 0, 102));
         jScrollButtonQuestion.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -559,7 +539,9 @@ public class HomeForm extends javax.swing.JFrame {
                 jPanelListAnswer.removeAll();
                 jPanelDoTest.setVisible(false);
                 jScrollButtonQuestion.setVisible(false);
-                resetColor(jPanelTest);
+                jPanelDoTest.setVisible(false);
+                jPanelChangePass.setVisible(true);
+                jPanelMain.revalidate();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Có lỗi gì đó ! Vui lòng thử lại sau");
@@ -589,7 +571,6 @@ public class HomeForm extends javax.swing.JFrame {
     private void jLabelChangePassMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelChangePassMousePressed
         // TODO add your handling code here:
         resetColor(jPanelLoadListTest);
-        resetColor(jPanelTest);
         setColor(jPanelChangePass);
         ChangPassForm f = new ChangPassForm(this, true, userLogin);
         f.setLocationRelativeTo(null);
@@ -602,7 +583,6 @@ public class HomeForm extends javax.swing.JFrame {
         jPanelDoTest.setVisible(false);
         setColor(jPanelLoadListTest);
         resetColor(jPanelChangePass);
-        resetColor(jPanelTest);
         jPanelListTest.removeAll();
         jScrollPaneListTest.getVerticalScrollBar().setUnitIncrement(20);
         try {
@@ -620,10 +600,10 @@ public class HomeForm extends javax.swing.JFrame {
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (checkTest(userLogin.getAccount_ID(), item.getTest_ID())) {
-                        JOptionPane.showMessageDialog(rootPane, "Tài khoản của bạn đã làm đề này rồi ! Liên hệ giáo viên để làm lại !");
-                        return;
-                    }
+//                    if (checkTest(userLogin.getAccount_ID(), item.getTest_ID())) {
+//                        JOptionPane.showMessageDialog(rootPane, "Tài khoản của bạn đã làm đề này rồi ! Liên hệ giáo viên để làm lại !");
+//                        return;
+//                    }
                     if (chooseTest != null) {
                         JOptionPane.showMessageDialog(rootPane, "Hãy hoàn thành đề đã chọn trước khi làm đề mới");
                         return;
@@ -637,6 +617,7 @@ public class HomeForm extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(rootPane, item.getTest_Name().trim() + " không có câu hỏi nào");
                         return;
                     }
+                    jPanelChangePass.setVisible(false);
                     QuestionIndex = 0;
                     listSelectedAnswer = new ArrayList<>();
                     for (int i = 0; i < listTest_Question.size(); i++) {
@@ -652,21 +633,11 @@ public class HomeForm extends javax.swing.JFrame {
                     jPanelDoTest.setVisible(true);
                     jScrollButtonQuestion.setVisible(true);
                     resetColor(jPanelLoadListTest);
-                    setColor(jPanelTest);
                     loadQuestion();
                 }
             });
         }
     }//GEN-LAST:event_jLabelListTestMousePressed
-
-    private void jLabelTestMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTestMousePressed
-        // TODO add your handling code here:
-        resetColor(jPanelLoadListTest);
-        resetColor(jPanelChangePass);
-        setColor(jPanelTest);
-        jScrollPaneListTest.setVisible(false);
-        jPanelDoTest.setVisible(true);
-    }//GEN-LAST:event_jLabelTestMousePressed
 
     private void jLabelPresArrowMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPresArrowMousePressed
         // TODO add your handling code here:
@@ -775,14 +746,13 @@ public class HomeForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSubmit;
     private javax.swing.JLabel jLabelChangePass;
     private javax.swing.JLabel jLabelChangePassIcon;
+    private javax.swing.JLabel jLabelChangePassIcon2;
     private javax.swing.JLabel jLabelExit;
     private javax.swing.JLabel jLabelListTest;
     private javax.swing.JLabel jLabelListTestIcon;
     private javax.swing.JLabel jLabelMinimize;
     private javax.swing.JLabel jLabelNextArrow;
     private javax.swing.JLabel jLabelPresArrow;
-    private javax.swing.JLabel jLabelTest;
-    private javax.swing.JLabel jLabelTestIcon;
     private javax.swing.JLabel jLabelTime;
     private javax.swing.JLabel jLabelUserIcon;
     private javax.swing.JLabel jLabelUserName;
@@ -799,7 +769,6 @@ public class HomeForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelMain;
     private javax.swing.JPanel jPanelMove;
     private javax.swing.JPanel jPanelQuestion;
-    private javax.swing.JPanel jPanelTest;
     private javax.swing.JPanel jPanelTop;
     private javax.swing.JPanel jPanelUserName;
     private javax.swing.JScrollPane jScrollButtonQuestion;

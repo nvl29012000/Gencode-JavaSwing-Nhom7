@@ -39,12 +39,24 @@ public class ResultDAO extends CommonDAO<Result> implements IResultDAO {
 
     @Override
     public List<Result> getListResultByDateAndUserName(Date date, String username) {
-        String sql = "Select * from dbo.Result,dbo.Account where Result.Account_ID = Account.Account_ID And Result_Date = ?";
-        if (!username.trim().equals("")) {
-            sql += " And UserName = ?";
-            return excute(sql, new ResultMapper(), date, username);
-        }else
-            return excute(sql, new ResultMapper(), date);
+        String sql = "Select * from dbo.Result,dbo.Account where Result.Account_ID = Account.Account_ID ";
+        if (date == null) {
+            if (!username.trim().equals("")) {
+                sql += " And UserName = ?";
+                return excute(sql, new ResultMapper(), username);
+            } else {
+                return excute(sql, new ResultMapper());
+            }
+        } else {
+            sql += " And Result_Date = ?";
+            if (!username.trim().equals("")) {
+                sql += " And UserName = ?";
+                return excute(sql, new ResultMapper(), date, username);
+            } else {
+                return excute(sql, new ResultMapper(), date);
+            }
+        }
+
     }
 
     @Override

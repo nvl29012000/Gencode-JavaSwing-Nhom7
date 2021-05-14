@@ -45,7 +45,7 @@ public class CustomTableResult extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return accountDAO.findByID(listResult.get(rowIndex).getAccount_ID()).getUsername();
+                return accountDAO.findByID(listResult.get(rowIndex).getAccount_ID()).getUsername().trim();
             case 1:
                 return accountDAO.findByID(listResult.get(rowIndex).getAccount_ID()).getName();
             case 2:

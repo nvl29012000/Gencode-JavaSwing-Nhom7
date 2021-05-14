@@ -24,7 +24,7 @@ public class StatisticPanel extends javax.swing.JPanel {
      * Creates new form StatisticPanel
      */
     ResultDAO resultDAO = new ResultDAO();
-    ArrayList<Result> listResult;
+    ArrayList<Result> listResult = new ArrayList<>();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public StatisticPanel() {
@@ -33,8 +33,14 @@ public class StatisticPanel extends javax.swing.JPanel {
     }
 
     private void loadData() {
+        Date date;
+        try{
+            date = Date.valueOf(dateFormat.format(jDateChooser1.getDate()));
+        }catch(NullPointerException e){
+            date = null;
+        }
         jTextAccountName.setText("");
-        listResult = (ArrayList<Result>) resultDAO.getListResultByDateAndUserName(Date.valueOf(dateFormat.format(jDateChooser1.getDate())), "");
+        listResult = (ArrayList<Result>) resultDAO.getListResultByDateAndUserName(date, "");
         jTableStatistic.setModel(new CustomTableResult(listResult));
     }
 
@@ -130,7 +136,6 @@ public class StatisticPanel extends javax.swing.JPanel {
         jTableStatistic.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTableStatistic);
 
-        jDateChooser1.setDate(new Date(System.currentTimeMillis()));
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
         jDateChooser1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -269,20 +274,32 @@ public class StatisticPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabelBackMousePressed
 
     private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+        Date date;
+        try{
+            date = Date.valueOf(dateFormat.format(jDateChooser1.getDate()));
+        }catch(NullPointerException e){
+            date = null;
+        }
         if (jTextAccountName.getText().trim().equals("")) {
-            listResult = (ArrayList<Result>) resultDAO.getListResultByDateAndUserName(Date.valueOf(dateFormat.format(jDateChooser1.getDate())), "");
+            listResult = (ArrayList<Result>) resultDAO.getListResultByDateAndUserName(date, "");
         } else {
-            listResult = (ArrayList<Result>) resultDAO.getListResultByDateAndUserName(Date.valueOf(dateFormat.format(jDateChooser1.getDate())), jTextAccountName.getText().trim());
+            listResult = (ArrayList<Result>) resultDAO.getListResultByDateAndUserName(date, jTextAccountName.getText().trim());
         }
         jTableStatistic.setModel(new CustomTableResult(listResult));
     }//GEN-LAST:event_jLabel2MousePressed
 
     private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser1PropertyChange
         // TODO add your handling code here:
+        Date date;
+        try{
+            date = Date.valueOf(dateFormat.format(jDateChooser1.getDate()));
+        }catch(NullPointerException e){
+            date = null;
+        }
         if (jTextAccountName.getText().trim().equals("")) {
-            listResult = (ArrayList<Result>) resultDAO.getListResultByDateAndUserName(Date.valueOf(dateFormat.format(jDateChooser1.getDate())), "");
+            listResult = (ArrayList<Result>) resultDAO.getListResultByDateAndUserName(date, "");
         } else {
-            listResult = (ArrayList<Result>) resultDAO.getListResultByDateAndUserName(Date.valueOf(dateFormat.format(jDateChooser1.getDate())), jTextAccountName.getText().trim());
+            listResult = (ArrayList<Result>) resultDAO.getListResultByDateAndUserName(date, jTextAccountName.getText().trim());
         }
         jTableStatistic.setModel(new CustomTableResult(listResult));
     }//GEN-LAST:event_jDateChooser1PropertyChange
@@ -311,7 +328,6 @@ public class StatisticPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonChangeStatus;
     private javax.swing.JButton jButtonDeleteResult;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;

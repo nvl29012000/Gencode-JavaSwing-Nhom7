@@ -46,21 +46,21 @@ public class CommonDAO<T> implements IGenericDAO<T> {
         }catch (SQLException e){
             return null;
         }
-//        finally {
-//            try{
-//                if(rs != null){
-//                    rs.close();
-//                }
-//                if(ps != null){
-//                    ps.close();
-//                }
+        finally {
+            try{
+                if(rs != null){
+                    rs.close();
+                }
+                if(ps != null){
+                    ps.close();
+                }
 //                if(connection != null){
 //                    connection.close();
 //                }
-//            }catch (SQLException ex){
-//                return null;
-//            }
-//        }
+            }catch (SQLException ex){
+                return null;
+            }
+        }
     }
 
     @Override
@@ -89,21 +89,21 @@ public class CommonDAO<T> implements IGenericDAO<T> {
             }
             return null;
         }
-//        finally {
-//            try {
-//                if (rs != null) {
-//                    rs.close();
-//                }
-//                if (ps != null) {
-//                    ps.close();
-//                }
+        finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
 //                if (connection != null) {
 //                    connection.close();
 //                }
-//            } catch (SQLException ex) {
-//                return null;
-//            }
-//        }
+            } catch (SQLException ex) {
+                return null;
+            }
+        }
     }
 
     @Override
@@ -126,18 +126,18 @@ public class CommonDAO<T> implements IGenericDAO<T> {
             }
             return false;
         }
-//        finally {
-//            try {
-//                if (ps != null) {
-//                    ps.close();
-//                }
+        finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
 //                if (connection != null) {
 //                    connection.close();
 //                }
-//            } catch (SQLException ex) {
-//                return false;
-//            }
-//        }
+            } catch (SQLException ex) {
+                return false;
+            }
+        }
     }
     
         private void setParameters(PreparedStatement statement, Object... parameters){
