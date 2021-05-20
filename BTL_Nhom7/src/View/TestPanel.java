@@ -345,7 +345,9 @@ public class TestPanel extends javax.swing.JPanel {
             if (indexTest >= 0) {
                 int Test_ID = listTest.get(indexTest).getTest_ID();
 
-                if (JOptionPane.showConfirmDialog(this, "Bạn có muốn "+jButtonChangeStatus.getText()+" mã đề " + listTest.get(indexTest).getTest_Name(),"Thông báo",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(this, "Bạn có muốn "+jButtonChangeStatus.getText()
+                        +" mã đề " + listTest.get(indexTest).getTest_Name(),
+                        "Thông báo",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     if (testDAO.changeTestStatusByID(Test_ID)) {
                         loadData();
                         throw new Exception(jButtonChangeStatus.getText()+" thành công!!!");

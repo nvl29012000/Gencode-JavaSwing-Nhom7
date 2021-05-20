@@ -518,7 +518,7 @@ public class HomeForm extends javax.swing.JFrame {
     }
 
     private void submitResult() {
-        int Time = chooseTest.getTime() - minutes;              //Lấy thời gian làm bài
+        int Time = (minutes == -1)? chooseTest.getTime() - minutes - 1 : chooseTest.getTime() - minutes ;              //Lấy thời gian làm bài
         int CorrectQT = listSelectedAnswer.stream().filter(x -> x.isCorrect() == true).collect(Collectors.toList()).size();
         Date now = new Date(new java.util.Date().getTime());
         float Mark = (float)Math.round(CorrectQT*100/listTest_Question.size())/10;
@@ -541,6 +541,7 @@ public class HomeForm extends javax.swing.JFrame {
                 jScrollButtonQuestion.setVisible(false);
                 jPanelDoTest.setVisible(false);
                 jPanelChangePass.setVisible(true);
+                jPanelLoadListTest.setVisible(false);
                 jPanelMain.revalidate();
             }
         } catch (Exception e) {
@@ -600,10 +601,10 @@ public class HomeForm extends javax.swing.JFrame {
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                    if (checkTest(userLogin.getAccount_ID(), item.getTest_ID())) {
-//                        JOptionPane.showMessageDialog(rootPane, "Tài khoản của bạn đã làm đề này rồi ! Liên hệ giáo viên để làm lại !");
-//                        return;
-//                    }
+                    if (checkTest(userLogin.getAccount_ID(), item.getTest_ID())) {
+                        JOptionPane.showMessageDialog(rootPane, "Tài khoản của bạn đã làm đề này rồi ! Liên hệ giáo viên để làm lại !");
+                        return;
+                    }
                     if (chooseTest != null) {
                         JOptionPane.showMessageDialog(rootPane, "Hãy hoàn thành đề đã chọn trước khi làm đề mới");
                         return;
@@ -618,6 +619,7 @@ public class HomeForm extends javax.swing.JFrame {
                         return;
                     }
                     jPanelChangePass.setVisible(false);
+                    jPanelLoadListTest.setVisible(false);
                     QuestionIndex = 0;
                     listSelectedAnswer = new ArrayList<>();
                     for (int i = 0; i < listTest_Question.size(); i++) {

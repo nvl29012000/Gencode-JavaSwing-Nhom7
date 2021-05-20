@@ -318,7 +318,6 @@ public class AddAccountForm extends javax.swing.JDialog {
     }
     
     private boolean checkTypeCondition() {
-        //Cái này là m viết. T chỉ làm lại cho đẹp thôi. Với cả gọn hơn. Tự hiểu nhé
         boolean reach = true;
         try {
             if (jTextUsername.getText().trim().equals("")) {

@@ -236,7 +236,6 @@ public class ChangPassForm extends javax.swing.JDialog {
     }//GEN-LAST:event_jPanelMoveMousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         String newpass = jPassNewPass.getText();
         String repass = jPassRepass.getText();
         if("".equals(newpass.trim())){

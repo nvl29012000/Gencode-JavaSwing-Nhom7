@@ -214,28 +214,28 @@ public class AddAndEditChapterForm extends javax.swing.JDialog {
     }//GEN-LAST:event_jPanelMoveMousePressed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        // TODO add your handling code here:
         do {
             try {
                 int chapter;
                 try {
-                    chapter = Integer.parseInt(jTextChapter.getText());     //Kiểm tra xem nhập chương là số hay ko
+                    chapter = Integer.parseInt(jTextChapter.getText());   
                     if (chapter < 1) {
                         throw new NumberFormatException();
                     }
                 } catch (NumberFormatException ex) {
                     throw new Exception("Sai định dạng chương");
                 }
-                if (chapterDAO.findByChapter(chapter) != null) {        //Kiểm tra chương đã tồn tại hay chưa
+                if (chapterDAO.findByChapter(chapter) != null) {       
                     throw new Exception("Chương " + chapter + " đã tồn tại");
                 }
                 String chapterName = jTextChapterName.getText();   
-                if (chapterName.trim().equals("")) {        //Kiểm tra tên chương trống
+                if (chapterName.trim().equals("")) {     
                     throw new Exception("Tên chương không được để trống");
                 }
-                Chapter inserted = chapterDAO.add(new Chapter(0, chapter, chapterName));    //Thêm xong sẽ trả về đúng cái chapter được thêm
+                Chapter inserted = chapterDAO.add(new Chapter(0, chapter, chapterName));
                 panelparent.loadData();
-                if (JOptionPane.showConfirmDialog(this, "Bạn có muốn tiếp tục thêm không ?", "", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+                if (JOptionPane.showConfirmDialog(this, "Bạn có muốn tiếp tục thêm không ?", "", JOptionPane.YES_NO_OPTION) 
+                        == JOptionPane.NO_OPTION) {
                     this.dispose();
                     break;
                 } else {

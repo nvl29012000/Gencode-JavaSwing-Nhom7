@@ -36,11 +36,11 @@ public class AddAndEditLessonFom extends javax.swing.JDialog {
     public AddAndEditLessonFom(java.awt.Frame parent, boolean modal, javax.swing.JPanel panel) {
         super(parent, modal);
         initComponents();
-        panelparent = (SubjectPanel) panel;     //gán cái panelparent cha để loadData
-        jButtonEdit.setVisible(false);          //vì là thêm nên sẽ ẩn nút sửa và title sửa
+        panelparent = (SubjectPanel) panel;    
+        jButtonEdit.setVisible(false);         
         jLabelTitle1.setVisible(false);
         try {                                   
-            jComboBoxChapter.revalidate();      //load lại danh sách chapter
+            jComboBoxChapter.revalidate();    
             for (Chapter item : listChapter) {
                 jComboBoxChapter.addItem(item.toString());
             }
@@ -228,20 +228,18 @@ public class AddAndEditLessonFom extends javax.swing.JDialog {
     }//GEN-LAST:event_jPanelMoveMousePressed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        // TODO add your handling code here:
         do {
             try {
                 int lesson;
-                int indexChapter = jComboBoxChapter.getSelectedIndex();     //lấy cái index của combobox
+                int indexChapter = jComboBoxChapter.getSelectedIndex();     
                 try {
-                    lesson = Integer.parseInt(jTextLesson.getText());   //Nếu nhập bài ko phải số quăng lỗi
-                    if (lesson < 1) {               //Nếu bài < 1 thì quăng lỗi
+                    lesson = Integer.parseInt(jTextLesson.getText());  
+                    if (lesson < 1) {              
                         throw new NumberFormatException();
                     }
                 } catch (NumberFormatException ex) {
                     throw new Exception("Sai định dạng bài");
                 }
-                //Kiểm tra nếu số bài đã tồn tại thì thông báo
                 if (lessonDAO.findByLessonAndChapterID(lesson,listChapter.get(indexChapter).getChapter_ID()) != null) {
                     throw new Exception("Bài " + lesson + " chương " + listChapter.get(indexChapter).getChapter() + " đã tồn tại");
                 }
@@ -249,9 +247,8 @@ public class AddAndEditLessonFom extends javax.swing.JDialog {
                 if (lessonName.trim().equals("")) {
                     throw new Exception("Tên bài không được để trống");
                 }
-                //Thêm xong sẽ trả về cái Lesson 
                 Lesson inserted = lessonDAO.add(new Lesson(0, lesson, lessonName, listChapter.get(indexChapter).getChapter_ID()));
-                panelparent.loadData(); //Load lại data. Đây là lý do mà phải lấy cái panel cha
+                panelparent.loadData(); 
                 if (JOptionPane.showConfirmDialog(this, "Bạn có muốn tiếp tục thêm không ?", "", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
                     this.dispose();
                     break;
@@ -280,7 +277,6 @@ public class AddAndEditLessonFom extends javax.swing.JDialog {
             if (lessonName.trim().equals("")) {
                 throw new Exception("Tên chương không được để trống");
             }
-            //Hàm update trả về giá trị true hoặc false tương ứng thành công hoặc không
             Boolean isUpdated = lessonDAO.updateLessonNameByID(new Lesson(edit.getLesson_ID(),edit.getLesson(),lessonName,edit.getChapter_ID()));
             if(isUpdated){
                 this.dispose();

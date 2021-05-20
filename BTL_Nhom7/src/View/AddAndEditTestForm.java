@@ -59,7 +59,7 @@ public class AddAndEditTestForm extends javax.swing.JDialog {
         initComponents();
         edit = test;        //gán cái edit = cái test sửa truyền vào
         jButtonAdd.setVisible(false);       //ẩn phím thêm và title thêm
-        jLabelTitle.setVisible(false);      
+        jLabelTitle.setVisible(false);
         jComboBoxChapter.disable();         //disable các chapter ko cho sửa
         jComboBoxLevel.disable();
         jTextTestName.setText(test.getTest_Name());     //gán lại các dữ liệu cho textbox
@@ -276,11 +276,9 @@ public class AddAndEditTestForm extends javax.swing.JDialog {
     }//GEN-LAST:event_jPanelMoveMousePressed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        // TODO add your handling code here:
         do {
             try {
                 String test_Name = jTextTestName.getText();
-                //hàm kiểm tra tên test đã tồn tại. T viết lại r vào hàm dao xem nhé
                 if (testDAO.findByTestName(test_Name.trim()) != null) {
                     throw new Exception("Đề " + "'" + test_Name.trim() + "'" + " đã tồn tại !");
                 }
@@ -309,15 +307,13 @@ public class AddAndEditTestForm extends javax.swing.JDialog {
                 }
                 Test insert = new Test(0, test_Name, time, listLevel.get(jComboBoxLevel.getSelectedIndex()).getLevel_ID(), true);
                 lastestInsertedTest = testDAO.add(insert);
-                //hàm add của TestDAO sẽ trả về chính cái test ms được thêm. gán nó vào lastestInsertedtesst
-                //Nếu thêm ko thành công thì lastestInsertedTest == null
                 if (lastestInsertedTest != null) {
-                    //Mảng integer lưu số câu hỏi. t ko cho tính random nữa ví nó sẽ có lỗi mà user ko biết sử lý sao
                     ArrayList<Integer> questions = new ArrayList<>();
                     questions.add(QTLV1);
                     questions.add(QTLV2);
                     questions.add(QTLV3);
-                    AddQuestionToTestByTestID(questions, listChapter.get(jComboBoxChapter.getSelectedIndex()).getChapter_ID(), listLevel.get(jComboBoxLevel.getSelectedIndex()).getLevel_ID());
+                    AddQuestionToTestByTestID(questions, listChapter.get(jComboBoxChapter.getSelectedIndex()).getChapter_ID(),
+                            listLevel.get(jComboBoxLevel.getSelectedIndex()).getLevel_ID());
                 }
                 panelparent.loadData();
                 if (JOptionPane.showConfirmDialog(this, "Bạn có muốn tiếp tục thêm không ?", "", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
@@ -342,7 +338,7 @@ public class AddAndEditTestForm extends javax.swing.JDialog {
         jTextLV3.setText("");
         jTextTestName.requestFocus();
     }
-    
+
     //đây là thêm câu hỏi vào đề theo id đề. cái này b viết mà nên chắc ko cần giải thích
     private void AddQuestionToTestByTestID(ArrayList<Integer> questions, int chapter_ID, int test_Level_ID) throws Exception {
         switch (test_Level_ID) {
@@ -386,7 +382,6 @@ public class AddAndEditTestForm extends javax.swing.JDialog {
     }
 
     private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
-        // TODO add your handling code here:
         try {
             String test_Name = jTextTestName.getText();
             int time;
@@ -402,8 +397,6 @@ public class AddAndEditTestForm extends javax.swing.JDialog {
                 throw new Exception("Sai định dạng thời gian");
             }
             if (edit.getTest_Name().trim().equals(test_Name)) {
-                //Kiểm tra nếu ng dùng ko sửa tên đề thì sẽ update.
-                //isUpdate trả về true false kết quả sửa đề
                 Boolean isUpdate = testDAO.updateNameAndTimeByID(new Test(edit.getTest_ID(), test_Name, time, 0, true));
                 if (!isUpdate) {
                     throw new Exception("Có lỗi ! Cập nhật không thành công");
@@ -411,7 +404,6 @@ public class AddAndEditTestForm extends javax.swing.JDialog {
                     this.dispose();
                 }
             } else {
-                //Nếu mà ng dùng có sửa tên đề thì phải kiểm tra xem tên này đã tồn tại chưa
                 if (testDAO.findByTestName(test_Name.trim()) != null) {
                     throw new Exception("Đề " + "'" + test_Name.trim() + "'" + " đã tồn tại !");
                 } else {
