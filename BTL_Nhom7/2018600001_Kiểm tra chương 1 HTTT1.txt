@@ -1,0 +1,16 @@
+Tài khoản : Phạm Đức Linh
+Đề : Kiểm tra chương 1 HTTT1
+Ngày : 2021-05-20
+
+Kỹ nghệ phần mềm là kỹ nghệ phát triển một hệ thống gồm các bước chủ chốt sau:	 | 	Cả 3 đáp án	 | 	Đúng
+Có mấy vấn đề liên quan đến CNPM:	 | 	7	 | 	Đúng
+Có mấy cách phân loại phần mềm theo lĩnh vực phục vụ	 | 	7	 | 	Sai
+Môi trường CASE gồm:	 | 	Một kho chứa - Công cụ đồ họa - Phần mềm soạn thảo văn bản - Phần mềm giao diện kho chứa - Phần mềm đánh giá - Giao diện người sử dụng.	 | 	Sai
+Tập hợp các hành hộng nhằm xây dựng và phát triển phần mềm gồm:	 | 	Đăc tả, kiểm thử, mở rộng và phát triển.	 | 	Sai
+Mô hình thác nước có bao nhiêu pha	 | 	Bốn pha	 | 	Sai
+Quá trình tiến hóa của phần mềm được chia thành mấy giai đoạn	 | 	2	 | 	Sai
+Có mấy loại thành phần của phần mềm:	 | 	5	 | 	Sai
+Phần mềm được thể hiện với các bộ phần cấu thành, đó là :	 | 	Tập lệnh, các tài liệu kĩ thuật lien quan.	 | 	Sai
+CASE có bao nhiêu loại?	 | 	4	 | 	Đúng
+Tính chất nào sau đây không phải của phương pháp hướng đối tượng?	 | 	Đơn hình	 | 	Đúng
+Đặc trưng thời kỳ những năm 1960 đến giữa những năm 1970:	 | 	Hệ thống thời gian thực. và Các hệ thống đa nhiệm, đa người dùng.	 | 	Sai

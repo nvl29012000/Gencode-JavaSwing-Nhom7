@@ -1,0 +1,16 @@
+Tài khoản : Phạm Đức Linh
+Đề : Kiểm tra chương 1 CNTT1
+Ngày : 2021-05-20
+
+Câu: “Mềm dẻo, có khả năng thích nghi cho việc phát triển tiếp” xuất hiện ở mục:	 | 	Phân loại phần mềm.	 | 	Sai
+Có bao nhiêu dạng và phương pháp thực hiện mô hình bản mẫu?	 | 	2 dạng và 3 phương pháp 	 | 	Sai
+Đâu là đặc trưng của phần mềm	 | 	Phần mềm là hệ thống logic, không phải là hệ thống vật lý	 | 	Đúng
+CASE có bao nhiêu loại?	 | 	5	 | 	Sai
+Kỹ nghệ phần mềm là kỹ nghệ phát triển một hệ thống gồm các bước chủ chốt sau:	 | 	Phương pháp	 | 	Sai
+Mô hình xoắn gồm những bước nào sau đây?	 | 	4 bước: Thiết lập mục tiêu – Đánh giá và giảm thiểu rủ do – Phát triển và đánh giá -  Lập kế hoạch.	 | 	Sai
+Có mấy loại thành phần của phần mềm:	 | 	5	 | 	Sai
+Phần mềm được thể hiện với các bộ phần cấu thành, đó là :	 | 	Tập lệnh, các tài liệu kĩ thuật lien quan.	 | 	Sai
+Đặc trưng thời kỳ những năm 1960 đến giữa những năm 1970:	 | 	Các hệ thống đa nhiệm, đa người dùng.	 | 	Đúng
+Tập hợp các hành hộng nhằm xây dựng và phát triển phần mềm gồm:	 | 	null	 | 	Sai
+Có mấy vấn đề liên quan đến CNPM:	 | 	null	 | 	Sai
+Quá trình tiến hóa của phần mềm được chia thành mấy giai đoạn	 | 	null	 | 	Sai

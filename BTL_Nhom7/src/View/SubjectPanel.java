@@ -55,11 +55,11 @@ public class SubjectPanel extends javax.swing.JPanel {
             for (Chapter item : listChapter) {
                 jComboBoxChapter.addItem(item.toString());
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+            jComboBoxChapter.setSelectedIndex(indexComboBox);
+            listLesson = (ArrayList<Lesson>) lessonDAO.findByChapterID(listChapter.get(indexComboBox).getChapter_ID());
+            jTableLesson.setModel(new CustomTableLesson(listLesson));
+        } catch (Exception e) {
         }
-        jComboBoxChapter.setSelectedIndex(indexComboBox);
-        listLesson = (ArrayList<Lesson>) lessonDAO.findByChapterID(listChapter.get(indexComboBox).getChapter_ID());
-        jTableLesson.setModel(new CustomTableLesson(listLesson));
     }
 
     /**
@@ -355,13 +355,16 @@ public class SubjectPanel extends javax.swing.JPanel {
         try {
             int index = jTableChapter.getSelectedRow();
             try {
-                if (JOptionPane.showConfirmDialog(jPanelMain, "Bạn có chắc chắn muốn xóa " + listChapter.get(index).toString() 
+                if (JOptionPane.showConfirmDialog(jPanelMain, "Bạn có chắc chắn muốn xóa " + listChapter.get(index).toString()
                         + " không ? Việc này sẽ xóa tất cả bài và câu hỏi của chương này !",
                         "Cảnh Báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     //lấy cái chapter trong listChapter có index = dòng được chọn
                     Boolean isDeleted = chapterDAO.deleteChapterByID(listChapter.get(index).getChapter_ID());
                     if (isDeleted) {
-                        loadData();
+                        try {
+                            loadData();
+                        } catch (Exception e) {
+                        }
                     } else {
                         throw new Exception("Lỗi! Xóa không thành công");
                     }
@@ -417,7 +420,7 @@ public class SubjectPanel extends javax.swing.JPanel {
         try {
             int index = jTableLesson.getSelectedRow();
             try {
-                if (JOptionPane.showConfirmDialog(jPanelMain, "Bạn có chắc chắn muốn xóa " 
+                if (JOptionPane.showConfirmDialog(jPanelMain, "Bạn có chắc chắn muốn xóa "
                         + listLesson.get(index).getLesson_Name() + " không ? Việc này sẽ xóa tất cả câu hỏi của bài này !",
                         "Cảnh Báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     //Lấy cái Lesson trong listLesson tại vị trí index và xóa

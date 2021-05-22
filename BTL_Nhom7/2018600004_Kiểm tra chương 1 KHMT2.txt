@@ -1,0 +1,14 @@
+Tài khoản : Nguyễn Duy Khánh
+Đề : Kiểm tra chương 1 KHMT2
+Ngày : 2021-05-20
+
+CASE có bao nhiêu loại?	 | 	4	 | 	Đúng
+Đâu là đặc trưng của phần mềm	 | 	Sự tăng quy mô của phần mềm.	 | 	Sai
+Mô hình RUP là:	 | 	Mô hình chung cho hướng đối tượng.	 | 	Đúng
+Có mấy vấn đề liên quan đến CNPM:	 | 	9	 | 	Sai
+Đặc trưng thời kỳ những năm 1960 đến giữa những năm 1970:	 | 	Hệ thống thời gian thực. và Các hệ thống đa nhiệm, đa người dùng.	 | 	Sai
+Có mấy cách phân loại phần mềm theo lĩnh vực phục vụ	 | 	7	 | 	Sai
+Ưu điểm nào không phải là của phương pháp hướng dữ liệu?	 | 	Cho phép quản lý dữ liệu tập trung, nhất quán. 	 | 	Đúng
+Kỹ nghệ phần mềm là kỹ nghệ phát triển một hệ thống gồm các bước chủ chốt sau:	 | 	Cả 3 đáp án	 | 	Đúng
+Phần mềm được thể hiện với các bộ phần cấu thành, đó là :	 | 	Tập lệnh, cấu trúc dữ liệu và các tài liệu liên quan.	 | 	Đúng
+Có mấy loại thành phần của phần mềm:	 | 	4	 | 	Đúng

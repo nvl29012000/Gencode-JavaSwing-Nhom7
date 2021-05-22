@@ -459,7 +459,7 @@ public class HomeForm extends javax.swing.JFrame {
         Test_Question selectedQT = listTest_Question.get(QuestionIndex);
         Question displayQT = new QuestionDAO().findByID(selectedQT.getQuestion_ID());
         JButton btnQuestion = new JButton();
-        btnQuestion.setText(displayQT.getQuestion());
+        btnQuestion.setText("<html>"+displayQT.getQuestion()+"</html>");
         btnQuestion.setFont(new Font(Font.SANS_SERIF, 5, 24));
         btnQuestion.setVisible(true);
         jPanelQuestion.removeAll();
@@ -541,7 +541,7 @@ public class HomeForm extends javax.swing.JFrame {
                 jScrollButtonQuestion.setVisible(false);
                 jPanelDoTest.setVisible(false);
                 jPanelChangePass.setVisible(true);
-                jPanelLoadListTest.setVisible(false);
+                jPanelLoadListTest.setVisible(true);
                 jPanelMain.revalidate();
             }
         } catch (Exception e) {

@@ -1,0 +1,14 @@
+Tài khoản : Đoàn Văn Linh
+Đề : Kiểm tra chương 1 KHMT2
+Ngày : 2021-05-20
+
+Có mấy vấn đề liên quan đến CNPM:	 | 	9	 | 	Sai
+Có mấy cách phân loại phần mềm theo lĩnh vực phục vụ	 | 	7	 | 	Sai
+Mô hình RUP là:	 | 	Mô hình chung cho hướng đối tượng.	 | 	Đúng
+Đâu là đặc trưng của phần mềm	 | 	Sự tăng quy mô của phần mềm.	 | 	Sai
+CASE có bao nhiêu loại?	 | 	2	 | 	Sai
+Đặc trưng thời kỳ những năm 1960 đến giữa những năm 1970:	 | 	Hệ thống thời gian thực. và Các hệ thống đa nhiệm, đa người dùng.	 | 	Sai
+Kỹ nghệ phần mềm là kỹ nghệ phát triển một hệ thống gồm các bước chủ chốt sau:	 | 	Cả 3 đáp án	 | 	Đúng
+Ưu điểm nào không phải là của phương pháp hướng dữ liệu?	 | 	Sử dụng được cho nhiều ứng dụng độc lập khác nhau. 	 | 	Sai
+Phần mềm được thể hiện với các bộ phần cấu thành, đó là :	 | 	Tập lệnh, cấu trúc dữ liệu và các tài liệu liên quan.	 | 	Đúng
+Có mấy loại thành phần của phần mềm:	 | 	5	 | 	Sai

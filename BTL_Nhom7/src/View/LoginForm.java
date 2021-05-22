@@ -89,13 +89,11 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel4.setText("Tên đăng nhập");
 
         jTextUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextUsername.setText("loc2909");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Mật khẩu");
 
         jPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPassword.setText("123456");
 
         jButtonLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButtonLogin.setText("Đăng nhập");

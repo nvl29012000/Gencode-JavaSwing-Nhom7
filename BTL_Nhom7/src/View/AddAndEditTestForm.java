@@ -301,7 +301,9 @@ public class AddAndEditTestForm extends javax.swing.JDialog {
                     if (QTLV1 < 0 || QTLV2 < 0 || QTLV3 < 0) {
                         throw new NumberFormatException();
                     }
-
+                    if (QTLV1 == 0 && QTLV2 == 0 && QTLV3 == 0) {
+                        throw new Exception("Cần ít nhất một câu hỏi trong đề !");
+                    }
                 } catch (NumberFormatException ex1) {
                     throw new Exception("Sai định dạng số câu hỏi");
                 }
