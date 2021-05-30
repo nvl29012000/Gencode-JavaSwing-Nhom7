@@ -343,23 +343,10 @@ public class AddAndEditTestForm extends javax.swing.JDialog {
 
     //đây là thêm câu hỏi vào đề theo id đề. cái này b viết mà nên chắc ko cần giải thích
     private void AddQuestionToTestByTestID(ArrayList<Integer> questions, int chapter_ID, int test_Level_ID) throws Exception {
-        switch (test_Level_ID) {
-            case 1:
                 addTestQuestionRandom(questions.get(0), chapter_ID, 1);
                 addTestQuestionRandom(questions.get(1), chapter_ID, 2);
-                addTestQuestionRandom(questions.get(2), chapter_ID, 3);
-                break;
-            case 2:
-                addTestQuestionRandom(questions.get(0), chapter_ID, 2);
-                addTestQuestionRandom(questions.get(1), chapter_ID, 1);
-                addTestQuestionRandom(questions.get(2), chapter_ID, 3);
-                break;
-            case 3:
-                addTestQuestionRandom(questions.get(0), chapter_ID, 3);
-                addTestQuestionRandom(questions.get(1), chapter_ID, 2);
-                addTestQuestionRandom(questions.get(2), chapter_ID, 1);
-                break;
-        }
+                addTestQuestionRandom(questions.get(2), chapter_ID, 3);      
+        
     }
 
     //hàm thêm câu hỏi vào đề

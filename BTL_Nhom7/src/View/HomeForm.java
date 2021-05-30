@@ -614,7 +614,7 @@ public class HomeForm extends javax.swing.JFrame {
                     }
                     listTest_Question = new Test_QuestionDAO().findByTestID(item.getTest_ID());
                     Collections.shuffle(listTest_Question);
-                    if (listTest_Question.isEmpty()) {                    //Nếu danh sách câu hỏi có size = 0 => Thông báo và return
+                    if (listTest_Question.isEmpty()) {       
                         JOptionPane.showMessageDialog(rootPane, item.getTest_Name().trim() + " không có câu hỏi nào");
                         return;
                     }
